@@ -4,6 +4,19 @@
 	import { Tabs, Tab, TabContent } from 'carbon-components-svelte';
 
 	let active = 'Home';
+
+	async function loadResources() {
+		const response = await fetch('/list', {
+			method: 'GET'
+		});
+		const data = await response.json();
+		console.log(data);
+		if (response.ok) {
+			return data;
+		} else {
+			throw new Error(data);
+		}
+	}
 </script>
 
 <!-- TODO sqlでリソース一覧を取得 -->
@@ -31,7 +44,23 @@
 					summary="DeNAとMoTのAI技術共有会で発表したスライドです。誤って削除したため再掲しています。"
 					metadata="Programming - Speaker Deck"
 					created="20min"
-				/></TabContent
+				/>
+				{#await loadResources()}
+					<p>...waiting</p>
+				{:then resources}
+					{#each resources.rows as resource}
+						<ListItem
+							url={resource.url}
+							image="hoge"
+							title={resource.title}
+							summary={resource.description}
+							metadata="Programming - Speaker Deck"
+							created={resource.created_at}
+						/>
+					{/each}
+				{:catch error}
+					<p style="color: red">{error.message}</p>
+				{/await}</TabContent
 			>
 			<TabContent>Explore</TabContent>
 		</svelte:fragment>

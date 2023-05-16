@@ -5,7 +5,7 @@
 	import Input from '../../components/Input.svelte';
 </script>
 
-<!-- TODO 登録する事項　URL、タグ、リソースに対するコメント、言語、関連リンク -->
+<!-- TODO 登録する事項　URL、タグ、リソースに対するコメント、言語、関連リンク、画像 -->
 <!-- コメントはtextareaにnotionを参考にする　-->
 
 <div>
@@ -40,6 +40,7 @@
 				<Input placeholder="このリソースに対するコメントを入力して下さい" />
 			</div>
 		</div>
+		<!-- TODO 画像を登録するフォーム-->
 	</div>
 </div>
 
