@@ -1,5 +1,5 @@
 <script lang="ts">
-	let tags: string[] = [];
+	export let tags: string[] = [];
 	let input = '';
 
 	function handleInput() {
