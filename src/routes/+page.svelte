@@ -3,14 +3,11 @@
 	import BottomNavigation from '../components/BottomNavigation.svelte';
 	import { Tabs, Tab, TabContent } from 'carbon-components-svelte';
 
-	let active = 'Home';
-
 	async function loadResources() {
 		const response = await fetch('/list', {
 			method: 'GET'
 		});
 		const data = await response.json();
-		console.log(data);
 		if (response.ok) {
 			return data;
 		} else {
@@ -19,11 +16,11 @@
 	}
 </script>
 
-<!-- TODO sqlでリソース一覧を取得 -->
-<!-- TODO repository層の作成-->
+<!-- TODO user登録画面作成　authはsupabaseで-->
 <!-- TODO リソース登録用の管理者インターフェースを作成-->
 <!-- TODO ジャンル一覧を作成 -->
 <!-- TODO 検索画面を作成 タグは同じ意味の単語を同一視できるように工夫する-->
+<!-- TODO タグはユーザーが自由に設定するのではなく管理者側で一括作成する-->
 
 <h1 id="header">初めての方へ</h1>
 <p class="info">
@@ -51,7 +48,7 @@
 					{#each resources.rows as resource}
 						<ListItem
 							url={resource.url}
-							image="hoge"
+							image={resource.image_url}
 							title={resource.title}
 							summary={resource.description}
 							metadata="Programming - Speaker Deck"
