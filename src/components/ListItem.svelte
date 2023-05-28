@@ -9,7 +9,7 @@
 
 <div class="card">
 	<div class="card-image card__image">
-		<div class="image-wrapper card-image__wrapper" style="background-image: url(&quot;{image};);" />
+		<div class="image-wrapper card-image__wrapper" style="background-image: url({image});" />
 		<div class="card-image__overlay" />
 	</div>
 	<div class="card__content">
