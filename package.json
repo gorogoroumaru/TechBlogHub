@@ -35,6 +35,12 @@
 	"type": "module",
 	"dependencies": {
 		"@planetscale/database": "^1.7.0",
-		"dotenv": "^16.0.3"
+		"@svelteuidev/composables": "^0.12.1",
+		"@svelteuidev/core": "^0.12.1",
+		"dotenv": "^16.0.3",
+		"htmlparser2": "^9.0.0",
+		"ulid": "^2.3.0",
+		"uuid": "^9.0.0",
+		"zod": "^3.21.4"
 	}
 }

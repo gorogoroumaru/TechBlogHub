@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let placeholder = '';
 	export let isSearchBar = false;
-	let input = '';
+	export let input = '';
 </script>
 
 <div
