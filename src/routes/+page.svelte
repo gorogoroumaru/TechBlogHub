@@ -19,8 +19,11 @@
 <!-- TODO user登録画面作成　authはsupabaseで-->
 <!-- TODO リソース登録用の管理者インターフェースを作成-->
 <!-- TODO ジャンル一覧を作成 -->
-<!-- TODO 検索画面を作成 タグは同じ意味の単語を同一視できるように工夫する-->
-<!-- TODO タグはユーザーが自由に設定するのではなく管理者側で一括作成する-->
+<!-- TODO タグは管理者で一括作成する ユーザーは入力中にタグ一覧に含まれるタグのみ設定できる -->
+<!-- TODO ユーザーごとに学習状況やそれぞれのリソースに対するメモを作成できるようにする -->
+<!-- TODO リソースに対していいねする機能 -->
+<!-- TODO zennをパクってTrending, Following, Exploreタブを作成-->
+<!-- TODO リソースの詳細表示画面、コメント投稿機能も -->
 
 <h1 id="header">初めての方へ</h1>
 <p class="info">
@@ -51,8 +54,9 @@
 							image={resource.image_url}
 							title={resource.title}
 							summary={resource.description}
-							metadata="Programming - Speaker Deck"
+							metadata={resource.tag_name}
 							created={resource.created_at}
+							id={resource.id}
 						/>
 					{/each}
 				{:catch error}
