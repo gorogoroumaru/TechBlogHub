@@ -17,12 +17,12 @@ export async function getResources(tag: string) {
 	let result;
 	if (tag.length === 0) {
 		result = await conn.execute(
-			'select id, title, description, url, image_url, user_id, created_at, updated_at from Resources',
+			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id',
 			[1]
 		);
 	} else {
 		result = await conn.execute(
-			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ?',
+			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ?',
 			[tag]
 		);
 	}
@@ -30,11 +30,12 @@ export async function getResources(tag: string) {
 	return result;
 }
 
+// TODO 関連サイトのリンクを設定できるようにする (optional)
 export async function registerResource(resource: Resource) {
 	try {
 		const image_url = await getOGPImage(resource.url);
 		await conn.execute(
-			'insert into Resources (id, title, description, url, image_url, user_id, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?)',
+			'insert into Resources (id, title, description, url, image_url, user_id, created_at, updated_at, lang) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
 			[
 				resource.id,
 				resource.title,
@@ -43,13 +44,12 @@ export async function registerResource(resource: Resource) {
 				image_url,
 				resource.user_id,
 				resource.created_at,
-				resource.updated_at
+				resource.updated_at,
+				resource.lang
 			]
 		);
-		console.log('success');
 		return true;
 	} catch (e) {
-		console.log(e);
 		return false;
 	}
 }
