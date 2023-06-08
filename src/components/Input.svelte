@@ -2,6 +2,7 @@
 	export let placeholder = '';
 	export let isSearchBar = false;
 	export let input = '';
+	export let name = '';
 </script>
 
 <div
@@ -61,6 +62,7 @@
 	>
 		<input
 			{placeholder}
+			{name}
 			type="text"
 			size="1"
 			style="

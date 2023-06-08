@@ -5,9 +5,10 @@
 	export let summary = '';
 	export let metadata = '';
 	export let created = '';
+	export let id = '';
 </script>
 
-<div class="card">
+<a href="/detail/{id}" class="card">
 	<div class="card-image card__image">
 		<div class="image-wrapper card-image__wrapper" style="background-image: url({image});" />
 		<div class="card-image__overlay" />
@@ -20,12 +21,12 @@
 		</div>
 		<div class="card-metadata">
 			<div class="card-metadata-source">
-				<a class="link card-metadata-source-link" href="https://speakerdeck.com">{metadata} </a>
+				<span class="link card-metadata-source-link">{metadata} </span>
 				/
 				<span
 					class="ago"
 					title="Published: Sun, 30 Apr 2023 01:42:00 GMT
-    Received: Sun, 30 Apr 2023 01:51:37 GMT">{created}</span
+					Received: Sun, 30 Apr 2023 01:51:37 GMT">{created}</span
 				>
 			</div>
 		</div>
@@ -33,7 +34,7 @@
 			<div>{summary}</div>
 		</div>
 	</div>
-</div>
+</a>
 
 <style>
 	.card {
@@ -47,6 +48,7 @@
 		margin-top: -12px;
 		max-width: 624px;
 		padding: 12px;
+		text-decoration: none;
 	}
 	.card-image {
 		height: 78px;
@@ -111,7 +113,7 @@
 	}
 	.card-metadata-source {
 		direction: ltr;
-		display: inline-block;
+		display: inline;
 	}
 	.card-summary {
 		-webkit-box-orient: vertical;
