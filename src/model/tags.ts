@@ -13,12 +13,17 @@ const tagsSchema = z.object({
 export class Tags {
 	resource_id: string;
 	tags: string[];
+	success: boolean;
+	errors: string[];
 
 	constructor(params: TagsParams) {
 		const validationStatus = tagsSchema.safeParse(params);
-		if (!validationStatus.success) {
-			throw new Error('validation error in Tags', validationStatus.error);
+		this.success = validationStatus.success;
+		this.errors = [];
+		if ('error' in validationStatus) {
+			this.errors = validationStatus.error.issues.map((issue) => issue.message);
 		}
+
 		this.resource_id = params.resource_id;
 		this.tags = params.tags;
 	}
