@@ -1,5 +1,23 @@
 <script lang="ts">
-	export let active = '';
+	import { page } from '$app/stores';
+
+	let active = '';
+	$: name = $page.url.pathname.substr($page.url.pathname.lastIndexOf('/'));
+
+	$: switch (name) {
+		case '/':
+			active = 'Home';
+			break;
+		case '/register':
+			active = 'Register';
+			break;
+		case '/search':
+			active = 'Search';
+			break;
+		case '/settings':
+			active = 'Settings';
+			break;
+	}
 </script>
 
 <div class="wrapper">

@@ -1,12 +1,6 @@
 <!-- TODO リソースの詳細表示、コメント、いいね　-->
-<!-- markdown-itでmarkdownをhtmlへ変換　-->
+<!-- TODO markdown-itでmarkdownをhtmlへ変換　-->
 <script lang="ts">
-	export let title = '';
-	export let tags: string[] = [];
-	export let created_at = '';
-	export let url = '';
-	export let ogp_url = '';
-	export let description = '';
 	export let data;
 </script>
 
@@ -25,7 +19,7 @@
     padding: 3px 2px;
   "
 >
-	{title}
+	{data.title}
 </div>
 
 <div style="display: flex; padding-bottom: 4px; width: 100%;">
@@ -56,7 +50,7 @@
 				<div
 					style="line-height: 1.5; word-break: break-word; white-space: pre-wrap; pointer-events: none;"
 				>
-					{created_at}
+					{data.created_at}
 				</div>
 			</div>
 		</div>
@@ -79,7 +73,7 @@
 		</div>
 	</div>
 	<div style="display: flex; flex-wrap: wrap; padding-top: 8px; padding-bottom: 2px;">
-		{#each tags as tag}
+		{#each data.tag_name as tag}
 			<div
 				style="display: flex; align-items: center; flex-shrink: 1; min-width: 0px; max-width: 100%; height: 20px; border-radius: 3px; padding-left: 6px; padding-right: 6px; font-size: 14px; line-height: 120%; color: rgb(28, 56, 41); background: rgb(219, 237, 219); margin: 0px 6px 6px 0px;"
 			>
@@ -135,7 +129,7 @@
 						style="display: block; color: inherit; text-decoration: none; user-select: none; cursor: pointer;"
 						><span
 							style="line-height: 1.5; word-break: break-word; white-space: pre-wrap; pointer-events: none; background-image: linear-gradient(to right, rgba(55, 53, 47, 0.16) 0%, rgba(55, 53, 47, 0.16) 100%); background-repeat: repeat-x; background-position: 0px 100%; background-size: 100% 1px;"
-							>{url}</span
+							>{data.url}</span
 						></a
 					>
 				</div>
@@ -144,10 +138,10 @@
 	</div>
 </div>
 
-<img alt="" data-external="yes" src={ogp_url} style="max-width: 647px;" />
+<img alt="" data-external="yes" src={data.ogp_url} style="max-width: 647px;" />
 
 <div
 	style="max-width: 100%; width: 100%; white-space: pre-wrap; word-break: break-word; caret-color: rgb(55, 53, 47); padding: 3px 2px;"
 >
-	{description}
+	{data.description}
 </div>

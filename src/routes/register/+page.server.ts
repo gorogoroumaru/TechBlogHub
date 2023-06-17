@@ -15,7 +15,6 @@ export const actions = {
 		const lang = data.get('lang') as string;
 		const id = ulid();
 
-		// TODO tagが送信されないのを修正
 		const tagString = data.get('tags') as string;
 		const tagList = JSON.parse(tagString);
 

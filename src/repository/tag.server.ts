@@ -14,7 +14,6 @@ const config = {
 const conn = connect(config);
 
 export async function registerTags(tags: Tags) {
-	// TODO タグ登録するためのTagsテーブルへのinsert
 	try {
 		for (const tag of tags.tags) {
 			const id = ulid();
@@ -24,10 +23,8 @@ export async function registerTags(tags: Tags) {
 				tag
 			]);
 		}
-		console.log('success');
 		return true;
 	} catch (e) {
-		console.log(e);
 		return false;
 	}
 }
