@@ -38,11 +38,12 @@
 	}
 </script>
 
+<!-- TODO 一度に読み込むresource数を制限する　-->
+<!-- TODO バリデーションエラーがあったらsvelteuiのalertで表示する　-->
 <!-- TODO tagを検索ボックスから入力できるようにする-->
 <!-- TODO コメントはtextareaに notionを参考にする　-->
 <!-- TODO 言語をselectBoxから指定できるようにする -->
 <!-- TODO 記事のタイトルとリソース登録のタイトルは別に扱った方がいいかもしれない -->
-<!-- TODO user_idの入力フォームを作成 display: noneで　-->
 <!-- TODO superformsで書き換える　-->
 <!-- https://superforms.vercel.app/get-started -->
 
@@ -101,4 +102,4 @@
 	</form>
 </div>
 
-<BottomNavigation active="Register" />
+<BottomNavigation />

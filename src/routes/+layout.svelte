@@ -1,9 +1,30 @@
 <script>
 	import BottomNavigation from '../components/BottomNavigation.svelte';
+
+	import { goto } from '$app/navigation';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+
+	export let data;
+
+	let { supabase, session } = data;
+	$: ({ supabase, session } = data);
+
+	onMount(() => {
+		const {
+			data: { subscription }
+		} = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth');
+			}
+		});
+
+		return () => subscription.unsubscribe();
+	});
 </script>
 
 <!-- BottomNavigationをなくす　-->
-<!-- TODO ログインボタンの作成　-->
+
 <div class="AppHeader_inner__Nqogt">
 	<a class="AppHeader_homeLink__sgij0" href="/"
 		><svg
@@ -48,6 +69,7 @@
 					/></svg
 				></a
 			>
+			<button on:click={() => goto('/login')} class="AppHeader_signInLink__K1JEF">Log in</button>
 		</div>
 	</div>
 </div>
@@ -68,5 +90,20 @@
 	.AppHeader_searchLink__z70oa {
 		display: flex;
 		align-items: center;
+	}
+
+	.AppHeader_signInLink__K1JEF {
+		font-family: 'Inter', 'BlinkMacSystemFont', Arial, sans-serif;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 80px;
+		height: 36px;
+		padding: 0;
+		margin-left: 22px;
+		font-size: 15px;
+		font-weight: 600;
+		color: white;
+		background: #3ea8ff;
 	}
 </style>

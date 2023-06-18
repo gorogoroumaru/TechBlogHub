@@ -11,7 +11,7 @@
 	placeholder="検索キーワードを入力して下さい"
 	isSearchBar={true}
 	on:change={async (event) => {
-		tag = event.target.value;
+		tag = event?.target?.value;
 		const response = await fetch(`/list?tag=${tag}`, {
 			method: 'GET'
 		});

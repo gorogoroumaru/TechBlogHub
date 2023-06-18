@@ -35,6 +35,7 @@
 	"type": "module",
 	"dependencies": {
 		"@planetscale/database": "^1.7.0",
+		"@supabase/auth-helpers-sveltekit": "^0.10.1",
 		"@svelteuidev/composables": "^0.12.1",
 		"@svelteuidev/core": "^0.12.1",
 		"dotenv": "^16.0.3",
