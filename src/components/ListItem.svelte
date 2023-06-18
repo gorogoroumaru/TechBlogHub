@@ -10,7 +10,7 @@
 
 <a href="/detail/{id}" class="card">
 	<div class="card-image card__image">
-		<div class="image-wrapper card-image__wrapper" style="background-image: url({image});" />
+		<img src={image} alt="ogp" class="image-wrapper card-image__wrapper" loading="lazy" />
 		<div class="card-image__overlay" />
 	</div>
 	<div class="card__content">
