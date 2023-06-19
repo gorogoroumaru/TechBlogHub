@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 	export let data;
 	let { supabase } = data;
 	$: ({ supabase } = data);
 
-	let email;
-	let password;
+	let email: string;
+	let password: string;
 
 	const handleSignIn = async () => {
 		const { data, error } = await supabase.auth.signInWithPassword({
@@ -13,6 +13,9 @@
 		});
 		console.log(data, error);
 	};
+
+	// TODO formをflowbiteのサンプルに書き換えるのもありかもしれない
+	// https://flowbite-svelte.com/docs/components/card
 </script>
 
 <h2 class="login-title">ログイン</h2>
