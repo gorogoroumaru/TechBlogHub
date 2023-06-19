@@ -15,6 +15,7 @@
 	};
 </script>
 
+<h2 class="login-title">ログイン</h2>
 <div class="body-box">
 	<form on:submit={handleSignIn}>
 		<div>
@@ -53,6 +54,24 @@
 </div>
 
 <style>
+	.login-title {
+		text-align: center;
+		color: #333333;
+		font-size: 24px;
+		margin: 25px 0px 20px;
+		font-weight: bold;
+	}
+
+	h2 {
+		display: block;
+		font-size: 1.5em;
+		margin-block-start: 0.83em;
+		margin-block-end: 0.83em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		font-weight: bold;
+	}
+
 	.input-item {
 		border: 1px solid #aaa;
 		overflow: hidden;
