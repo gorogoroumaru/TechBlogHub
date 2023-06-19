@@ -1,9 +1,8 @@
 <script lang="ts">
-	import BottomNavigation from '../../components/BottomNavigation.svelte';
 	import TagInput from '../../components/TagInput.svelte';
 	import PrependInput from '../../components/PrependInput.svelte';
 	import Input from '../../components/Input.svelte';
-	import { Button } from '@svelteuidev/core';
+	import { Button } from 'flowbite-svelte';
 	import { deserialize } from '$app/forms';
 
 	import { v4 as uuid } from 'uuid';
@@ -16,7 +15,7 @@
 		tags = event.detail.value;
 	}
 
-	async function handleSubmit(event: any) {
+	async function handleSubmit(this: { action: string }, event: any) {
 		const data = new FormData();
 		data.append('tags', JSON.stringify(tags));
 		data.append('title', title);
@@ -39,8 +38,8 @@
 </script>
 
 <!-- TODO 一度に読み込むresource数を制限する　-->
-<!-- TODO バリデーションエラーがあったらsvelteuiのalertで表示する　-->
-<!-- TODO tagを検索ボックスから入力できるようにする-->
+<!-- TODO バリデーションエラーがあったらflowbiteのalertで表示する　-->
+<!-- TODO tagはinputの中に全部の入力を保持するのではなく、dropdownに順次表示すればいい　入力が終わったらtab形式で表示する　-->
 <!-- TODO コメントはtextareaに notionを参考にする　-->
 <!-- TODO 言語をselectBoxから指定できるようにする -->
 <!-- TODO 記事のタイトルとリソース登録のタイトルは別に扱った方がいいかもしれない -->
@@ -101,5 +100,3 @@
 		<Button radius="xs" type="submit">送信</Button>
 	</form>
 </div>
-
-<BottomNavigation />
