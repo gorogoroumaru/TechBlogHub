@@ -1,6 +1,9 @@
 <script lang="ts">
 	import ListItem from '../components/ListItem.svelte';
-	import { Tabs, Tab, TabContent } from 'carbon-components-svelte';
+	import { Tabs, TabItem } from 'flowbite-svelte';
+
+	export let data;
+	const user_id = data.session?.user.id;
 
 	async function loadResources() {
 		const response = await fetch('/list', {
@@ -15,14 +18,14 @@
 	}
 </script>
 
+<!-- TODO 特定のrouteを認証で保護する　-->
+<!-- https://supabase.com/docs/guides/auth/auth-helpers/sveltekit#protecting-actions -->
 <!-- TODO autocompleteで入力補完機能を作成-->
 <!-- https://github.com/algolia/autocomplete -->
 <!-- TODO svelteuiでデザインを修正する　-->
 <!-- TODO 画像サイズを縮小する　-->
-<!-- TODO user登録画面作成　authはsupabaseで-->
 <!-- TODO リソース登録用の管理者インターフェースを作成-->
 <!-- TODO ジャンル一覧を作成 -->
-<!-- TODO タグは管理者で一括作成する ユーザーは入力中にタグ一覧に含まれるタグのみ設定できる -->
 <!-- TODO ユーザーごとに学習状況やそれぞれのリソースに対するメモを作成できるようにする -->
 <!-- TODO リソースに対していいねする機能 -->
 <!-- TODO zennをパクってTrending, Following, Exploreタブを作成-->
@@ -34,46 +37,30 @@
 		StudyFrontierはネット上の良質な学習リソースをジャンルごとにまとめて一括管理できるサービスです
 	</p>
 	<p class="info">自分が学習したいジャンルをフォローすれば新着リソースをすぐにチェックできます</p>
-
-	<div>
-		<Tabs autoWidth>
-			<Tab label="フォロー中" />
-			<Tab label="新規コンテンツ" />
-			<Tab label="トレンド" />
-			<svelte:fragment slot="content">
-				<TabContent>
-					<ListItem
-						url="https://speakerdeck.com/kuto5046/kaggle-h-and-mkonpezhen-rifan-ri"
-						image="https://images.unsplash.com/photo-1600326145377-bcccb9a9daf2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
-						title="Kaggle H&amp;Mコンペ振り返り"
-						summary="DeNAとMoTのAI技術共有会で発表したスライドです。誤って削除したため再掲しています。"
-						metadata="Programming - Speaker Deck"
-						created="20min"
-					/>
-					{#await loadResources()}
-						<p>...waiting</p>
-					{:then resources}
-						{#each resources.rows as resource}
-							<ListItem
-								url={resource.url}
-								image={resource.image_url}
-								title={resource.title}
-								summary={resource.description}
-								metadata={resource.tag_name}
-								created={resource.created_at}
-								id={resource.id}
-							/>
-						{/each}
-					{:catch error}
-						<p style="color: red">{error.message}</p>
-					{/await}</TabContent
-				>
-				<TabContent>Explore</TabContent>
-				<TabContent>Trend</TabContent>
-			</svelte:fragment>
-		</Tabs>
-	</div>
 </div>
+<Tabs style="underline">
+	<TabItem title="フォロー中"
+		>{#await loadResources()}
+			<p>...waiting</p>
+		{:then resources}
+			{#each resources.rows as resource}
+				<ListItem
+					url={resource.url}
+					image={resource.image_url}
+					title={resource.title}
+					summary={resource.description}
+					metadata={resource.tag_name}
+					created={resource.created_at}
+					id={resource.id}
+				/>
+			{/each}
+		{:catch error}
+			<p style="color: red">{error.message}</p>
+		{/await}
+	</TabItem>
+	<TabItem title="新規コンテンツ">Explore</TabItem>
+	<TabItem title="トレンド">Trend</TabItem>
+</Tabs>
 
 <style>
 	#header {

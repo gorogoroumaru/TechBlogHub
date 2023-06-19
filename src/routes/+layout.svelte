@@ -1,4 +1,5 @@
 <script>
+	import '../app.postcss';
 	import BottomNavigation from '../components/BottomNavigation.svelte';
 
 	import { goto } from '$app/navigation';
