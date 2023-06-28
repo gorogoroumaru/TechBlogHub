@@ -10,9 +10,7 @@
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
 
-	const user_id = data.session?.user.id;
-
-	// TODO login時、ログインボタンを投稿ボタンに変更する
+	$: user_id = data.session?.user.id;
 
 	onMount(() => {
 		const {
@@ -53,7 +51,10 @@
 			>
 			<button
 				on:click={() => {
-					if (!user_id) goto('/login');
+					if (!user_id) {
+						goto('/login');
+						return;
+					}
 					goto('/register');
 				}}
 				class="AppHeader_signInLink__K1JEF">{user_id ? '投稿する' : 'ログイン'}</button
