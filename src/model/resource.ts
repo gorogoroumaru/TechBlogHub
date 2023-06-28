@@ -30,8 +30,6 @@ export class Resource {
 	description: string;
 	url: string;
 	user_id: string;
-	created_at: string;
-	updated_at: string;
 	lang: string;
 	success: boolean;
 	errors: string[];
@@ -55,8 +53,6 @@ export class Resource {
 		this.description = params.description;
 		this.url = params.url;
 		this.user_id = params.user_id;
-		this.created_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
-		this.updated_at = this.created_at;
 		this.lang = params.lang;
 	}
 }
