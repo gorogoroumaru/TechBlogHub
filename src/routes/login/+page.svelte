@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	export let data;
 	let { supabase } = data;
 	$: ({ supabase } = data);
@@ -11,10 +13,12 @@
 			email,
 			password
 		});
+		goto('/');
 		console.log(data, error);
 	};
 
 	// TODO formをflowbiteのサンプルに書き換えるのもありかもしれない
+	// https://flowbite-svelte-blocks.vercel.app/marketing/login
 	// https://flowbite-svelte.com/docs/components/card
 </script>
 
@@ -84,7 +88,7 @@
 		-moz-box-shadow: inset 0 1px 3px #dddddd;
 		-webkit-box-shadow: inset 0 1px 3px #dddddd;
 		box-shadow: inset 0 1px 3px #dddddd;
-		margin: 20px 0 0 0;
+		margin: 20px 0 20px 0;
 	}
 
 	.input-item-inner {
@@ -164,5 +168,23 @@
 		background-color: #80b306;
 		transition: all 0.1s ease-in;
 		border-radius: 3px;
+	}
+
+	.submit-button {
+		border: none;
+		background: #5279e7;
+		padding: 10px 20px;
+		color: #fff;
+		font-size: 16px;
+		font-weight: bold;
+		margin: 0 auto;
+		width: 100%;
+		letter-spacing: 1px;
+		transition: all 0.1s ease-in;
+		display: block;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		margin: 5px 0 0 0;
 	}
 </style>
