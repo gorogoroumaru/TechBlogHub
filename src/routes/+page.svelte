@@ -18,11 +18,14 @@
 	}
 </script>
 
+<!-- flowbiteのtoolbarでコメント投稿フォームの作成　-->
+<!-- TODO 一度に読み込むresource数を制限する　flobiteのpaginationを活用　-->
+<!-- TODO データベースschemaの修正　CURRENT_TIMESTAMPなどの使用　text→varchar idをbyteにするなど　-->
+<!-- TODO ulidをuuidに戻す　-->
 <!-- TODO 特定のrouteを認証で保護する　-->
 <!-- https://supabase.com/docs/guides/auth/auth-helpers/sveltekit#protecting-actions -->
 <!-- TODO autocompleteで入力補完機能を作成-->
 <!-- https://github.com/algolia/autocomplete -->
-<!-- TODO svelteuiでデザインを修正する　-->
 <!-- TODO 画像サイズを縮小する　-->
 <!-- TODO リソース登録用の管理者インターフェースを作成-->
 <!-- TODO ジャンル一覧を作成 -->
@@ -39,7 +42,7 @@
 	<p class="info">自分が学習したいジャンルをフォローすれば新着リソースをすぐにチェックできます</p>
 </div>
 <Tabs style="underline">
-	<TabItem title="フォロー中"
+	<TabItem open title="フォロー中"
 		>{#await loadResources()}
 			<p>...waiting</p>
 		{:then resources}
