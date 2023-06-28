@@ -18,7 +18,9 @@
 	}
 </script>
 
-<Input placeholder="検索キーワードを入力して下さい" isSearchBar={true} on:change={handleSearch} />
+<div class="searchbar">
+	<Input placeholder="検索キーワードを入力して下さい" isSearchBar={true} on:change={handleSearch} />
+</div>
 
 {#each list as resource}
 	<ListItem
@@ -30,3 +32,9 @@
 		created={resource.created_at}
 	/>
 {/each}
+
+<style>
+	.searchbar {
+		margin: 10px;
+	}
+</style>
