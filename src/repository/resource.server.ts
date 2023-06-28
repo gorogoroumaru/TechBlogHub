@@ -13,12 +13,12 @@ const config = {
 
 const conn = connect(config);
 
-export async function getResources(tag: string) {
+export async function getResources(tag: string, page: number) {
 	let result;
 	if (tag.length === 0) {
 		result = await conn.execute(
-			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id',
-			[1]
+			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
+			[page * 10]
 		);
 	} else {
 		result = await conn.execute(
@@ -43,7 +43,7 @@ export async function registerResource(resource: Resource) {
 	try {
 		const image_url = await getOGPImage(resource.url);
 		await conn.execute(
-			'insert into Resources (id, title, description, url, image_url, user_id, created_at, updated_at, lang) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			'insert into Resources (id, title, description, url, image_url, user_id, lang) values (?, ?, ?, ?, ?, ?, ?)',
 			[
 				resource.id,
 				resource.title,
@@ -51,8 +51,6 @@ export async function registerResource(resource: Resource) {
 				resource.url,
 				image_url,
 				resource.user_id,
-				resource.created_at,
-				resource.updated_at,
 				resource.lang
 			]
 		);

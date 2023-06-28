@@ -1,12 +1,43 @@
 <script lang="ts">
 	import ListItem from '../components/ListItem.svelte';
 	import { Tabs, TabItem } from 'flowbite-svelte';
+	import { Pagination } from 'flowbite-svelte';
+	import { page } from '$app/stores';
 
 	export let data;
 	const user_id = data.session?.user.id;
 
-	async function loadResources() {
-		const response = await fetch('/list', {
+	$: activeUrl = $page.url.searchParams.get('page');
+	let pages = [
+		{ name: 1, href: '/?page=0', active: false },
+		{ name: 2, href: '/?page=1', active: false }
+	];
+
+	$: {
+		pages.forEach((page) => {
+			let splitUrl = page.href.split('?');
+			let queryString = splitUrl.slice(1).join('?');
+			const hrefParams = new URLSearchParams(queryString);
+			console.log(splitUrl, queryString, hrefParams);
+			let hrefValue = hrefParams.get('page');
+			if (hrefValue === activeUrl) {
+				page.active = true;
+			} else {
+				page.active = false;
+			}
+		});
+		pages = pages;
+	}
+
+	const previous = () => {
+		alert('Previous btn clicked. Make a call to your server to fetch data.');
+	};
+	const next = () => {
+		alert('Next btn clicked. Make a call to your server to fetch data.');
+	};
+
+	async function loadResources(page: string) {
+		const response = await fetch(`/list?page=${page}`, {
 			method: 'GET'
 		});
 		const data = await response.json();
@@ -16,11 +47,13 @@
 			throw new Error(data);
 		}
 	}
+
+	$: content = loadResources(activeUrl ?? '0');
 </script>
 
 <!-- flowbiteのtoolbarでコメント投稿フォームの作成　-->
 <!-- TODO 一度に読み込むresource数を制限する　flobiteのpaginationを活用　-->
-<!-- TODO データベースschemaの修正　CURRENT_TIMESTAMPなどの使用　text→varchar idをbyteにするなど　-->
+<!-- TODO データベースschemaの修正　idをintにする autoincrement　-->
 <!-- TODO ulidをuuidに戻す　-->
 <!-- TODO 特定のrouteを認証で保護する　-->
 <!-- https://supabase.com/docs/guides/auth/auth-helpers/sveltekit#protecting-actions -->
@@ -43,7 +76,7 @@
 </div>
 <Tabs style="underline">
 	<TabItem open title="フォロー中"
-		>{#await loadResources()}
+		>{#await content}
 			<p>...waiting</p>
 		{:then resources}
 			{#each resources.rows as resource}
@@ -64,6 +97,8 @@
 	<TabItem title="新規コンテンツ">Explore</TabItem>
 	<TabItem title="トレンド">Trend</TabItem>
 </Tabs>
+
+<Pagination {pages} on:previous={previous} on:next={next} />
 
 <style>
 	#header {
