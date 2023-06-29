@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
 
 	export let data;
 
@@ -24,8 +25,6 @@
 		return () => subscription.unsubscribe();
 	});
 </script>
-
-<!-- TODO footerを作成　-->
 
 <div class="AppHeader_inner__Nqogt">
 	<a class="AppHeader_homeLink__sgij0" href="/">
@@ -64,6 +63,18 @@
 </div>
 
 <slot />
+
+<Footer>
+	<FooterCopyright href="/" by="StudyFrontier™" year={2023} />
+	<FooterLinkGroup
+		ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0"
+	>
+		<FooterLink href="/">About</FooterLink>
+		<FooterLink href="/">Privacy Policy</FooterLink>
+		<FooterLink href="/">Licensing</FooterLink>
+		<FooterLink href="/">Contact</FooterLink>
+	</FooterLinkGroup>
+</Footer>
 
 <style>
 	.AppHeader_inner__Nqogt {
