@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { Button, Checkbox, Label, Input, Card } from 'flowbite-svelte';
 
 	export let data;
 	let { supabase } = data;
@@ -9,54 +10,61 @@
 	let password: string;
 
 	const handleSignIn = async () => {
-		const { data, error } = await supabase.auth.signInWithPassword({
+		const { error } = await supabase.auth.signInWithPassword({
 			email,
 			password
 		});
-		goto('/');
-		console.log(data, error);
+		console.log(error);
+		if (!error) {
+			goto('/');
+		}
 	};
-
-	// TODO formをflowbiteのサンプルに書き換えるのもありかもしれない
-	// https://flowbite-svelte-blocks.vercel.app/marketing/login
-	// https://flowbite-svelte.com/docs/components/card
 </script>
 
 <h2 class="login-title">ログイン</h2>
-<div class="body-box">
-	<form on:submit={handleSignIn}>
-		<div>
-			<div class="input-item">
-				<div class="input-item-inner">
-					<input
-						bind:value={email}
+
+<div
+	class="rounded-xl w-full my-4 mx-auto bg-gradient-to-r bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-2 sm:p-6 flex justify-center"
+>
+	<div
+		class="w-full bg-white rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+	>
+		<Card class="min-w-full">
+			<form class="flex flex-col space-y-6" on:submit={handleSignIn}>
+				<Label class="space-y-2">
+					<span>Email</span>
+					<Input
+						type="email"
 						name="email"
-						class="text"
-						type="text"
-						placeholder="メールアドレス"
+						placeholder="name@company.com"
+						required
+						bind:value={email}
 					/>
-				</div>
-			</div>
-			<div class="input-item">
-				<div class="input-item-inner">
-					<input
-						bind:value={password}
-						placeholder="パスワード"
+				</Label>
+				<Label class="space-y-2">
+					<span>Your password</span>
+					<Input
 						type="password"
 						name="password"
-						class="password"
+						placeholder="•••••"
+						required
+						bind:value={password}
 					/>
+				</Label>
+				<div class="flex items-start">
+					<a href="/" class="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500"
+						>パスワードを忘れた方はこちら</a
+					>
 				</div>
-			</div>
-		</div>
-		<button id="login-button" class="submit-button"> 送信する </button>
-	</form>
-
-	<div class="to-register">
-		<p class="to-register-sub-header"><span>はじめての方はこちら</span></p>
-		<div class="to-register-btn">
-			<a href="/auth">ユーザー登録</a>
-		</div>
+				<Button type="submit" class="w-full1 bg-blue-500">アカウントにログイン</Button>
+				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+					初めての方はこちら <a
+						href="/auth"
+						class="text-primary-700 hover:underline dark:text-primary-500">ユーザー登録</a
+					>
+				</div>
+			</form>
+		</Card>
 	</div>
 </div>
 
@@ -77,57 +85,6 @@
 		margin-inline-start: 0px;
 		margin-inline-end: 0px;
 		font-weight: bold;
-	}
-
-	.input-item {
-		border: 1px solid #aaa;
-		overflow: hidden;
-		-moz-border-radius: 4px;
-		-webkit-border-radius: 4px;
-		border-radius: 4px;
-		-moz-box-shadow: inset 0 1px 3px #dddddd;
-		-webkit-box-shadow: inset 0 1px 3px #dddddd;
-		box-shadow: inset 0 1px 3px #dddddd;
-		margin: 20px 0 20px 0;
-	}
-
-	.input-item-inner {
-		width: 100%;
-		overflow: hidden;
-		float: left;
-		position: relative;
-	}
-
-	.body-box {
-		max-width: 414px;
-		margin: 0 auto 30px;
-		background: #fff;
-		padding: 20px 32px 40px;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		-moz-box-shadow: 0 1px 4px #dddddd;
-		-webkit-box-shadow: 0 1px 4px #dddddd;
-		box-shadow: 0 1px 4px #dddddd;
-	}
-
-	.input-item-inner input {
-		border: none;
-		padding: 0.75em 5px;
-		background: transparent;
-		float: left;
-		vertical-align: bottom;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		box-shadow: none;
-		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-		width: 100%;
-		overflow: hidden;
-		white-space: nowrap;
-		-o-text-overflow: ellipsis;
-		text-overflow: ellipsis;
-		font-size: 16px;
 	}
 
 	button {
@@ -168,23 +125,5 @@
 		background-color: #80b306;
 		transition: all 0.1s ease-in;
 		border-radius: 3px;
-	}
-
-	.submit-button {
-		border: none;
-		background: #5279e7;
-		padding: 10px 20px;
-		color: #fff;
-		font-size: 16px;
-		font-weight: bold;
-		margin: 0 auto;
-		width: 100%;
-		letter-spacing: 1px;
-		transition: all 0.1s ease-in;
-		display: block;
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		border-radius: 5px;
-		margin: 5px 0 0 0;
 	}
 </style>
