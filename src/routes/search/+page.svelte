@@ -5,6 +5,10 @@
 	let tag = '';
 	let list: any[] = [];
 
+	// TODO 以下を参考にUIを修正
+	// https://flowbite-svelte-blocks.vercel.app/application/table-headers
+	// https://flowbite-svelte.com/docs/forms/input-field#Dropdown
+
 	async function handleSearch(event: any) {
 		tag = (event?.target as HTMLInputElement)?.value;
 		const response = await fetch(`/list?tag=${tag}`, {

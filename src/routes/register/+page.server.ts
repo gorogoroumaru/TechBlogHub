@@ -22,6 +22,9 @@ const schema = z.object({
 	tags: z.string().max(100, { message: 'タグが長すぎます' })
 });
 
+// TODO テーブル定義からulidを消す
+// 新規のテーブル定義をcreateして既存のrowsをinsertする
+
 export const actions = {
 	default: async ({ request }) => {
 		const form = await superValidate(request, schema);
@@ -30,9 +33,6 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		console.log(form);
-
-		//const data = await request.formData();
 		const title = form.data.title as string;
 		const description = form.data.description as string;
 		const url = form.data.url as string;

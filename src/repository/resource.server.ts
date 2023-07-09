@@ -39,6 +39,7 @@ export async function getResourceById(id: string) {
 }
 
 // TODO 関連サイトのリンクを設定できるようにする (optional)
+// vector searchで類似文書を引っ張ってくるのもありか
 export async function registerResource(resource: Resource) {
 	try {
 		const image_url = await getOGPImage(resource.url);

@@ -15,10 +15,6 @@ export class Resource {
 	user_id: string;
 	lang: string;
 
-	// TODO 使用可能な文字種を制限する
-	// TODO validationエラーの際にエラーメッセージを表示
-	// https://www.okupter.com/blog/sveltekit-form-validation-with-zod
-
 	constructor(params: ResourceParams) {
 		this.id = params.id;
 		this.title = params.title;

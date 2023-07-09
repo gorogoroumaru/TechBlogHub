@@ -51,10 +51,16 @@
 	$: content = loadResources(activeUrl ?? '0');
 </script>
 
+<!-- 以下の項目をリリース前に全て確認する　-->
+<!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
+<!-- TODO メールアドレスが認証されていることを確認する-->
+<!-- TODO 登録パスワードの強度を一定以上にするよう設定する　-->
+<!-- https://flowbite-svelte-blocks.vercel.app/application/crud-create-forms に従って書き換えるのもあり-->
+
+<!-- TODO ブログカードで表示　-->
+<!-- https://flowbite-svelte-blocks.vercel.app/marketing/blog -->
 <!-- flowbiteのtoolbarでコメント投稿フォームの作成　-->
-<!-- TODO 一度に読み込むresource数を制限する　flobiteのpaginationを活用　-->
 <!-- TODO データベースschemaの修正　idをintにする autoincrement　-->
-<!-- TODO ulidをuuidに戻す　-->
 <!-- TODO 特定のrouteを認証で保護する　-->
 <!-- https://supabase.com/docs/guides/auth/auth-helpers/sveltekit#protecting-actions -->
 <!-- TODO autocompleteで入力補完機能を作成-->
@@ -65,7 +71,6 @@
 <!-- TODO ユーザーごとに学習状況やそれぞれのリソースに対するメモを作成できるようにする -->
 <!-- TODO リソースに対していいねする機能 -->
 <!-- TODO zennをパクってTrending, Following, Exploreタブを作成-->
-<!-- TODO リソースの詳細表示画面、コメント投稿機能も -->
 
 <div class="main_content">
 	<h1 id="header">初めての方へ</h1>

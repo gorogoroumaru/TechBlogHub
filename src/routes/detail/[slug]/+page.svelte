@@ -1,5 +1,9 @@
 <!-- TODO リソースの詳細表示、コメント、いいね　-->
 <!-- https://flowbite.com/blocks/publisher/comments/ -->
+<!-- TODO tailwind-blogのスタイルをパクる　-->
+<!-- https://tailwind-nextjs-starter-blog.vercel.app/blog/new-features-in-v1 -->
+<!-- TODO tailblocksのテンプレートも使えるか　-->
+<!-- https://tailblocks.cc/  Ecommerce -->
 <!-- TODO markdown-itでmarkdownをhtmlへ変換　-->
 <script lang="ts">
 	import { Toolbar, ToolbarButton, ToolbarGroup, Textarea, Button } from 'flowbite-svelte';
