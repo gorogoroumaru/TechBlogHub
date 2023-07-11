@@ -4,7 +4,6 @@ interface ResourceParams {
 	description: string;
 	url: string;
 	user_id: string;
-	lang: string;
 }
 
 export class Resource {
@@ -13,7 +12,6 @@ export class Resource {
 	description: string;
 	url: string;
 	user_id: string;
-	lang: string;
 
 	constructor(params: ResourceParams) {
 		this.id = params.id;
@@ -21,6 +19,5 @@ export class Resource {
 		this.description = params.description;
 		this.url = params.url;
 		this.user_id = params.user_id;
-		this.lang = params.lang;
 	}
 }

@@ -44,16 +44,8 @@ export async function registerResource(resource: Resource) {
 	try {
 		const image_url = await getOGPImage(resource.url);
 		await conn.execute(
-			'insert into Resources (id, title, description, url, image_url, user_id, lang) values (?, ?, ?, ?, ?, ?, ?)',
-			[
-				resource.id,
-				resource.title,
-				resource.description,
-				resource.url,
-				image_url,
-				resource.user_id,
-				resource.lang
-			]
+			'insert into Resources (id, title, description, url, image_url, user_id) values (?, ?, ?, ?, ?, ?)',
+			[resource.id, resource.title, resource.description, resource.url, image_url, resource.user_id]
 		);
 		return true;
 	} catch (e) {

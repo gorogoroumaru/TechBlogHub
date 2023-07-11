@@ -18,8 +18,7 @@ const schema = z.object({
 		.min(1, { message: 'descriptionを入力して下さい' }),
 	url: z.string().url({ message: '正しい形式のURLを入力して下さい' }),
 	user_id: z.string().uuid(),
-	lang: z.string().max(10).min(1, { message: '言語を入力して下さい' }),
-	tags: z.string().max(100, { message: 'タグが長すぎます' })
+	tags: z.array(z.string().max(100, { message: 'タグが長すぎます' }))
 });
 
 // TODO テーブル定義からulidを消す
@@ -37,11 +36,11 @@ export const actions = {
 		const description = form.data.description as string;
 		const url = form.data.url as string;
 		const user_id = form.data.user_id as string;
-		const lang = form.data.lang as string;
-		const tagList = form.data.tags as string;
+		const tagList = form.data.tags?.[0]?.split(',');
+
 		const id = ulid();
 
-		const resource = new Resource({ id, title, description, url, user_id, lang });
+		const resource = new Resource({ id, title, description, url, user_id });
 		const tags = new Tags({ resource_id: id, tags: tagList });
 		// TODO google auth libraryでvarifyIdTokenする
 		// https://github.com/googleapis/google-auth-library-nodejs/blob/main/samples/verifyGoogleIdToken.js
