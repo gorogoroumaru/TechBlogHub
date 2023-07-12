@@ -3,7 +3,7 @@ import { registerTags } from '../../repository/tag.server';
 import { Resource } from '../../model/resource';
 import { Tags } from '../../model/tags';
 import { ulid } from 'ulid';
-import { fail } from '@sveltejs/kit';
+import { fail, error } from '@sveltejs/kit';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 
@@ -25,10 +25,14 @@ const schema = z.object({
 // 新規のテーブル定義をcreateして既存のrowsをinsertする
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals: { getSession } }) => {
+		const session = await getSession();
+		if (!session) {
+			throw error(401, { message: 'Unauthorized' });
+		}
+
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
-			console.log(form);
 			return fail(400, { form });
 		}
 
@@ -42,8 +46,7 @@ export const actions = {
 
 		const resource = new Resource({ id, title, description, url, user_id });
 		const tags = new Tags({ resource_id: id, tags: tagList });
-		// TODO google auth libraryでvarifyIdTokenする
-		// https://github.com/googleapis/google-auth-library-nodejs/blob/main/samples/verifyGoogleIdToken.js
+
 		await registerResource(resource);
 		await registerTags(tags);
 
