@@ -1,14 +1,12 @@
 import { connect } from '@planetscale/database';
-import dotenv from 'dotenv';
+import { env } from '$env/dynamic/private';
 import { ulid } from 'ulid';
 import type { Tags } from '../model/tags';
 
-dotenv.config();
-
 const config = {
-	host: process.env.DATABASE_HOST,
-	username: process.env.DATABASE_USERNAME,
-	password: process.env.DATABASE_PASSWORD
+	host: env.DATABASE_HOST,
+	username: env.DATABASE_USERNAME,
+	password: env.DATABASE_PASSWORD
 };
 
 const conn = connect(config);
