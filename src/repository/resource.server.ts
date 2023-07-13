@@ -1,7 +1,7 @@
 import { connect } from '@planetscale/database';
 import dotenv from 'dotenv';
 import type { Resource } from '../model/resource';
-import htmlparser from 'htmlparser2';
+import * as htmlparser2 from 'htmlparser2';
 
 dotenv.config();
 
@@ -59,7 +59,7 @@ async function getOGPImage(url: string) {
 		const response = await fetch(url);
 		const html = await response.text();
 
-		const parser = new htmlparser.Parser(
+		const parser = new htmlparser2.Parser(
 			{
 				onopentag(name, attributes) {
 					if (name === 'meta' && attributes.property === 'og:image') {

@@ -86,44 +86,4 @@
 		margin-inline-end: 0px;
 		font-weight: bold;
 	}
-
-	button {
-		margin-top: 1em;
-	}
-
-	.to-register {
-		max-width: 414px;
-		margin: 30px auto;
-		padding: 0 32px;
-		box-sizing: border-box;
-	}
-
-	.to-register .to-register-sub-header {
-		text-align: center;
-		letter-spacing: 1px;
-		color: #aaa;
-		margin: 20px 0 0;
-		background: url(/images/wwwridge/border.png) repeat-x left center;
-		overflow: hidden;
-		clear: both;
-	}
-
-	.to-register .to-register-btn {
-		width: 220px;
-		margin: 10px auto 0;
-	}
-
-	.to-register .to-register-btn a {
-		display: block;
-		height: 44px;
-		line-height: 44px;
-		font-size: 15px;
-		color: #fff;
-		text-align: center;
-		font-weight: 700;
-		text-decoration: none;
-		background-color: #80b306;
-		transition: all 0.1s ease-in;
-		border-radius: 3px;
-	}
 </style>
