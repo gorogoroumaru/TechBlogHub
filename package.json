@@ -44,7 +44,6 @@
 		"@planetscale/database": "^1.7.0",
 		"@popperjs/core": "^2.11.8",
 		"@supabase/auth-helpers-sveltekit": "^0.10.1",
-		"dotenv": "^16.0.3",
 		"flowbite": "^1.7.0",
 		"flowbite-svelte": "^0.38.5",
 		"htmlparser2": "^9.0.0",
