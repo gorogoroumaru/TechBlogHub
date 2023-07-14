@@ -18,7 +18,6 @@
 			let splitUrl = page.href.split('?');
 			let queryString = splitUrl.slice(1).join('?');
 			const hrefParams = new URLSearchParams(queryString);
-			console.log(splitUrl, queryString, hrefParams);
 			let hrefValue = hrefParams.get('page');
 			if (hrefValue === activeUrl) {
 				page.active = true;
@@ -40,7 +39,9 @@
 		const response = await fetch(`/list?page=${page}`, {
 			method: 'GET'
 		});
+		console.log(response);
 		const data = await response.json();
+		console.log(data);
 		if (response.ok) {
 			return data;
 		} else {
@@ -50,6 +51,11 @@
 
 	$: content = loadResources(activeUrl ?? '0');
 </script>
+
+<!-- TODO .envの値をcloudflare pagesに登録　-->
+<!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
+<!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
+<!-- TODO resourceのDBカラムに掲載許可フラグを追加する　-->
 
 <!-- 以下の項目をリリース前に全て確認する　-->
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
@@ -61,15 +67,12 @@
 <!-- https://flowbite-svelte-blocks.vercel.app/marketing/blog -->
 <!-- flowbiteのtoolbarでコメント投稿フォームの作成　-->
 <!-- TODO データベースschemaの修正　idをintにする autoincrement　-->
-<!-- TODO 特定のrouteを認証で保護する　-->
-<!-- https://supabase.com/docs/guides/auth/auth-helpers/sveltekit#protecting-actions -->
 <!-- TODO autocompleteで入力補完機能を作成-->
 <!-- https://github.com/algolia/autocomplete -->
 <!-- TODO 画像サイズを縮小する　-->
 <!-- TODO リソース登録用の管理者インターフェースを作成-->
 <!-- TODO ジャンル一覧を作成 -->
 <!-- TODO ユーザーごとに学習状況やそれぞれのリソースに対するメモを作成できるようにする -->
-<!-- TODO リソースに対していいねする機能 -->
 <!-- TODO zennをパクってTrending, Following, Exploreタブを作成-->
 
 <div class="main_content">
