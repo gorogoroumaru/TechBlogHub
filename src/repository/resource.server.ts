@@ -4,9 +4,9 @@ import type { Resource } from '../model/resource';
 import * as htmlparser2 from 'htmlparser2';
 
 const config = {
-	host: env.DATABASE_HOST,
-	username: env.DATABASE_USERNAME,
-	password: env.DATABASE_PASSWORD
+	host: env.PRIVATE_DATABASE_HOST,
+	username: env.PRIVATE_DATABASE_USERNAME,
+	password: env.PRIVATE_DATABASE_PASSWORD
 };
 
 const conn = connect(config);

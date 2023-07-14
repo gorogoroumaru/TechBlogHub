@@ -4,9 +4,9 @@ import { ulid } from 'ulid';
 import type { Tags } from '../model/tags';
 
 const config = {
-	host: env.DATABASE_HOST,
-	username: env.DATABASE_USERNAME,
-	password: env.DATABASE_PASSWORD
+	host: env.PRIVATE_DATABASE_HOST,
+	username: env.PRIVATE_DATABASE_USERNAME,
+	password: env.PRIVATE_DATABASE_PASSWORD
 };
 
 const conn = connect(config);
