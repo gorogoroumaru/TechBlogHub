@@ -10,10 +10,12 @@ import * as htmlparser2 from 'htmlparser2';
 const config = {
 	host: PRIVATE_DATABASE_HOST,
 	username: PRIVATE_DATABASE_USERNAME,
-	password: PRIVATE_DATABASE_PASSWORD
+	password: PRIVATE_DATABASE_PASSWORD,
+	fetch: (url: string, init: any) => {
+		delete init['cache'];
+		return fetch(url, init);
+	}
 };
-
-console.log(config);
 
 const conn = connect(config);
 
