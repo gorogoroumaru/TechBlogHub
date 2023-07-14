@@ -13,6 +13,8 @@ const config = {
 	password: PRIVATE_DATABASE_PASSWORD
 };
 
+console.log(config);
+
 const conn = connect(config);
 
 export async function getResources(tag: string, page: number) {
@@ -22,6 +24,7 @@ export async function getResources(tag: string, page: number) {
 			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
 			[page * 10]
 		);
+		console.log(result);
 	} else {
 		result = await conn.execute(
 			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ?',
