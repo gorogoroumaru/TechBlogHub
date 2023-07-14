@@ -39,9 +39,7 @@
 		const response = await fetch(`/list?page=${page}`, {
 			method: 'GET'
 		});
-		console.log(response);
 		const data = await response.json();
-		console.log(data);
 		if (response.ok) {
 			return data;
 		} else {

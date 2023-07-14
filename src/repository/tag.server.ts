@@ -1,12 +1,16 @@
 import { connect } from '@planetscale/database';
-import { env } from '$env/dynamic/private';
+import {
+	PRIVATE_DATABASE_HOST,
+	PRIVATE_DATABASE_USERNAME,
+	PRIVATE_DATABASE_PASSWORD
+} from '$env/static/private';
 import { ulid } from 'ulid';
 import type { Tags } from '../model/tags';
 
 const config = {
-	host: env.PRIVATE_DATABASE_HOST,
-	username: env.PRIVATE_DATABASE_USERNAME,
-	password: env.PRIVATE_DATABASE_PASSWORD
+	host: PRIVATE_DATABASE_HOST,
+	username: PRIVATE_DATABASE_USERNAME,
+	password: PRIVATE_DATABASE_PASSWORD
 };
 
 const conn = connect(config);
