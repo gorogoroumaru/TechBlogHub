@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ListItem from '../components/ListItem.svelte';
 	import { Tabs, TabItem } from 'flowbite-svelte';
-	import { Pagination } from 'flowbite-svelte';
+	import { Pagination, ListPlaceholder } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 
 	export let data;
@@ -59,19 +59,15 @@
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
 <!-- TODO メールアドレスが認証されていることを確認する-->
 <!-- TODO 登録パスワードの強度を一定以上にするよう設定する　-->
-<!-- https://flowbite-svelte-blocks.vercel.app/application/crud-create-forms に従って書き換えるのもあり-->
 
 <!-- TODO ブログカードで表示　-->
 <!-- https://flowbite-svelte-blocks.vercel.app/marketing/blog -->
-<!-- flowbiteのtoolbarでコメント投稿フォームの作成　-->
 <!-- TODO データベースschemaの修正　idをintにする autoincrement　-->
 <!-- TODO autocompleteで入力補完機能を作成-->
 <!-- https://github.com/algolia/autocomplete -->
 <!-- TODO 画像サイズを縮小する　-->
-<!-- TODO リソース登録用の管理者インターフェースを作成-->
 <!-- TODO ジャンル一覧を作成 -->
 <!-- TODO ユーザーごとに学習状況やそれぞれのリソースに対するメモを作成できるようにする -->
-<!-- TODO zennをパクってTrending, Following, Exploreタブを作成-->
 
 <div class="main_content">
 	<h1 id="header">初めての方へ</h1>
@@ -83,7 +79,7 @@
 <Tabs style="underline">
 	<TabItem open title="フォロー中"
 		>{#await content}
-			<p>...waiting</p>
+			<ListPlaceholder />
 		{:then resources}
 			{#each resources.rows as resource}
 				<ListItem
