@@ -16,9 +16,6 @@ export const actions = {
 		const user_id = data.get('user_id') as string;
 		const resource_id = data.get('resource_id') as string;
 
-		// TODO DBにブックマークを登録
-		console.log(user_id, resource_id);
-
 		const session = await getSession();
 		if (!session) {
 			throw error(401, { message: 'Unauthorized' });

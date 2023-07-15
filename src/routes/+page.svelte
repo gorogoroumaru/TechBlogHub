@@ -50,9 +50,9 @@
 	$: content = loadResources(activeUrl ?? '0');
 </script>
 
-<!-- TODO .envの値をcloudflare pagesに登録　-->
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
 <!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
+<!-- TODO 非同期でogpを縮小処理してcloudflare r2に格納する　-->
 <!-- TODO resourceのDBカラムに掲載許可フラグを追加する　-->
 
 <!-- 以下の項目をリリース前に全て確認する　-->
@@ -100,8 +100,9 @@
 			<p style="color: red">{error.message}</p>
 		{/await}
 	</TabItem>
-	<TabItem title="新規コンテンツ">Explore</TabItem>
-	<TabItem title="トレンド">Trend</TabItem>
+	<TabItem title="新規投稿">Explore</TabItem>
+	<TabItem title="自分の投稿">Trend</TabItem>
+	<TabItem title="いいねした投稿">Trend</TabItem>
 </Tabs>
 
 <Pagination {pages} on:previous={previous} on:next={next} />
