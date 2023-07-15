@@ -1,9 +1,7 @@
-<!-- TODO いいねボタンの配置　-->
 <!-- https://flowbite.com/blocks/publisher/comments/ -->
 <!-- TODO markdown-itでmarkdownをhtmlへ変換　-->
-<!-- TODO 元記事に移動できるボタン -->
 <script lang="ts">
-	import { Toolbar, ToolbarButton, Textarea, Button, Badge } from 'flowbite-svelte';
+	import { Toolbar, ToolbarButton, Textarea, Button, Badge, Input } from 'flowbite-svelte';
 
 	export let data;
 </script>
@@ -11,11 +9,52 @@
 <div class="px-4 sm:px-6 md:px-8">
 	<div class="max-w-3xl mx-auto">
 		<article class="relative pt-10">
-			<h1
-				class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl"
-			>
-				{data.title}
-			</h1>
+			<div>
+				<Badge>{data.tag_name}</Badge>
+			</div>
+			<div class="flex mt-3">
+				<h1
+					class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl mr-6"
+				>
+					{data.title}
+				</h1>
+				<form class="flex align-center" method="POST">
+					<button>
+						<div class="hidden">
+							<Input value={data.id} name="resource_id" id="resource_id" />
+						</div>
+						{#if data.alreadyBookmarked}
+							<svg
+								class="w-6 h-6 text-gray-800 dark:text-white"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 14 20"
+							>
+								<path
+									d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"
+								/>
+							</svg>
+						{:else}
+							<svg
+								class="w-6 h-6 text-gray-800 dark:text-white"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 14 20"
+							>
+								<path
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="m13 19-6-5-6 5V2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17Z"
+								/>
+							</svg>
+						{/if}
+					</button>
+				</form>
+			</div>
 			<div class="text-sm leading-6">
 				<dl>
 					<dt class="sr-only">Date</dt>
@@ -24,9 +63,7 @@
 					</dd>
 				</dl>
 			</div>
-			<div class="mt-3">
-				<Badge>{data.tag_name}</Badge>
-			</div>
+
 			<div class="mt-6">
 				<ul class="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
 					<li class="flex items-center font-medium whitespace-nowrap px-5 mt-6">
@@ -49,11 +86,15 @@
 				</p>
 			</div>
 		</article>
-		<Button class="mt-12" color="alternative" outline>元サイトに移動</Button>
+
+		<Button class="mt-12 bg-blue-500">
+			<a href={data.url}>元サイトに移動</a>
+		</Button>
+
 		<!-- TODO コメントをデータベースに送信　-->
 		<div class="mt-12">
 			<div class="p-2 text-center border">
-				<h3 class="text-xl font-medium">コメント欄</h3>
+				<h3 class="text-xl font-medium">メモ欄</h3>
 				<img
 					class="mx-auto my-8"
 					src="https://zenn.dev/images/drawing/discussion.png"
@@ -62,9 +103,9 @@
 				/>
 			</div>
 			<form>
-				<Textarea class="mb-4" placeholder="Write a comment">
+				<Textarea class="mb-4" placeholder="このリソースに対するメモを入力できます">
 					<div slot="footer" class="flex items-center justify-between">
-						<Button type="submit" class="bg-blue-500">Post comment</Button>
+						<Button type="submit" class="bg-blue-500">メモを送信</Button>
 						<Toolbar embedded>
 							<ToolbarButton name="Attach file"
 								><svg
