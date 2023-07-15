@@ -1,23 +1,6 @@
-import { connect } from '@planetscale/database';
-import {
-	PRIVATE_DATABASE_HOST,
-	PRIVATE_DATABASE_USERNAME,
-	PRIVATE_DATABASE_PASSWORD
-} from '$env/static/private';
+import { conn } from './dbconnect.server';
 import type { Resource } from '../model/resource';
 import * as htmlparser2 from 'htmlparser2';
-
-const config = {
-	host: PRIVATE_DATABASE_HOST,
-	username: PRIVATE_DATABASE_USERNAME,
-	password: PRIVATE_DATABASE_PASSWORD,
-	fetch: (url: string, init: any) => {
-		delete init['cache'];
-		return fetch(url, init);
-	}
-};
-
-const conn = connect(config);
 
 export async function getResources(tag: string, page: number) {
 	let result;
@@ -26,7 +9,6 @@ export async function getResources(tag: string, page: number) {
 			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
 			[page * 10]
 		);
-		console.log(result);
 	} else {
 		result = await conn.execute(
 			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ?',
