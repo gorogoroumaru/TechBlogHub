@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ListItem from '../../components/ListItem.svelte';
 	import { Input, ButtonGroup, Button, Chevron, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { fields } from '../../data/fields';
 
 	let tag = '';
 	let list: any[] = [];
@@ -23,7 +24,6 @@
 	}
 </script>
 
-<!-- TODO categoryのリストを作成し、dropdownにする　-->
 <div class="searchbar">
 	<ButtonGroup class="w-full mb-5">
 		<Button
@@ -33,14 +33,13 @@
 			<Chevron>All categories</Chevron>
 		</Button>
 		<Dropdown>
-			<DropdownItem
-				on:click={() => {
-					console.log('hoge');
-				}}>Shopping</DropdownItem
-			>
-			<DropdownItem>Images</DropdownItem>
-			<DropdownItem>News</DropdownItem>
-			<DropdownItem>Finance</DropdownItem>
+			{#each fields as field}
+				<DropdownItem
+					on:click={() => {
+						console.log(field.value);
+					}}>{field.name}</DropdownItem
+				>
+			{/each}
 		</Dropdown>
 		<Input placeholder="Search" on:change={handleSearch} />
 		<Button color="primary" class="!p-2.5 bg-blue-500" type="submit">

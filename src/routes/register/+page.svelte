@@ -3,28 +3,21 @@
 	import MultiSelect from '../../components/MultiSelect.svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
+	import { fields } from '../../data/fields';
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	export let data: PageData;
 	const { form, errors, constraints } = superForm(data.form);
 	const user_id = data.session?.user.id as string;
 
-	// TODO countriesをtagのリストに書き換える
-	let countries = [
-		{ value: 'us', name: 'United States', color: 'indigo' },
-		{ value: 'ca', name: 'Canada', color: 'green' },
-		{ value: 'fr', name: 'France', color: 'blue' },
-		{ value: 'jp', name: 'Japan', color: 'red' },
-		{ value: 'en', name: 'England', color: 'yellow' }
-	];
-	let selected = ['us', 'fr'];
-
-	// TODO tagをarrayに格納する
 	// TODO MultiSelectをTagInputにカスタマイズする
 	// https://github.com/themesberg/flowbite-svelte/blob/85d8d43b7b69c3d9050a56dca6d947f4dcc047b2/src/lib/forms/MultiSelect.svelte#L4
+
+	// TODO form入力のsnapshot作成
+	// https://kit.svelte.dev/docs/snapshots
 </script>
 
-<SuperDebug data={$form} />
+<!-- SuperDebug data={$form} / -->
 
 <div class="m-2">
 	<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">学習リソースを投稿する</h2>
@@ -64,7 +57,7 @@
 			</div>
 			<div class="w-full z-10">
 				<Label for="weight" class="mb-2">タグ</Label>
-				<MultiSelect items={countries} bind:value={$form.tags} {...$constraints.tags} />
+				<MultiSelect items={fields} bind:value={$form.tags} {...$constraints.tags} />
 				{#if $errors.tags}<Helper class="mt-2" color="red"
 						><span class="font-medium">{$errors.tags}</span></Helper
 					>{/if}
