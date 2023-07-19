@@ -5,10 +5,13 @@ import { error } from '@sveltejs/kit';
 export async function load({ params, locals: { getSession } }) {
 	const resource_id = params.slug;
 	const resource = await getResourceById(resource_id);
+	let alreadyBookmarked = false;
 
 	const session = await getSession();
-	const user_id = session.user.id;
-	const alreadyBookmarked = await checkIfUserHasBookmarked(user_id, resource_id);
+	const user_id = session?.user?.id;
+	if (user_id) {
+		alreadyBookmarked = await checkIfUserHasBookmarked(user_id, resource_id);
+	}
 
 	return {
 		...resource.rows[0],
