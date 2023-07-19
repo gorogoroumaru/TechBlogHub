@@ -1,7 +1,5 @@
 <script lang="ts">
-	import ListItem from '../components/ListItem.svelte';
-	import { Tabs, TabItem } from 'flowbite-svelte';
-	import { Pagination, ListPlaceholder } from 'flowbite-svelte';
+	import { Tabs, TabItem, Card, Pagination, ListPlaceholder } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 
 	export let data;
@@ -28,13 +26,6 @@
 		pages = pages;
 	}
 
-	const previous = () => {
-		alert('Previous btn clicked. Make a call to your server to fetch data.');
-	};
-	const next = () => {
-		alert('Next btn clicked. Make a call to your server to fetch data.');
-	};
-
 	async function loadResources(page: string) {
 		const response = await fetch(`/list?page=${page}`, {
 			method: 'GET'
@@ -52,56 +43,55 @@
 
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
 <!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
-<!-- TODO 非同期でogpを縮小処理してcloudflare r2に格納する　-->
+<!-- TODO cloudflare queuesを使用して、非同期でogpを縮小処理してcloudflare r2に格納する　-->
+<!-- TODO client sideで縮小処理するのもありか　-->
 <!-- TODO resourceのDBカラムに掲載許可フラグを追加する　-->
 
 <!-- 以下の項目をリリース前に全て確認する　-->
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
-<!-- TODO メールアドレスが認証されていることを確認する-->
 <!-- TODO 登録パスワードの強度を一定以上にするよう設定する　-->
 
-<!-- TODO ブログカードで表示　-->
-<!-- https://flowbite-svelte-blocks.vercel.app/marketing/blog -->
 <!-- TODO データベースschemaの修正　idをintにする autoincrement　-->
-<!-- TODO autocompleteで入力補完機能を作成-->
-<!-- https://github.com/algolia/autocomplete -->
-<!-- TODO 画像サイズを縮小する　-->
-<!-- TODO ジャンル一覧を作成 -->
 <!-- TODO ユーザーごとに学習状況やそれぞれのリソースに対するメモを作成できるようにする -->
 
-<div class="main_content">
+<div class="bg-sky-400 p-8">
 	<h1 id="header">初めての方へ</h1>
 	<p class="info">
-		StudyFrontierはネット上の良質な学習リソースをジャンルごとにまとめて一括管理できるサービスです
+		StudyFrontierは、プログラミング初学者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
 	</p>
-	<p class="info">自分が学習したいジャンルをフォローすれば新着リソースをすぐにチェックできます</p>
+	<p class="info">
+		様々なジャンルに分類された良質な学習リソースを提供し、お気に入りのブログを追加して管理したり、学習の進捗をトラッキングしたり、メモを記録したりすることができます。
+	</p>
 </div>
 <Tabs style="underline">
-	<TabItem open title="フォロー中"
+	<TabItem open title="新規投稿"
 		>{#await content}
 			<ListPlaceholder />
 		{:then resources}
 			{#each resources.rows as resource}
-				<ListItem
-					url={resource.url}
-					image={resource.image_url}
-					title={resource.title}
-					summary={resource.description}
-					metadata={resource.tag_name}
-					created={resource.created_at}
-					id={resource.id}
-				/>
+				<div class="mb-4">
+					<Card img={resource.image_url} href="/detail/{resource.id}" horizontal>
+						<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+							{resource.title}
+						</h5>
+						<span class="mt-4 mb-8 text-xs text-gray-900 dark:text-white">
+							{resource.tag_name} / {resource.created_at}
+						</span>
+						<p class="font-normal text-gray-700 dark:text-gray-400 leading-tight truncate">
+							{resource.description}
+						</p>
+					</Card>
+				</div>
 			{/each}
 		{:catch error}
 			<p style="color: red">{error.message}</p>
 		{/await}
 	</TabItem>
-	<TabItem title="新規投稿">Explore</TabItem>
 	<TabItem title="自分の投稿">Trend</TabItem>
 	<TabItem title="いいねした投稿">Trend</TabItem>
 </Tabs>
 
-<Pagination {pages} on:previous={previous} on:next={next} />
+<Pagination {pages} />
 
 <style>
 	#header {
@@ -117,10 +107,5 @@
 		font-family: Helvetica Neue;
 		font-size: 14px;
 		line-height: 20px;
-	}
-
-	.main_content {
-		background-color: #e5f2ff;
-		padding: 24px;
 	}
 </style>
