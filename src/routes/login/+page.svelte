@@ -56,7 +56,7 @@
 						>パスワードを忘れた方はこちら</a
 					>
 				</div>
-				<Button type="submit" class="w-full1 bg-blue-500">アカウントにログイン</Button>
+				<Button type="submit" class="w-full1 bg-sky-500">アカウントにログイン</Button>
 				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
 					初めての方はこちら <a
 						href="/auth"

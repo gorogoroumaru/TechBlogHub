@@ -42,7 +42,7 @@
 			{/each}
 		</Dropdown>
 		<Input placeholder="Search" on:change={handleSearch} />
-		<Button color="primary" class="!p-2.5 bg-blue-500" type="submit">
+		<Button color="primary" class="!p-2.5 bg-sky-500" type="submit">
 			<svg
 				class="w-5 h-5"
 				fill="none"

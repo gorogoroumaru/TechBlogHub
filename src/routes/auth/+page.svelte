@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Button, Checkbox, Label, Input } from 'flowbite-svelte';
+	import { Button, Checkbox, Label, Input, Helper } from 'flowbite-svelte';
 
 	export let data;
 	let { supabase } = data;
@@ -11,11 +11,13 @@
 	let password: string;
 	let passwordConfirm: string;
 
+	let message: string;
+
 	// https://supabase.com/docs/guides/auth/managing-user-data#accessing-user-metadata
 
 	const handleSignUp = async () => {
 		if (password !== passwordConfirm) {
-			console.log('password confirmation failed');
+			message = 'パスワードが一致しませんでした';
 			return;
 		}
 		const { error } = await supabase.auth.signUp({
@@ -80,6 +82,9 @@
 						required
 						bind:value={passwordConfirm}
 					/>
+					{#if message}<Helper class="mt-2" color="red"
+							><span class="font-medium">{message}</span></Helper
+						>{/if}
 				</Label>
 				<div class="flex items-start">
 					<Checkbox>
@@ -88,7 +93,7 @@
 						>に同意する</Checkbox
 					>
 				</div>
-				<Button type="submit" class="w-full1 bg-blue-500">アカウントを作成する</Button>
+				<Button type="submit" class="w-full1 bg-sky-500">アカウントを作成する</Button>
 				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
 					すでにアカウントをお持ちですか？ <a
 						href="/"

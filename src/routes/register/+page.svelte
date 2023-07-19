@@ -86,7 +86,7 @@
 			<div class="hidden">
 				<Input value={user_id} name="user_id" id="user_id" />
 			</div>
-			<Button type="submit" class="w-20 bg-blue-500">送信</Button>
+			<Button type="submit" class="w-20 bg-sky-500">送信</Button>
 		</div>
 	</form>
 </div>

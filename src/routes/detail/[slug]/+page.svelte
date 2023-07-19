@@ -87,7 +87,7 @@
 			</div>
 		</article>
 
-		<Button class="mt-12 bg-blue-500">
+		<Button class="mt-12 bg-sky-500">
 			<a href={data.url}>元サイトに移動</a>
 		</Button>
 
@@ -105,7 +105,7 @@
 			<form>
 				<Textarea class="mb-4" placeholder="このリソースに対するメモを入力できます">
 					<div slot="footer" class="flex items-center justify-between">
-						<Button type="submit" class="bg-blue-500">メモを送信</Button>
+						<Button type="submit" class="bg-sky-500">メモを送信</Button>
 						<Toolbar embedded>
 							<ToolbarButton name="Attach file"
 								><svg
