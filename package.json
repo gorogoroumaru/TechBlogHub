@@ -47,6 +47,7 @@
 		"flowbite": "^1.7.0",
 		"flowbite-svelte": "^0.38.5",
 		"htmlparser2": "^9.0.0",
+		"svelecte": "^3.16.2",
 		"tailwind-merge": "^1.13.2",
 		"ulid": "^2.3.0",
 		"uuid": "^9.0.0",

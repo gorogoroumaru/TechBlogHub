@@ -40,7 +40,7 @@ export const actions = {
 		const description = form.data.description as string;
 		const url = form.data.url as string;
 		const user_id = form.data.user_id as string;
-		const tagList = form.data.tags?.[0]?.split(',');
+		const tagList = form.data.tags as string[];
 
 		const id = ulid();
 

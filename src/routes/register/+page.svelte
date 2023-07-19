@@ -1,17 +1,14 @@
 <script lang="ts">
 	import { Label, Input, Button, Textarea, Helper } from 'flowbite-svelte';
-	import MultiSelect from '../../components/MultiSelect.svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { fields } from '../../data/fields';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import Svelecte from 'svelecte';
+	//import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	export let data: PageData;
 	const { form, errors, constraints } = superForm(data.form);
 	const user_id = data.session?.user.id as string;
-
-	// TODO MultiSelectをTagInputにカスタマイズする
-	// https://github.com/themesberg/flowbite-svelte/blob/85d8d43b7b69c3d9050a56dca6d947f4dcc047b2/src/lib/forms/MultiSelect.svelte#L4
 
 	// TODO form入力のsnapshot作成
 	// https://kit.svelte.dev/docs/snapshots
@@ -57,7 +54,15 @@
 			</div>
 			<div class="w-full z-10">
 				<Label for="weight" class="mb-2">タグ</Label>
-				<MultiSelect items={fields} bind:value={$form.tags} {...$constraints.tags} />
+				<Svelecte
+					id="tags"
+					name="tags"
+					options={fields}
+					bind:value={$form.tags}
+					multiple
+					max={5}
+					placeholder="この記事のタグを選択して下さい"
+				/>
 				{#if $errors.tags}<Helper class="mt-2" color="red"
 						><span class="font-medium">{$errors.tags}</span></Helper
 					>{/if}
