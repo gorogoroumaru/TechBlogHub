@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
+	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, Button } from 'flowbite-svelte';
 
 	export let data;
 
@@ -48,7 +48,8 @@
 					/></svg
 				></a
 			>
-			<button
+			<Button
+				class="mx-4 bg-sky-500"
 				on:click={() => {
 					if (!user_id) {
 						goto('/login');
@@ -56,8 +57,9 @@
 					}
 					goto('/register');
 				}}
-				class="AppHeader_signInLink__K1JEF">{user_id ? '投稿する' : 'ログイン'}</button
 			>
+				{user_id ? '記事投稿' : 'ログイン'}
+			</Button>
 		</div>
 	</div>
 </div>
