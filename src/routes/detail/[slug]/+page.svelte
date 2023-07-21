@@ -1,7 +1,7 @@
 <!-- https://flowbite.com/blocks/publisher/comments/ -->
 <!-- TODO markdown-itでmarkdownをhtmlへ変換　-->
 <script lang="ts">
-	import { Toolbar, ToolbarButton, Textarea, Button, Badge, Input } from 'flowbite-svelte';
+	import { Toolbar, ToolbarButton, Textarea, Button, Badge, Input, Hr, A } from 'flowbite-svelte';
 
 	export let data;
 </script>
@@ -68,13 +68,8 @@
 				<ul class="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
 					<li class="flex items-center font-medium whitespace-nowrap px-5 mt-6">
 						<div class="text-sm leading-4">
+							<!-- TODO user名を表示-->
 							<div class="text-slate-900 dark:text-slate-200">Adam Wathan</div>
-							<div class="mt-1">
-								<a
-									href="https://twitter.com/adamwathan"
-									class="text-sky-500 hover:text-sky-600 dark:text-sky-400">@adamwathan</a
-								>
-							</div>
 						</div>
 					</li>
 				</ul>
@@ -87,21 +82,13 @@
 			</div>
 		</article>
 
-		<Button class="mt-12 bg-sky-500">
-			<a href={data.url}>元サイトに移動</a>
-		</Button>
+		<A href={data.url} class="mt-12 text-sky-500">元サイトに移動</A>
 
 		<!-- TODO コメントをデータベースに送信　-->
-		<div class="mt-12">
-			<div class="p-2 text-center border">
-				<h3 class="text-xl font-medium">メモ欄</h3>
-				<img
-					class="mx-auto my-8"
-					src="https://zenn.dev/images/drawing/discussion.png"
-					width="300"
-					alt="there is no comment"
-				/>
-			</div>
+		<Hr class="my-12" />
+		<div>
+			<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 (0)</h3>
+
 			<form>
 				<Textarea class="mb-4" placeholder="このリソースに対するメモを入力できます">
 					<div slot="footer" class="flex items-center justify-between">
