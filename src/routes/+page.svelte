@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Tabs, TabItem, Card, Pagination, ListPlaceholder } from 'flowbite-svelte';
+	import { Tabs, TabItem, Card, Pagination, ListPlaceholder, Heading, P } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 
 	export let data;
@@ -51,13 +51,13 @@
 <!-- TODO 登録パスワードの強度を一定以上にするよう設定する　-->
 
 <div class="bg-sky-400 p-8">
-	<h1 id="header">初めての方へ</h1>
-	<p class="info">
+	<Heading tag="h2" class="mb-4">初めての方へ</Heading>
+	<P>
 		StudyFrontierは、プログラミング初学者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
-	</p>
-	<p class="info">
+	</P>
+	<P>
 		様々なジャンルに分類された良質な学習リソースを提供し、お気に入りのブログを追加して管理したり、学習の進捗をトラッキングしたり、メモを記録したりすることができます。
-	</p>
+	</P>
 </div>
 <Tabs style="underline">
 	<TabItem open title="新規投稿"
@@ -93,20 +93,3 @@
 	<TabItem title="自分の投稿">Trend</TabItem>
 	<TabItem title="ブックマークした投稿">Trend</TabItem>
 </Tabs>
-
-<style>
-	#header {
-		color: #1a1a1a;
-		display: inline-block;
-		font-family: Helvetica Neue;
-		font-size: 24px;
-		font-weight: 700;
-		padding: 0px 0px 17px;
-	}
-	.info {
-		color: #1a1a1a;
-		font-family: Helvetica Neue;
-		font-size: 14px;
-		line-height: 20px;
-	}
-</style>
