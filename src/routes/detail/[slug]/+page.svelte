@@ -1,7 +1,7 @@
 <!-- https://flowbite.com/blocks/publisher/comments/ -->
 <!-- TODO markdown-itでmarkdownをhtmlへ変換　-->
 <script lang="ts">
-	import { Toolbar, ToolbarButton, Textarea, Button, Badge, Input, Hr, A } from 'flowbite-svelte';
+	import { Textarea, Button, Badge, Input, Hr, A } from 'flowbite-svelte';
 
 	export let data;
 </script>
@@ -18,7 +18,7 @@
 				>
 					{data.title}
 				</h1>
-				<form class="flex align-center" method="POST">
+				<form class="flex align-center" method="POST" action="?/saveBookmark">
 					<button>
 						<div class="hidden">
 							<Input value={data.id} name="resource_id" id="resource_id" />
@@ -89,63 +89,20 @@
 		<div>
 			<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 (0)</h3>
 
-			<form>
-				<Textarea class="mb-4" placeholder="このリソースに対するメモを入力できます">
+			<form method="POST" action="?/submitMemo">
+				<Textarea
+					class="mb-4"
+					placeholder="このリソースに対するメモを入力できます"
+					name="memo"
+					id="memo"
+				>
 					<div slot="footer" class="flex items-center justify-between">
 						<Button type="submit" class="bg-sky-500 hover:bg-sky-700">メモを送信</Button>
-						<Toolbar embedded>
-							<ToolbarButton name="Attach file"
-								><svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="1.5"
-									stroke="currentColor"
-									class="w-6 h-6"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
-									/></svg
-								></ToolbarButton
-							>
-							<ToolbarButton name="Set location"
-								><svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="1.5"
-									stroke="currentColor"
-									class="w-6 h-6"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-									/><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-									/></svg
-								></ToolbarButton
-							>
-							<ToolbarButton name="Upload image"
-								><svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="1.5"
-									stroke="currentColor"
-									class="w-6 h-6"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-									/></svg
-								></ToolbarButton
-							>
-						</Toolbar>
 					</div>
 				</Textarea>
+				<div class="hidden">
+					<Input value={data.id} name="resource_id" id="resource_id" />
+				</div>
 			</form>
 		</div>
 	</div>

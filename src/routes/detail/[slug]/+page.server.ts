@@ -1,5 +1,6 @@
 import { getResourceById } from '../../../repository/resource.server';
 import { checkIfUserHasBookmarked, registerBookmark } from '../../../repository/bookmark.server';
+import { registerMemo } from '../../../repository/memo.server';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params, locals: { getSession } }) {
@@ -20,7 +21,7 @@ export async function load({ params, locals: { getSession } }) {
 }
 
 export const actions = {
-	default: async ({ request, locals: { getSession } }) => {
+	saveBookmark: async ({ request, locals: { getSession } }) => {
 		const session = await getSession();
 		if (!session) {
 			throw error(401, { message: 'Unauthorized' });
@@ -31,5 +32,20 @@ export const actions = {
 		const resource_id = data.get('resource_id') as string;
 
 		await registerBookmark(user_id, resource_id);
+	},
+	submitMemo: async ({ request, locals: { getSession } }) => {
+		const session = await getSession();
+		if (!session) {
+			throw error(401, { message: 'Unauthorized' });
+		}
+
+		const user_id = session.user.id;
+
+		const data = await request.formData();
+		const resource_id_string = data.get('resource_id') as string;
+		const resource_id = Number(resource_id_string);
+		const memo = data.get('memo') as string;
+
+		await registerMemo(memo, user_id, resource_id);
 	}
 };
