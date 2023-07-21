@@ -7,18 +7,21 @@
 	//import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	export let data: PageData;
-	const { form, errors, constraints } = superForm(data.form);
 	const user_id = data.session?.user.id as string;
+	const { form, errors, constraints, enhance, capture, restore } = superForm(data.form, {
+		applyAction: true,
+		multipleSubmits: 'prevent',
+		taintedMessage: '本当にこのページを離れますか？ 行った変更が反映されない可能性があります。'
+	});
 
-	// TODO form入力のsnapshot作成
-	// https://kit.svelte.dev/docs/snapshots
+	export const snapshot = { capture, restore };
 </script>
 
 <!-- SuperDebug data={$form} / -->
 
 <div class="m-2">
 	<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">学習リソースを投稿する</h2>
-	<form method="POST">
+	<form method="POST" use:enhance>
 		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 			<div class="sm:col-span-2">
 				<Label for="name" class="mb-2">タイトル</Label>
@@ -86,7 +89,7 @@
 			<div class="hidden">
 				<Input value={user_id} name="user_id" id="user_id" />
 			</div>
-			<Button type="submit" class="w-20 bg-sky-500">送信</Button>
+			<Button type="submit" class="w-20 bg-sky-500 hover:bg-sky-700">送信</Button>
 		</div>
 	</form>
 </div>

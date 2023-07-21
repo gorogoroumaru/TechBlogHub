@@ -1,6 +1,6 @@
 import { registerResource } from '../../repository/resource.server';
 import { registerTags } from '../../repository/tag.server';
-import { fail, error } from '@sveltejs/kit';
+import { fail, error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 
@@ -45,7 +45,7 @@ export const actions = {
 		const tags = { tags: tagList, resource_id: id };
 		await registerTags(tags);
 
-		return { form };
+		throw redirect(303, '/');
 	}
 };
 
