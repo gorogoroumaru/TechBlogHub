@@ -1,5 +1,3 @@
-<!-- https://flowbite.com/blocks/publisher/comments/ -->
-<!-- TODO markdown-itでmarkdownをhtmlへ変換　-->
 <script lang="ts">
 	import { Textarea, Button, Badge, Input, Hr, A } from 'flowbite-svelte';
 
@@ -84,18 +82,19 @@
 
 		<A href={data.url} class="mt-12 text-sky-500">元サイトに移動</A>
 
-		<!-- TODO コメントをデータベースに送信　-->
 		<Hr class="my-12" />
 		<div>
-			<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 (0)</h3>
+			<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 ({data.memos.length})</h3>
+
+			{#each data.memos as memo}
+				<!-- TODO zennのscrap風に表示する　-->
+				<p class="px-2 mb-4">
+					{memo}
+				</p>
+			{/each}
 
 			<form method="POST" action="?/submitMemo">
-				<Textarea
-					class="mb-4"
-					placeholder="このリソースに対するメモを入力できます"
-					name="memo"
-					id="memo"
-				>
+				<Textarea class="mb-4" placeholder="メモを入力" name="memo" id="memo">
 					<div slot="footer" class="flex items-center justify-between">
 						<Button type="submit" class="bg-sky-500 hover:bg-sky-700">メモを送信</Button>
 					</div>

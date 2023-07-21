@@ -1,6 +1,6 @@
 import { getResourceById } from '../../../repository/resource.server';
 import { checkIfUserHasBookmarked, registerBookmark } from '../../../repository/bookmark.server';
-import { registerMemo } from '../../../repository/memo.server';
+import { registerMemo, getMemo } from '../../../repository/memo.server';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params, locals: { getSession } }) {
@@ -14,9 +14,12 @@ export async function load({ params, locals: { getSession } }) {
 		alreadyBookmarked = await checkIfUserHasBookmarked(user_id, resource_id);
 	}
 
+	const memos = await getMemo(user_id, resource_id);
+
 	return {
-		...resource.rows[0],
-		alreadyBookmarked
+		...resource,
+		alreadyBookmarked,
+		memos
 	};
 }
 
