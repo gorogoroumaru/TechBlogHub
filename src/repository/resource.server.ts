@@ -16,7 +16,7 @@ export async function getResources(tag: string, page: number) {
 		);
 	}
 
-	return result;
+	return result?.rows;
 }
 
 export async function getResourceById(id: string) {
@@ -24,7 +24,7 @@ export async function getResourceById(id: string) {
 		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ?',
 		[id]
 	);
-	return result;
+	return result?.rows?.[0];
 }
 
 // TODO 関連サイトのリンクを設定できるようにする (optional)
