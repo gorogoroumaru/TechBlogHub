@@ -1,4 +1,4 @@
-import { getResources } from '../../repository/resource.server';
+import { getResources, getNumberOfResources } from '../repository/resource.server';
 import { json } from '@sveltejs/kit';
 
 export async function GET({ url }) {
@@ -6,5 +6,6 @@ export async function GET({ url }) {
 	const page = parseInt(url.searchParams.get('page') ?? '0');
 	// TODO titleやdescriptionで検索する機能
 	const result = await getResources(tag, page);
-	return json({ rows: result });
+	const count = await getNumberOfResources();
+	return json({ rows: result, count });
 }

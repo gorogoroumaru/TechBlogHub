@@ -5,29 +5,29 @@
 	export let data;
 	const user_id = data.session?.user.id;
 
+	// TODO 自分の投稿やブックマークした投稿をフィルタできるようにする
 	$: activeUrl = $page.url.searchParams.get('page');
-	let pages = [
-		{ name: 1, href: '/?page=0', active: false },
-		{ name: 2, href: '/?page=1', active: false }
-	];
 
-	$: {
-		pages.forEach((page) => {
-			let splitUrl = page.href.split('?');
-			let queryString = splitUrl.slice(1).join('?');
-			const hrefParams = new URLSearchParams(queryString);
-			let hrefValue = hrefParams.get('page');
-			if (hrefValue === activeUrl) {
-				page.active = true;
+	let currentPage: number = 0;
+
+	function generatePages(len: number) {
+		let pages = [];
+		for (let i = 0; i < Math.ceil(len / 10); i++) {
+			if (i === currentPage) {
+				pages.push({ name: i + 1, href: `/?page=${i}`, active: true });
 			} else {
-				page.active = false;
+				pages.push({ name: i + 1, href: `/?page=${i}`, active: false });
 			}
-		});
-		pages = pages;
+		}
+		return pages;
+	}
+
+	function handleClick(event: any) {
+		currentPage = event.target.text - 1;
 	}
 
 	async function loadResources(page: string) {
-		const response = await fetch(`/list?page=${page}`, {
+		const response = await fetch(`/?page=${page}`, {
 			method: 'GET'
 		});
 		const data = await response.json();
@@ -38,21 +38,17 @@
 		}
 	}
 
-	$: content = loadResources(activeUrl ?? '0');
+	$: promise = loadResources(activeUrl ?? '0');
 </script>
 
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
 <!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
 <!-- TODO cloudflare queuesを使用して、非同期でogpを縮小処理してcloudflare r2に格納する　-->
 <!-- TODO client sideで縮小処理するのもありか　-->
-<!-- TODO resourceのDBカラムに掲載許可フラグを追加する　-->
 
 <!-- 以下の項目をリリース前に全て確認する　-->
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
 <!-- TODO 登録パスワードの強度を一定以上にするよう設定する　-->
-
-<!-- TODO データベースschemaの修正　idをintにする autoincrement　-->
-<!-- TODO ユーザーごとに学習状況やそれぞれのリソースに対するメモを作成できるようにする -->
 
 <div class="bg-sky-400 p-8">
 	<h1 id="header">初めての方へ</h1>
@@ -65,12 +61,18 @@
 </div>
 <Tabs style="underline">
 	<TabItem open title="新規投稿"
-		>{#await content}
+		>{#await promise}
 			<ListPlaceholder />
 		{:then resources}
 			{#each resources.rows as resource}
+				<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
 				<div class="mb-4">
-					<Card img={resource.image_url} href="/detail/{resource.id}" horizontal>
+					<Card
+						img={resource.image_url}
+						href="/detail/{resource.id}"
+						horizontal={false}
+						reverse={false}
+					>
 						<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 							{resource.title}
 						</h5>
@@ -83,15 +85,14 @@
 					</Card>
 				</div>
 			{/each}
+			<Pagination pages={generatePages(resources.count)} on:click={handleClick} />
 		{:catch error}
 			<p style="color: red">{error.message}</p>
 		{/await}
 	</TabItem>
 	<TabItem title="自分の投稿">Trend</TabItem>
-	<TabItem title="いいねした投稿">Trend</TabItem>
+	<TabItem title="ブックマークした投稿">Trend</TabItem>
 </Tabs>
-
-<Pagination {pages} />
 
 <style>
 	#header {

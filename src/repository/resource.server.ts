@@ -27,6 +27,11 @@ export async function getResourceById(id: string) {
 	return result?.rows?.[0];
 }
 
+export async function getNumberOfResources() {
+	const result = await conn.execute('select count(id) as count from Resources');
+	return result?.rows?.[0]?.count;
+}
+
 // TODO 関連サイトのリンクを設定できるようにする (optional)
 // vector searchで類似文書を引っ張ってくるのもありか
 export async function registerResource(resource: Resource) {
