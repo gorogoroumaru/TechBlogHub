@@ -6,12 +6,12 @@ export async function getResources(tag: string, page: number) {
 	let result;
 	if (tag.length === 0) {
 		result = await conn.execute(
-			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
+			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
 			[page * 10]
 		);
 	} else {
 		result = await conn.execute(
-			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ?',
+			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ?',
 			[tag]
 		);
 	}
@@ -21,7 +21,7 @@ export async function getResources(tag: string, page: number) {
 
 export async function getResourceById(id: string) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, lang, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ?',
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ?',
 		[id]
 	);
 	return result;
@@ -32,13 +32,13 @@ export async function getResourceById(id: string) {
 export async function registerResource(resource: Resource) {
 	try {
 		const image_url = await getOGPImage(resource.url);
-		await conn.execute(
-			'insert into Resources (id, title, description, url, image_url, user_id) values (?, ?, ?, ?, ?, ?)',
-			[resource.id, resource.title, resource.description, resource.url, image_url, resource.user_id]
+		const result = await conn.execute(
+			'insert into Resources (title, description, url, image_url, user_id, can_publish) values (?, ?, ?, ?, ?, ?)',
+			[resource.title, resource.description, resource.url, image_url, resource.user_id, 0]
 		);
-		return true;
+		return result.insertId;
 	} catch (e) {
-		return false;
+		return -1;
 	}
 }
 

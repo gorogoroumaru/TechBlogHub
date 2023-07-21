@@ -1,8 +1,5 @@
 import { registerResource } from '../../repository/resource.server';
 import { registerTags } from '../../repository/tag.server';
-import { Resource } from '../../model/resource';
-import { Tags } from '../../model/tags';
-import { ulid } from 'ulid';
 import { fail, error } from '@sveltejs/kit';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
@@ -20,9 +17,6 @@ const schema = z.object({
 	user_id: z.string().uuid(),
 	tags: z.array(z.string().max(100, { message: 'タグが長すぎます' }))
 });
-
-// TODO テーブル定義からulidを消す
-// 新規のテーブル定義をcreateして既存のrowsをinsertする
 
 export const actions = {
 	default: async ({ request, locals: { getSession } }) => {
@@ -42,12 +36,13 @@ export const actions = {
 		const user_id = form.data.user_id as string;
 		const tagList = form.data.tags as string[];
 
-		const id = ulid();
+		const resource = { title, description, url, user_id };
 
-		const resource = new Resource({ id, title, description, url, user_id });
-		const tags = new Tags({ resource_id: id, tags: tagList });
+		const result = await registerResource(resource);
+		const id = Number(result);
+		if (id === -1) return fail(400);
 
-		await registerResource(resource);
+		const tags = { tags: tagList, resource_id: id };
 		await registerTags(tags);
 
 		return { form };
