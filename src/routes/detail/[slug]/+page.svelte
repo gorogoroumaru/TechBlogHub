@@ -92,7 +92,7 @@
 			<form>
 				<Textarea class="mb-4" placeholder="このリソースに対するメモを入力できます">
 					<div slot="footer" class="flex items-center justify-between">
-						<Button type="submit" class="bg-sky-500">メモを送信</Button>
+						<Button type="submit" class="bg-sky-500 hover:bg-sky-700">メモを送信</Button>
 						<Toolbar embedded>
 							<ToolbarButton name="Attach file"
 								><svg

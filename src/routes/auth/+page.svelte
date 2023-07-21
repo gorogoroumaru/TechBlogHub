@@ -93,7 +93,9 @@
 						>に同意する</Checkbox
 					>
 				</div>
-				<Button type="submit" class="w-full1 bg-sky-500">アカウントを作成する</Button>
+				<Button type="submit" class="w-full1 bg-sky-500 hover:bg-sky-700"
+					>アカウントを作成する</Button
+				>
 				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
 					すでにアカウントをお持ちですか？ <a
 						href="/"
