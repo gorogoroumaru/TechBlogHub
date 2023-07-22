@@ -31,6 +31,7 @@
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
 <!-- TODO 登録パスワードの強度を一定以上にするよう設定する　-->
 
+<title>StudyFrontierのトップページ</title>
 <div class="bg-sky-400 p-8">
 	<Heading tag="h2" class="mb-4">初めての方へ</Heading>
 	<P>
@@ -40,8 +41,12 @@
 		様々なジャンルに分類された良質な学習リソースを提供し、お気に入りのブログを追加して管理したり、学習の進捗をトラッキングしたり、メモを記録したりすることができます。
 	</P>
 </div>
-<Tabs style="underline">
-	<TabItem open title="新規投稿">
+<Tabs class="mt-2 mx-2">
+	<TabItem
+		open
+		title="新規投稿"
+		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+	>
 		{#each data.resource as resource}
 			<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
 			<div class="mb-4">
@@ -65,7 +70,10 @@
 		{/each}
 		<Pagination pages={generatePages(data.count)} on:click={handleClick} />
 	</TabItem>
-	<TabItem title="自分の投稿">
+	<TabItem
+		title="自分の投稿"
+		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+	>
 		{#each data.resourceByTheUser as resource}
 			<div class="mb-4">
 				<Card
@@ -86,9 +94,12 @@
 				</Card>
 			</div>
 		{/each}
-		<Pagination pages={generatePages(data.count)} on:click={handleClick} />
+		<Pagination pages={generatePages(data.userResourceCount)} on:click={handleClick} />
 	</TabItem>
-	<TabItem title="ブックマークした投稿">
+	<TabItem
+		title="ブックマークした投稿"
+		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+	>
 		{#each data.bookmarks as resource}
 			<div class="mb-4">
 				<Card
@@ -109,6 +120,6 @@
 				</Card>
 			</div>
 		{/each}
-		<Pagination pages={generatePages(data.count)} on:click={handleClick} />
+		<Pagination pages={generatePages(data.bookmarkCount)} on:click={handleClick} />
 	</TabItem>
 </Tabs>
