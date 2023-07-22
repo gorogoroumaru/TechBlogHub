@@ -2,20 +2,29 @@ import { conn } from './dbconnect.server';
 import type { Resource } from '../model/resource';
 import * as htmlparser2 from 'htmlparser2';
 
-export async function getResources(tag: string, page: number) {
-	let result;
-	if (tag.length === 0) {
-		result = await conn.execute(
-			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
-			[page * 10]
-		);
-	} else {
-		result = await conn.execute(
-			'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ?',
-			[tag]
-		);
-	}
+export async function getResources(page: number) {
+	const result = await conn.execute(
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
+		[page * 10]
+	);
 
+	return result?.rows;
+}
+
+export async function getResourceByTag(tag: string, page: number) {
+	const result = await conn.execute(
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ? limit 10 offset ?',
+		[tag, page * 10]
+	);
+
+	return result?.rows;
+}
+
+export async function getResourceByKeyword(keyword: string, page: number) {
+	const result = await conn.execute(
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where match(`title`, `description`) against(?) limit 10 offset ?',
+		[keyword, page * 10]
+	);
 	return result?.rows;
 }
 
@@ -25,6 +34,14 @@ export async function getResourceById(id: string) {
 		[id]
 	);
 	return result?.rows?.[0];
+}
+
+export async function getResourceByUser(user_id: string, page: number) {
+	const result = await conn.execute(
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where user_id = ? limit 10 offset ?',
+		[user_id, page * 10]
+	);
+	return result.rows;
 }
 
 export async function getNumberOfResources() {
