@@ -44,6 +44,14 @@ export async function getResourceByUser(user_id: string, page: number) {
 	return result.rows;
 }
 
+export async function getUserBookmarks(user_id: string, page: number) {
+	const result = await conn.execute(
+		'select rs.id, title, description, url, image_url, rs.created_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where rs.user_id = ? limit 10 offset ?',
+		[user_id, page * 10]
+	);
+	return result.rows;
+}
+
 export async function getNumberOfResources() {
 	const result = await conn.execute('select count(id) as count from Resources');
 	return result?.rows?.[0]?.count;

@@ -1,7 +1,8 @@
 import {
 	getResources,
 	getNumberOfResources,
-	getResourceByUser
+	getResourceByUser,
+	getUserBookmarks
 } from '../repository/resource.server';
 
 export async function load({ url, locals: { getSession } }) {
@@ -11,9 +12,10 @@ export async function load({ url, locals: { getSession } }) {
 	const param = url.searchParams.get('page') ?? '0';
 	const page = Number(param);
 
-	let resourceByTheUser;
+	let resourceByTheUser, bookmarks;
 	if (user_id.length > 0) {
 		resourceByTheUser = await getResourceByUser(user_id, page);
+		bookmarks = await getUserBookmarks(user_id, page);
 	}
 
 	const resource = await getResources(page);
@@ -24,6 +26,7 @@ export async function load({ url, locals: { getSession } }) {
 	return {
 		resourceByTheUser,
 		resource,
+		bookmarks,
 		count
 	};
 }

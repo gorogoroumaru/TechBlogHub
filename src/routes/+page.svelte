@@ -3,8 +3,6 @@
 
 	export let data;
 
-	// TODO 自分の投稿やブックマークした投稿をフィルタできるようにする
-
 	let currentPage: number = 0;
 
 	function generatePages(len: number) {
@@ -90,5 +88,27 @@
 		{/each}
 		<Pagination pages={generatePages(data.count)} on:click={handleClick} />
 	</TabItem>
-	<TabItem title="ブックマークした投稿">Trend</TabItem>
+	<TabItem title="ブックマークした投稿">
+		{#each data.bookmarks as resource}
+			<div class="mb-4">
+				<Card
+					img={resource.image_url}
+					href="/detail/{resource.id}"
+					horizontal={false}
+					reverse={false}
+				>
+					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+						{resource.title}
+					</h5>
+					<span class="mt-4 mb-8 text-xs text-gray-900 dark:text-white">
+						{resource.tag_name} / {resource.created_at}
+					</span>
+					<p class="font-normal text-gray-700 dark:text-gray-400 leading-tight truncate">
+						{resource.description}
+					</p>
+				</Card>
+			</div>
+		{/each}
+		<Pagination pages={generatePages(data.count)} on:click={handleClick} />
+	</TabItem>
 </Tabs>
