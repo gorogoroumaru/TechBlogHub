@@ -15,7 +15,7 @@ export async function load({ url, locals: { getSession } }) {
 	const page = Number(param);
 
 	let resourceByTheUser, bookmarks;
-	if (user_id.length > 0) {
+	if (user_id?.length > 0) {
 		resourceByTheUser = await getResourceByUser(user_id, page);
 		bookmarks = await getUserBookmarks(user_id, page);
 	}
