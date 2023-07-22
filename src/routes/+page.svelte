@@ -31,7 +31,9 @@
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
 <!-- TODO 登録パスワードの強度を一定以上にするよう設定する　-->
 
-<title>StudyFrontierのトップページ</title>
+<svelte:head>
+	<title>StudyFrontierのトップページ</title>
+</svelte:head>
 <div class="bg-sky-400 p-8">
 	<Heading tag="h2" class="mb-4">初めての方へ</Heading>
 	<P>
