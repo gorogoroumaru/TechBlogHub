@@ -1,6 +1,6 @@
 import { conn } from './dbconnect.server';
 import type { Resource } from '../model/resource';
-import * as htmlparser2 from 'htmlparser2';
+import { getOGPImage } from '../utils/getOGPImage';
 
 export async function getResources(page: number) {
 	const result = await conn.execute(
@@ -57,6 +57,22 @@ export async function getNumberOfResources() {
 	return result?.rows?.[0]?.count;
 }
 
+export async function getNumberOfResourcesByUser(user_id: string) {
+	const result = await conn.execute(
+		'select count(rs.id) as count from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where user_id = ?',
+		[user_id]
+	);
+	return result?.rows?.[0]?.count;
+}
+
+export async function getNumberOfBookmarks(user_id: string) {
+	const result = await conn.execute(
+		'select count(rs.id) as count from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where rs.user_id = ?',
+		[user_id]
+	);
+	return result?.rows?.[0]?.count;
+}
+
 // TODO 関連サイトのリンクを設定できるようにする (optional)
 // vector searchで類似文書を引っ張ってくるのもありか
 export async function registerResource(resource: Resource) {
@@ -69,32 +85,5 @@ export async function registerResource(resource: Resource) {
 		return result.insertId;
 	} catch (e) {
 		return -1;
-	}
-}
-
-async function getOGPImage(url: string) {
-	try {
-		let image_url;
-		const response = await fetch(url);
-		const html = await response.text();
-
-		const parser = new htmlparser2.Parser(
-			{
-				onopentag(name, attributes) {
-					if (name === 'meta' && attributes.property === 'og:image') {
-						image_url = attributes.content;
-					}
-				}
-			},
-			{ decodeEntities: true }
-		);
-
-		parser.write(html);
-		parser.end();
-
-		return image_url;
-	} catch (error) {
-		console.error('Error:', error);
-		return '';
 	}
 }

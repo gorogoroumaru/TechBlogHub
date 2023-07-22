@@ -2,7 +2,9 @@ import {
 	getResources,
 	getNumberOfResources,
 	getResourceByUser,
-	getUserBookmarks
+	getUserBookmarks,
+	getNumberOfBookmarks,
+	getNumberOfResourcesByUser
 } from '../repository/resource.server';
 
 export async function load({ url, locals: { getSession } }) {
@@ -20,13 +22,16 @@ export async function load({ url, locals: { getSession } }) {
 
 	const resource = await getResources(page);
 
-	// TODO userでフィルタした時のカウントも取得
 	const count = await getNumberOfResources();
+	const bookmarkCount = await getNumberOfBookmarks(user_id);
+	const userResourceCount = await getNumberOfResourcesByUser(user_id);
 
 	return {
 		resourceByTheUser,
 		resource,
 		bookmarks,
-		count
+		count,
+		bookmarkCount,
+		userResourceCount
 	};
 }
