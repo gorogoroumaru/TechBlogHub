@@ -33,23 +33,11 @@
 			<form class="flex flex-col space-y-6" on:submit={handleSignIn}>
 				<Label class="space-y-2">
 					<span>Email</span>
-					<Input
-						type="email"
-						name="email"
-						placeholder="name@company.com"
-						required
-						bind:value={email}
-					/>
+					<Input type="email" placeholder="name@company.com" required bind:value={email} />
 				</Label>
 				<Label class="space-y-2">
 					<span>Your password</span>
-					<Input
-						type="password"
-						name="password"
-						placeholder="•••••"
-						required
-						bind:value={password}
-					/>
+					<Input type="password" placeholder="•••••" required bind:value={password} />
 				</Label>
 				<div class="flex items-start">
 					<a
