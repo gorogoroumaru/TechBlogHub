@@ -55,7 +55,7 @@
 						goto('/auth/login');
 						return;
 					}
-					goto('/auth/register');
+					goto('/register');
 				}}
 			>
 				{user_id ? '記事投稿' : 'ログイン'}
