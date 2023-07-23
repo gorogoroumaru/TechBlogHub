@@ -62,16 +62,17 @@
 				</dl>
 			</div>
 
-			<div class="mt-6">
-				<ul class="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
-					<li class="flex items-center font-medium whitespace-nowrap px-5 mt-6">
-						<div class="text-sm leading-4">
-							<!-- TODO user名を表示-->
-							<div class="text-slate-900 dark:text-slate-200">Adam Wathan</div>
-						</div>
-					</li>
-				</ul>
-			</div>
+			{#if data.user_name}
+				<div class="mt-6">
+					<ul class="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
+						<li class="flex items-center font-medium whitespace-nowrap px-5 mt-6">
+							<div class="text-sm leading-4">
+								<div class="text-slate-900 dark:text-slate-200">@{data.user_name}</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			{/if}
 
 			<div class="mt-12 prose prose-slate dark:prose-dark">
 				<p>
@@ -87,7 +88,7 @@
 			<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 ({data.memos.length})</h3>
 
 			{#each data.memos as memo}
-				<!-- TODO zennのscrap風に表示する　-->
+				<!-- TODO dev.toのコメントあるいはzennのscrap風に表示する　-->
 				<p class="px-2 mb-4">
 					{memo}
 				</p>
@@ -96,7 +97,9 @@
 			<form method="POST" action="?/submitMemo">
 				<Textarea class="mb-4" placeholder="メモを入力" name="memo" id="memo">
 					<div slot="footer" class="flex items-center justify-between">
-						<Button type="submit" class="bg-sky-500 hover:bg-sky-700">メモを送信</Button>
+						<Button type="submit" class="bg-sky-500 hover:bg-sky-700" on:click|once
+							>メモを送信</Button
+						>
 					</div>
 				</Textarea>
 				<div class="hidden">

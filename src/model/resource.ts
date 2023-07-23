@@ -3,4 +3,5 @@ export interface Resource {
 	description: string;
 	url: string;
 	user_id: string;
+	user_name: string;
 }

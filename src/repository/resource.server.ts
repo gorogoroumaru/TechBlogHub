@@ -30,7 +30,7 @@ export async function getResourceByKeyword(keyword: string, page: number) {
 
 export async function getResourceById(id: string) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ?',
+		'select rs.id, title, description, url, image_url, user_id, user_name, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ?',
 		[id]
 	);
 	return result?.rows?.[0];
@@ -79,8 +79,16 @@ export async function registerResource(resource: Resource) {
 	try {
 		const image_url = await getOGPImage(resource.url);
 		const result = await conn.execute(
-			'insert into Resources (title, description, url, image_url, user_id, can_publish) values (?, ?, ?, ?, ?, ?)',
-			[resource.title, resource.description, resource.url, image_url, resource.user_id, 0]
+			'insert into Resources (title, description, url, image_url, user_id, user_name, can_publish) values (?, ?, ?, ?, ?, ?, ?)',
+			[
+				resource.title,
+				resource.description,
+				resource.url,
+				image_url,
+				resource.user_id,
+				resource.user_name,
+				0
+			]
 		);
 		return result.insertId;
 	} catch (e) {

@@ -19,11 +19,20 @@ const schema = z.object({
 });
 
 export const actions = {
-	default: async ({ request, locals: { getSession } }) => {
+	default: async ({ request, locals: { getSession, supabase } }) => {
 		const session = await getSession();
 		if (!session) {
 			throw error(401, { message: 'Unauthorized' });
 		}
+
+		const {
+			data: { user }
+		} = await supabase.auth.getUser();
+		if (!user) {
+			throw error(401, { message: 'Cannot get user info' });
+		}
+		const metadata = user.user_metadata;
+		const user_name = metadata.user_name;
 
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
@@ -36,7 +45,7 @@ export const actions = {
 		const user_id = form.data.user_id as string;
 		const tagList = form.data.tags as string[];
 
-		const resource = { title, description, url, user_id };
+		const resource = { title, description, url, user_id, user_name };
 
 		const result = await registerResource(resource);
 		const id = Number(result);
