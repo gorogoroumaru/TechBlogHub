@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Button, Checkbox, Label, Input, Helper } from 'flowbite-svelte';
+	import { passwordStrength } from 'check-password-strength';
 
 	export let data;
 	let { supabase } = data;
@@ -13,13 +14,18 @@
 
 	let message: string;
 
-	// https://supabase.com/docs/guides/auth/managing-user-data#accessing-user-metadata
-
 	const handleSignUp = async () => {
 		if (password !== passwordConfirm) {
 			message = 'パスワードが一致しませんでした';
 			return;
 		}
+		const strength = passwordStrength(password);
+		if (strength.value == 'Too weak' || strength.value == 'Weak') {
+			message =
+				'パスワードをもっと複雑にして下さい (大文字、小文字、数字、記号を組み合わせて８文字以上)';
+			return;
+		}
+
 		const { error } = await supabase.auth.signUp({
 			email,
 			password,
@@ -34,7 +40,7 @@
 		console.log(error);
 
 		if (!error) {
-			goto('/');
+			goto('/auth/registerSuccess');
 		}
 	};
 </script>
@@ -51,40 +57,22 @@
 			<form class="flex flex-col space-y-6" on:submit={handleSignUp}>
 				<Label class="space-y-2">
 					<span>ユーザー名</span>
-					<Input name="user_name" placeholder="ユーザー名" required bind:value={user_name} />
+					<Input placeholder="ユーザー名" required bind:value={user_name} />
 				</Label>
 				<Label class="space-y-2">
 					<span>メールアドレス</span>
-					<Input
-						type="email"
-						name="email"
-						placeholder="name@company.com"
-						required
-						bind:value={email}
-					/>
+					<Input type="email" placeholder="name@company.com" required bind:value={email} />
 				</Label>
 				<Label class="space-y-2">
 					<span>パスワード</span>
-					<Input
-						type="password"
-						name="password"
-						placeholder="•••••"
-						required
-						bind:value={password}
-					/>
-				</Label>
-				<Label class="space-y-2">
-					<span>パスワード確認</span>
-					<Input
-						type="password"
-						name="confirm-password"
-						placeholder="•••••"
-						required
-						bind:value={passwordConfirm}
-					/>
+					<Input type="password" placeholder="•••••" required bind:value={password} />
 					{#if message}<Helper class="mt-2" color="red"
 							><span class="font-medium">{message}</span></Helper
 						>{/if}
+				</Label>
+				<Label class="space-y-2">
+					<span>パスワード確認</span>
+					<Input type="password" placeholder="•••••" required bind:value={passwordConfirm} />
 				</Label>
 				<div class="flex items-start">
 					<Checkbox>
