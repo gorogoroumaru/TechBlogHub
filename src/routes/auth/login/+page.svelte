@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Button, Checkbox, Label, Input, Card } from 'flowbite-svelte';
+	import { Button, Label, Input, Card } from 'flowbite-svelte';
 
 	export let data;
 	let { supabase } = data;
@@ -52,7 +52,9 @@
 					/>
 				</Label>
 				<div class="flex items-start">
-					<a href="/" class="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500"
+					<a
+						href="/auth/forgotPassword"
+						class="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500"
 						>パスワードを忘れた方はこちら</a
 					>
 				</div>
@@ -61,7 +63,7 @@
 				>
 				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
 					初めての方はこちら <a
-						href="/auth"
+						href="/auth/register"
 						class="text-primary-700 hover:underline dark:text-primary-500">ユーザー登録</a
 					>
 				</div>

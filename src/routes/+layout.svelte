@@ -52,10 +52,10 @@
 				class="mx-4 bg-sky-500 hover:bg-sky-700"
 				on:click={() => {
 					if (!user_id) {
-						goto('/login');
+						goto('/auth/login');
 						return;
 					}
-					goto('/register');
+					goto('/auth/register');
 				}}
 			>
 				{user_id ? '記事投稿' : 'ログイン'}

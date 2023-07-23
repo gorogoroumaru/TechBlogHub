@@ -93,7 +93,7 @@
 						>に同意する</Checkbox
 					>
 				</div>
-				<Button type="submit" class="w-full1 bg-sky-500 hover:bg-sky-700"
+				<Button type="submit" class="w-full1 bg-sky-500 hover:bg-sky-700" on:click|once
 					>アカウントを作成する</Button
 				>
 				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
