@@ -4,7 +4,7 @@ import { getOGPImage } from '../utils/getOGPImage';
 
 export async function getResources(page: number) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id limit 10 offset ?',
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id group by rs.id limit 10 offset ?',
 		[page * 10]
 	);
 
@@ -13,7 +13,7 @@ export async function getResources(page: number) {
 
 export async function getResourceByTag(tag: string, page: number) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ? limit 10 offset ?',
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ? group by rs.id limit 10 offset ?',
 		[tag, page * 10]
 	);
 
@@ -22,7 +22,7 @@ export async function getResourceByTag(tag: string, page: number) {
 
 export async function getResourceByKeyword(keyword: string, page: number) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where match(`title`, `description`) against(?) limit 10 offset ?',
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where match(`title`, `description`) against(?) group by rs.id limit 10 offset ?',
 		[keyword, page * 10]
 	);
 	return result?.rows;
@@ -30,7 +30,7 @@ export async function getResourceByKeyword(keyword: string, page: number) {
 
 export async function getResourceById(id: string) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, user_id, user_name, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ?',
+		'select rs.id, title, description, url, image_url, user_id, user_name, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ? group by rs.id',
 		[id]
 	);
 	return result?.rows?.[0];
@@ -38,7 +38,7 @@ export async function getResourceById(id: string) {
 
 export async function getResourceByUser(user_id: string, page: number) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where user_id = ? limit 10 offset ?',
+		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where user_id = ? group by rs.id limit 10 offset ?',
 		[user_id, page * 10]
 	);
 	return result.rows;
@@ -46,7 +46,7 @@ export async function getResourceByUser(user_id: string, page: number) {
 
 export async function getUserBookmarks(user_id: string, page: number) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, rs.created_at, t.tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where rs.user_id = ? limit 10 offset ?',
+		'select rs.id, title, description, url, image_url, rs.created_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where rs.user_id = ? group by rs.id limit 10 offset ?',
 		[user_id, page * 10]
 	);
 	return result.rows;
@@ -59,7 +59,7 @@ export async function getNumberOfResources() {
 
 export async function getNumberOfResourcesByUser(user_id: string) {
 	const result = await conn.execute(
-		'select count(rs.id) as count from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where user_id = ?',
+		'select count(*) as count from (select count(rs.id), group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where user_id = ? group by rs.id) tmp;',
 		[user_id]
 	);
 	return result?.rows?.[0]?.count;
