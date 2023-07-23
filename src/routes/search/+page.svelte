@@ -15,6 +15,8 @@
 	let tag = '';
 	let tagName = '';
 	let keyword = '';
+
+	let dropdownOpen = false;
 </script>
 
 <div class="searchbar">
@@ -26,12 +28,14 @@
 			>
 				<Chevron>{tag.length > 0 ? tagName : '全てのカテゴリ'}</Chevron>
 			</Button>
-			<Dropdown>
+			<Dropdown bind:open={dropdownOpen}>
 				{#each fields as field}
 					<DropdownItem
 						on:click={() => {
 							tag = field.value;
 							tagName = field.name;
+
+							dropdownOpen = false;
 						}}>{field.name}</DropdownItem
 					>
 				{/each}
