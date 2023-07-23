@@ -88,10 +88,12 @@
 			<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 ({data.memos.length})</h3>
 
 			{#each data.memos as memo}
-				<!-- TODO dev.toのコメントあるいはzennのscrap風に表示する　-->
-				<p class="px-2 mb-4">
-					{memo}
-				</p>
+				<div class="px-2 mb-4">
+					<time class="text-sm text-gray-500">{memo.created_at}</time>
+					<p class="leading-relaxed">
+						{memo.content}
+					</p>
+				</div>
 			{/each}
 
 			<form method="POST" action="?/submitMemo">
