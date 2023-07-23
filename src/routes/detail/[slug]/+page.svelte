@@ -2,6 +2,7 @@
 	import { Textarea, Button, Badge, Input, Hr, A } from 'flowbite-svelte';
 
 	export let data;
+	const user_id = data.session?.user.id as string;
 </script>
 
 <div class="px-4 sm:px-6 md:px-8">
@@ -83,31 +84,33 @@
 
 		<A href={data.url} class="mt-12 text-sky-500">元サイトに移動</A>
 
-		<Hr class="my-12" />
-		<div>
-			<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 ({data.memos.length})</h3>
+		{#if user_id}
+			<Hr class="my-12" />
+			<div>
+				<h3 class="px-2 mb-8 text-xl font-bold">メモ一覧 ({data.memos.length})</h3>
 
-			{#each data.memos as memo}
-				<div class="px-2 mb-4">
-					<time class="text-sm text-gray-500">{memo.created_at}</time>
-					<p class="leading-relaxed">
-						{memo.content}
-					</p>
-				</div>
-			{/each}
-
-			<form method="POST" action="?/submitMemo">
-				<Textarea class="mb-4" placeholder="メモを入力" name="memo" id="memo">
-					<div slot="footer" class="flex items-center justify-between">
-						<Button type="submit" class="bg-sky-500 hover:bg-sky-700" on:click|once
-							>メモを送信</Button
-						>
+				{#each data.memos as memo}
+					<div class="px-2 mb-4">
+						<time class="text-sm text-gray-500">{memo.created_at}</time>
+						<p class="leading-relaxed">
+							{memo.content}
+						</p>
 					</div>
-				</Textarea>
-				<div class="hidden">
-					<Input value={data.id} name="resource_id" id="resource_id" />
-				</div>
-			</form>
-		</div>
+				{/each}
+
+				<form method="POST" action="?/submitMemo">
+					<Textarea class="mb-4" placeholder="メモを入力" name="memo" id="memo">
+						<div slot="footer" class="flex items-center justify-between">
+							<Button type="submit" class="bg-sky-500 hover:bg-sky-700" on:click|once
+								>メモを送信</Button
+							>
+						</div>
+					</Textarea>
+					<div class="hidden">
+						<Input value={data.id} name="resource_id" id="resource_id" />
+					</div>
+				</form>
+			</div>
+		{/if}
 	</div>
 </div>
