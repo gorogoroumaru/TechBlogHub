@@ -49,14 +49,15 @@
 		title="新規投稿"
 		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 	>
-		{#each data.resource as resource}
-			<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
-			<div class="mb-4">
+		<div class="mb-4 flex flex-row flex-wrap">
+			{#each data.resource as resource}
+				<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
 				<Card
 					img={resource.image_url}
 					href="/detail/{resource.id}"
 					horizontal={false}
 					reverse={false}
+					class="mx-2 my-2"
 				>
 					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 						{resource.title}
@@ -68,21 +69,22 @@
 						{resource.description}
 					</p>
 				</Card>
-			</div>
-		{/each}
+			{/each}
+		</div>
 		<Pagination pages={generatePages(data.count)} on:click={handleClick} />
 	</TabItem>
 	<TabItem
 		title="自分の投稿"
 		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 	>
-		{#each data.resourceByTheUser as resource}
-			<div class="mb-4">
+		<div class="mb-4 flex flex-row flex-wrap">
+			{#each data.resourceByTheUser as resource}
 				<Card
 					img={resource.image_url}
 					href="/detail/{resource.id}"
 					horizontal={false}
 					reverse={false}
+					class="mx-2 my-2"
 				>
 					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 						{resource.title}
@@ -94,21 +96,22 @@
 						{resource.description}
 					</p>
 				</Card>
-			</div>
-		{/each}
+			{/each}
+		</div>
 		<Pagination pages={generatePages(data.userResourceCount)} on:click={handleClick} />
 	</TabItem>
 	<TabItem
 		title="ブックマークした投稿"
 		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 	>
-		{#each data.bookmarks as resource}
-			<div class="mb-4">
+		<div class="mb-4 flex flex-row flex-wrap">
+			{#each data.bookmarks as resource}
 				<Card
 					img={resource.image_url}
 					href="/detail/{resource.id}"
 					horizontal={false}
 					reverse={false}
+					class="mx-2 my-2"
 				>
 					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 						{resource.title}
@@ -120,8 +123,8 @@
 						{resource.description}
 					</p>
 				</Card>
-			</div>
-		{/each}
+			{/each}
+		</div>
 		<Pagination pages={generatePages(data.bookmarkCount)} on:click={handleClick} />
 	</TabItem>
 </Tabs>
