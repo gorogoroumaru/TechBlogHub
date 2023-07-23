@@ -86,7 +86,7 @@
 				>
 				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
 					すでにアカウントをお持ちですか？ <a
-						href="/"
+						href="/auth/login"
 						class="font-medium text-primary-600 hover:underline dark:text-primary-500"
 						>こちらからログインして下さい</a
 					>
