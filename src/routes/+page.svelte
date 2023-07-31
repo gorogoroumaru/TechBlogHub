@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Tabs, TabItem, Card, Pagination, Heading, P } from 'flowbite-svelte';
+	import { Tabs, TabItem, Card, Pagination, Heading, P, Badge } from 'flowbite-svelte';
 
 	export let data;
 
@@ -26,6 +26,7 @@
 <!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
 <!-- TODO cloudflare queuesを使用して、非同期でsharpを使ってogpを縮小処理してcloudflare r2に格納する　-->
 <!-- TODO client sideで縮小処理するのもありか　-->
+<!-- TODO 関連リンクの設定　-->
 
 <!-- 以下の項目をリリース前に全て確認する　-->
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
@@ -36,7 +37,7 @@
 <div class="bg-sky-400 p-8">
 	<Heading tag="h2" class="mb-4">初めての方へ</Heading>
 	<P>
-		StudyFrontierは、プログラミング初学者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
+		StudyFrontierは、プログラミング学習者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
 	</P>
 	<P>様々なジャンルに分類された良質な学習リソースを提供します。</P>
 	<P>
@@ -62,9 +63,14 @@
 					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 						{resource.title}
 					</h5>
-					<span class="mt-4 mb-8 text-xs text-gray-900 dark:text-white">
-						{resource.tag_name} / {resource.created_at}
-					</span>
+					<p class="mt-4 text-xs text-gray-900 dark:text-white">
+						{resource.created_at}
+					</p>
+					<div>
+						{#each resource.tag_name.split(',') as tag}
+							<Badge class="mt-2 mb-4 mr-1">{tag}</Badge>
+						{/each}
+					</div>
 					<p class="font-normal text-gray-700 dark:text-gray-400 leading-tight truncate">
 						{resource.description}
 					</p>
