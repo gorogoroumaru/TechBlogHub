@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Badge, Card } from 'flowbite-svelte';
-	import type { Resource } from '../model/resource';
+	import type { Resource } from '../types/resource';
 	import placeholderImg from '../placeholder.png';
 	export let resource: Resource;
 </script>

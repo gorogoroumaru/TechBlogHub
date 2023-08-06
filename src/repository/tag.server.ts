@@ -1,5 +1,5 @@
 import { conn } from './dbconnect.server';
-import type { Tags } from '../model/tags';
+import type { Tags } from '../types/tags';
 
 export async function registerTags(tags: Tags) {
 	try {
