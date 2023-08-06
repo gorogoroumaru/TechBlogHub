@@ -1,5 +1,5 @@
 import { conn } from './dbconnect.server';
-import type { Resource } from '../model/resource';
+import type { ResourceParams, Resource } from '../types/resource';
 import { getOGPImage } from '../utils/getOGPImage';
 
 export async function getResources(page: number) {
@@ -16,8 +16,8 @@ export async function getResourceByTag(tag: string, page: number) {
 		'select rs.id, title, description, url, image_url, user_id, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where t.tag_name = ? group by rs.id limit 10 offset ?',
 		[tag, page * 10]
 	);
-
-	return result?.rows;
+	const rows = result?.rows as Resource[];
+	return rows;
 }
 
 export async function getResourceByKeyword(keyword: string, page: number) {
@@ -33,7 +33,8 @@ export async function getResourceById(id: string) {
 		'select rs.id, title, description, url, image_url, user_id, user_name, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id = ? group by rs.id',
 		[id]
 	);
-	return result?.rows?.[0];
+	const row = result?.rows?.[0] as Resource;
+	return row;
 }
 
 export async function getResourceByUser(user_id: string, page: number) {
@@ -54,7 +55,8 @@ export async function getUserBookmarks(user_id: string, page: number) {
 
 export async function getNumberOfResources() {
 	const result = await conn.execute('select count(id) as count from Resources');
-	return result?.rows?.[0]?.count;
+	const row = result?.rows?.[0] as { count: string };
+	return row?.count;
 }
 
 export async function getNumberOfResourcesByUser(user_id: string) {
@@ -62,7 +64,8 @@ export async function getNumberOfResourcesByUser(user_id: string) {
 		'select count(*) as count from (select count(rs.id), group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where user_id = ? group by rs.id) tmp;',
 		[user_id]
 	);
-	return result?.rows?.[0]?.count;
+	const row = result?.rows?.[0] as { count: string };
+	return row?.count;
 }
 
 export async function getNumberOfBookmarks(user_id: string) {
@@ -70,12 +73,13 @@ export async function getNumberOfBookmarks(user_id: string) {
 		'select count(rs.id) as count from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where rs.user_id = ?',
 		[user_id]
 	);
-	return result?.rows?.[0]?.count;
+	const row = result?.rows?.[0] as { count: string };
+	return row?.count;
 }
 
 // TODO 関連サイトのリンクを設定できるようにする (optional)
 // vector searchで類似文書を引っ張ってくるのもありか
-export async function registerResource(resource: Resource) {
+export async function registerResource(resource: ResourceParams) {
 	try {
 		const image_url = await getOGPImage(resource.url);
 		const result = await conn.execute(
