@@ -26,7 +26,7 @@
 
 <!-- SuperDebug data={$form} / -->
 
-<div class="m-2">
+<div class="m-8">
 	<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">学習リソースを投稿する</h2>
 	<form method="POST" use:enhance>
 		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
