@@ -1,14 +1,7 @@
 <script lang="ts">
-	import {
-		Input,
-		ButtonGroup,
-		Button,
-		Chevron,
-		Dropdown,
-		DropdownItem,
-		Card
-	} from 'flowbite-svelte';
+	import { Input, ButtonGroup, Button, Chevron, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import { fields } from '../../data/fields';
+	import BlogCard from '../../components/BlogCard.svelte';
 
 	export let form;
 	$: resources = form?.resource || [];
@@ -19,7 +12,7 @@
 	let dropdownOpen = false;
 </script>
 
-<div class="searchbar">
+<div class="m-4">
 	<form method="POST">
 		<ButtonGroup class="w-full mb-5">
 			<Button
@@ -60,31 +53,10 @@
 		<div class="hidden">
 			<Input bind:value={tag} name="tag" id="tag" />
 		</div>
-		{#each resources as resource}
-			<div class="mb-4">
-				<Card
-					img={resource?.image_url}
-					href="/detail/{resource?.id}"
-					horizontal={false}
-					reverse={false}
-				>
-					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-						{resource?.title}
-					</h5>
-					<span class="mt-4 mb-8 text-xs text-gray-900 dark:text-white">
-						{resource?.tag_name} / {resource?.created_at}
-					</span>
-					<p class="font-normal text-gray-700 dark:text-gray-400 leading-tight truncate">
-						{resource?.description}
-					</p>
-				</Card>
-			</div>
-		{/each}
+		<div class="mb-4 flex flex-row flex-wrap">
+			{#each resources as resource}
+				<BlogCard {resource} />
+			{/each}
+		</div>
 	</form>
 </div>
-
-<style>
-	.searchbar {
-		margin: 10px;
-	}
-</style>

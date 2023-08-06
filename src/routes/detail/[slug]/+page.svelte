@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Textarea, Button, Badge, Input, Hr, A } from 'flowbite-svelte';
+	import BookmarkIcon from '../../../components/BookmarkIcon.svelte';
+	import BlogCard from '../../../components/BlogCard.svelte';
 
 	export let data;
 	const user_id = data.session?.user.id as string;
@@ -22,35 +24,7 @@
 						<div class="hidden">
 							<Input value={data.id} name="resource_id" id="resource_id" />
 						</div>
-						{#if data.alreadyBookmarked}
-							<svg
-								class="w-6 h-6 text-gray-800 dark:text-white"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 14 20"
-							>
-								<path
-									d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"
-								/>
-							</svg>
-						{:else}
-							<svg
-								class="w-6 h-6 text-gray-800 dark:text-white"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 14 20"
-							>
-								<path
-									stroke="currentColor"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="m13 19-6-5-6 5V2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17Z"
-								/>
-							</svg>
-						{/if}
+						<BookmarkIcon alreadyBookmarked={data.alreadyBookmarked} />
 					</button>
 				</form>
 			</div>
@@ -110,6 +84,15 @@
 						<Input value={data.id} name="resource_id" id="resource_id" />
 					</div>
 				</form>
+			</div>
+		{/if}
+
+		{#if data.relatedResources.length > 0}
+			<h3 class="px-2 mt-16 mb-8 text-xl font-bold">関連投稿</h3>
+			<div class="mb-4 flex flex-row overflow-x-scroll">
+				{#each data.relatedResources as resource}
+					<BlogCard {resource} />
+				{/each}
 			</div>
 		{/if}
 	</div>

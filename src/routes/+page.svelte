@@ -1,32 +1,20 @@
 <script lang="ts">
-	import { Tabs, TabItem, Card, Pagination, Heading, P, Badge } from 'flowbite-svelte';
+	import { Tabs, TabItem, Heading, P } from 'flowbite-svelte';
+	import BlogCard from '../components/BlogCard.svelte';
+	import Pagination from '../components/Pagination.svelte';
 
 	export let data;
-
-	let currentPage: number = 0;
-
-	function generatePages(len: number) {
-		let pages = [];
-		for (let i = 0; i < Math.ceil(len / 10); i++) {
-			if (i === currentPage) {
-				pages.push({ name: i + 1, href: `/?page=${i}`, active: true });
-			} else {
-				pages.push({ name: i + 1, href: `/?page=${i}`, active: false });
-			}
-		}
-		return pages;
-	}
-
-	function handleClick(event: any) {
-		currentPage = event.target.text - 1;
-	}
 </script>
 
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
 <!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
 <!-- TODO cloudflare queuesを使用して、非同期でsharpを使ってogpを縮小処理してcloudflare r2に格納する　-->
 <!-- TODO client sideで縮小処理するのもありか　-->
-<!-- TODO 関連リンクの設定　-->
+<!-- TODO 記事を評価できるようにする　わかりやすさ　評価コメントも入力できるようにする-->
+<!-- TODO 手作業であらゆるタグを作成し、それぞれの依存関係も作成する　-->
+<!-- TODO タグごとに階層構造を作り、大きな枠のタグが設定されたらより詳細なタグを設定するようユーザーに促す-->
+<!-- TODO 公開設定の適切な処理　公開設定のものは評価できるようにする　-->
+<!-- TODO テスト実装　-->
 
 <!-- 以下の項目をリリース前に全て確認する　-->
 <!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
@@ -45,92 +33,48 @@
 	</P>
 </div>
 <Tabs class="mt-2 mx-2">
-	<TabItem
-		open
-		title="新規投稿"
-		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
-	>
-		<div class="mb-4 flex flex-row flex-wrap">
-			{#each data.resource as resource}
-				<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
-				<Card
-					img={resource.image_url}
-					href="/detail/{resource.id}"
-					horizontal={false}
-					reverse={false}
-					class="mx-2 my-2"
-				>
-					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-						{resource.title}
-					</h5>
-					<p class="mt-4 text-xs text-gray-900 dark:text-white">
-						{resource.created_at}
-					</p>
-					<div>
-						{#each resource.tag_name.split(',') as tag}
-							<Badge class="mt-2 mb-4 mr-1">{tag}</Badge>
-						{/each}
-					</div>
-					<p class="font-normal text-gray-700 dark:text-gray-400 leading-tight truncate">
-						{resource.description}
-					</p>
-				</Card>
-			{/each}
-		</div>
-		<Pagination pages={generatePages(data.count)} on:click={handleClick} />
-	</TabItem>
-	<TabItem
-		title="自分の投稿"
-		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
-	>
-		<div class="mb-4 flex flex-row flex-wrap">
-			{#each data.resourceByTheUser as resource}
-				<Card
-					img={resource.image_url}
-					href="/detail/{resource.id}"
-					horizontal={false}
-					reverse={false}
-					class="mx-2 my-2"
-				>
-					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-						{resource.title}
-					</h5>
-					<span class="mt-4 mb-8 text-xs text-gray-900 dark:text-white">
-						{resource.tag_name} / {resource.created_at}
-					</span>
-					<p class="font-normal text-gray-700 dark:text-gray-400 leading-tight truncate">
-						{resource.description}
-					</p>
-				</Card>
-			{/each}
-		</div>
-		<Pagination pages={generatePages(data.userResourceCount)} on:click={handleClick} />
-	</TabItem>
-	<TabItem
-		title="ブックマークした投稿"
-		activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
-	>
-		<div class="mb-4 flex flex-row flex-wrap">
-			{#each data.bookmarks as resource}
-				<Card
-					img={resource.image_url}
-					href="/detail/{resource.id}"
-					horizontal={false}
-					reverse={false}
-					class="mx-2 my-2"
-				>
-					<h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-						{resource.title}
-					</h5>
-					<span class="mt-4 mb-8 text-xs text-gray-900 dark:text-white">
-						{resource.tag_name} / {resource.created_at}
-					</span>
-					<p class="font-normal text-gray-700 dark:text-gray-400 leading-tight truncate">
-						{resource.description}
-					</p>
-				</Card>
-			{/each}
-		</div>
-		<Pagination pages={generatePages(data.bookmarkCount)} on:click={handleClick} />
-	</TabItem>
+	{#if data?.resource}
+		<TabItem
+			open
+			title="新規投稿"
+			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+		>
+			<div class="mb-4 flex flex-row flex-wrap">
+				{#each data?.resource as resource}
+					<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
+					<BlogCard {resource} />
+				{/each}
+			</div>
+
+			<Pagination numberOfBlogs={data.count} />
+		</TabItem>
+	{/if}
+	{#if data?.resourceByTheUser}
+		<TabItem
+			title="自分の投稿"
+			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+		>
+			<div class="mb-4 flex flex-row flex-wrap">
+				{#each data?.resourceByTheUser as resource}
+					<BlogCard {resource} />
+				{/each}
+			</div>
+
+			<Pagination numberOfBlogs={data.userResourceCount} />
+		</TabItem>
+	{/if}
+	{#if data?.bookmarks}
+		<TabItem
+			title="ブックマークした投稿"
+			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+		>
+			<div class="mb-4 flex flex-row flex-wrap">
+				{#each data?.bookmarks as resource}
+					<BlogCard {resource} />
+				{/each}
+			</div>
+
+			<Pagination numberOfBlogs={data.bookmarkCount} />
+		</TabItem>
+	{/if}
 </Tabs>
