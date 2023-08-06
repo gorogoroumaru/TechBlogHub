@@ -3,18 +3,25 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { fields } from '../../data/fields';
-	import Svelecte from 'svelecte';
+	import Svelecte, { config } from 'svelecte';
 	//import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+
+	const maxTagSelect = 10;
+	config.i18n = {
+		max: (num) => `タグは${num}個まで設定できます`
+	};
 
 	export let data: PageData;
 	const user_id = data.session?.user.id as string;
+
 	const { form, errors, constraints, enhance, capture, restore } = superForm(data.form, {
 		applyAction: true,
 		multipleSubmits: 'prevent',
 		taintedMessage: '本当にこのページを離れますか？ 行った変更が反映されない可能性があります。'
 	});
-
 	export const snapshot = { capture, restore };
+
+	// TODO 難易度のselectを表示　初心者向け、中級者向け、上級者向け　ー　定義も記載
 </script>
 
 <!-- SuperDebug data={$form} / -->
@@ -26,6 +33,7 @@
 			<div class="sm:col-span-2">
 				<Label for="name" class="mb-2">タイトル</Label>
 				<Input
+					class="bg-white"
 					type="text"
 					id="title"
 					name="title"
@@ -42,6 +50,7 @@
 			<div class="sm:col-span-2">
 				<Label for="brand" class="mb-2">URL</Label>
 				<Input
+					class="bg-white"
 					type="text"
 					id="url"
 					name="url"
@@ -63,7 +72,7 @@
 					options={fields}
 					bind:value={$form.tags}
 					multiple
-					max={5}
+					max={maxTagSelect}
 					placeholder="この記事のタグを選択して下さい"
 				/>
 				{#if $errors.tags}<Helper class="mt-2" color="red"
@@ -73,6 +82,7 @@
 			<div class="sm:col-span-2">
 				<Label for="description" class="mb-2">コメント</Label>
 				<Textarea
+					class="bg-white"
 					id="description"
 					placeholder="このリソースに対するコメントを入力して下さい"
 					rows="4"
