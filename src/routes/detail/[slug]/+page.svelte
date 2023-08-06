@@ -2,8 +2,9 @@
 	import { Textarea, Button, Badge, Input, Hr, A } from 'flowbite-svelte';
 	import BookmarkIcon from '../../../components/BookmarkIcon.svelte';
 	import BlogCard from '../../../components/BlogCard.svelte';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 	const user_id = data.session?.user.id as string;
 </script>
 

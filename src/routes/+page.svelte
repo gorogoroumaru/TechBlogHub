@@ -2,8 +2,9 @@
 	import { Tabs, TabItem, Heading, P } from 'flowbite-svelte';
 	import BlogCard from '../components/BlogCard.svelte';
 	import Pagination from '../components/Pagination.svelte';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 </script>
 
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->

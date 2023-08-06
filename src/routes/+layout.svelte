@@ -1,12 +1,13 @@
-<script>
+<script lang="ts">
 	import '../app.postcss';
 
 	import { goto } from '$app/navigation';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, Button } from 'flowbite-svelte';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);

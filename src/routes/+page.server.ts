@@ -6,16 +6,17 @@ import {
 	getNumberOfBookmarks,
 	getNumberOfResourcesByUser
 } from '../repository/resource.server';
+import type { PageServerLoad } from './$types';
 
-export async function load({ url, locals: { getSession } }) {
+export const load = (async ({ url, locals: { getSession } }) => {
 	const session = await getSession();
-	const user_id = session?.user?.id;
+	const user_id = session?.user?.id || '';
 
 	const param = url.searchParams.get('page') ?? '0';
 	const page = Number(param);
 
 	let resourceByTheUser, bookmarks;
-	if (user_id?.length > 0) {
+	if (user_id.length > 0) {
 		resourceByTheUser = await getResourceByUser(user_id, page);
 		bookmarks = await getUserBookmarks(user_id, page);
 	}
@@ -34,4 +35,4 @@ export async function load({ url, locals: { getSession } }) {
 		bookmarkCount,
 		userResourceCount
 	};
-}
+}) satisfies PageServerLoad;

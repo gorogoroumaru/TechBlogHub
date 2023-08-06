@@ -2,8 +2,9 @@
 	import { goto } from '$app/navigation';
 	import { Button, Checkbox, Label, Input, Helper } from 'flowbite-svelte';
 	import { passwordStrength } from 'check-password-strength';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 	let { supabase } = data;
 	$: ({ supabase } = data);
 

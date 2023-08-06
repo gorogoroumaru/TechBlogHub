@@ -1,27 +1,32 @@
-import { getResourceById } from '../../../repository/resource.server';
+import { getResourceById, getResourceByTag } from '../../../repository/resource.server';
 import { checkIfUserHasBookmarked, registerBookmark } from '../../../repository/bookmark.server';
 import { registerMemo, getMemo } from '../../../repository/memo.server';
 import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-export async function load({ params, locals: { getSession } }) {
+export const load = (async ({ params, locals: { getSession } }) => {
 	const resource_id = params.slug;
 	const resource = await getResourceById(resource_id);
 	let alreadyBookmarked = false;
 
 	const session = await getSession();
-	const user_id = session?.user?.id;
+	const user_id = session?.user?.id as string;
 	if (user_id) {
 		alreadyBookmarked = await checkIfUserHasBookmarked(user_id, resource_id);
 	}
 
 	const memos = await getMemo(user_id, resource_id);
 
+	const ret = await getResourceByTag(resource.tag_name, 0);
+	const relatedResources = ret.filter((resource) => resource.id != params.slug);
+
 	return {
 		...resource,
+		relatedResources,
 		alreadyBookmarked,
 		memos
 	};
-}
+}) satisfies PageServerLoad;
 
 export const actions = {
 	saveBookmark: async ({ request, locals: { getSession } }) => {

@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Label, Input, Helper, Button } from 'flowbite-svelte';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 	let { supabase } = data;
 	$: ({ supabase } = data);
 
