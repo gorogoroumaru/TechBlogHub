@@ -5,6 +5,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	$: user_id = data.session?.user.id;
 </script>
 
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
@@ -23,16 +24,18 @@
 <svelte:head>
 	<title>StudyFrontierのトップページ</title>
 </svelte:head>
-<div class="bg-sky-400 p-8">
-	<Heading tag="h2" class="mb-4">初めての方へ</Heading>
-	<P>
-		StudyFrontierは、プログラミング学習者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
-	</P>
-	<P>様々なジャンルに分類された良質な学習リソースを提供します。</P>
-	<P>
-		ユーザー登録するとお気に入りのブログを追加して管理したり、学習の進捗をトラッキングしたり、メモを記録したりすることができます。
-	</P>
-</div>
+{#if !user_id}
+	<div class="bg-sky-200 p-8">
+		<Heading tag="h2" class="mb-4">初めての方へ</Heading>
+		<P>
+			StudyFrontierは、プログラミング学習者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
+		</P>
+		<P>様々なジャンルに分類された良質な学習リソースを提供します。</P>
+		<P>
+			ユーザー登録するとお気に入りのブログを追加して管理したり、学習の進捗をトラッキングしたり、メモを記録したりすることができます。
+		</P>
+	</div>
+{/if}
 <Tabs class="mt-2 mx-2">
 	{#if data?.resource}
 		<TabItem
