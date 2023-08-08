@@ -50,7 +50,7 @@
 			></a
 		>
 		<Button
-			class="mx-4 bg-sky-500 hover:bg-sky-700"
+			class="mx-4 bg-sky-500 hover:bg-sky-700 font-bold"
 			on:click={() => {
 				if (!user_id) {
 					goto('/auth/login');
