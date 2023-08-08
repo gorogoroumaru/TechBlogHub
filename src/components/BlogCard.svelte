@@ -14,7 +14,7 @@
 		src={resource?.image_url ?? placeholderImg}
 		width={200}
 		height={100}
-		alt=""
+		alt="blog ogp"
 	/>
 	<div class="flex flex-col justify-between p-4 leading-normal">
 		<h3 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
