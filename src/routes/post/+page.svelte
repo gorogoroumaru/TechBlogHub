@@ -8,7 +8,7 @@
 
 	const maxTagSelect = 10;
 	config.i18n = {
-		max: (num) => `タグは${num}個まで設定できます`
+		max: (num: number) => `タグは${num}個まで設定できます`
 	};
 
 	export let data: PageData;
