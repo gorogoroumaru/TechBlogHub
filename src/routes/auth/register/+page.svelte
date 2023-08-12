@@ -3,6 +3,7 @@
 	import { Button, Checkbox, Label, Input, Helper } from 'flowbite-svelte';
 	import { passwordStrength } from 'check-password-strength';
 	import type { PageData } from './$types';
+	import { AuthApiError } from '@supabase/supabase-js';
 
 	export let data: PageData;
 	let { supabase } = data;
@@ -12,6 +13,7 @@
 	let email: string;
 	let password: string;
 	let passwordConfirm: string;
+	let signUpError: string;
 
 	let message: string;
 
@@ -27,22 +29,28 @@
 			return;
 		}
 
-		const { error } = await supabase.auth.signUp({
-			email,
-			password,
-			options: {
-				emailRedirectTo: `${location.origin}/auth/callback`,
-				data: {
-					user_name
+		try {
+			const { error } = await supabase.auth.signUp({
+				email,
+				password,
+				options: {
+					emailRedirectTo: `${location.origin}/auth/callback`,
+					data: {
+						user_name
+					}
 				}
+			});
+			if (error) throw error;
+		} catch (error) {
+			if (error instanceof AuthApiError) {
+				signUpError = 'サービスが混み合っています。数分後に再度お試しください。';
+			} else {
+				signUpError = 'サーバーで問題が発生しました。';
 			}
-		});
-
-		console.log(error);
-
-		if (!error) {
-			goto('/auth/registerSuccess');
+			return;
 		}
+
+		goto('/auth/registerSuccess');
 	};
 </script>
 
@@ -82,6 +90,9 @@
 						>に同意する</Checkbox
 					>
 				</div>
+				{#if signUpError}<Helper class="mt-2" color="red"
+						><span class="font-medium">{signUpError}</span></Helper
+					>{/if}
 				<Button type="submit" class="w-full1 bg-sky-500 hover:bg-sky-700" on:click|once
 					>アカウントを作成する</Button
 				>
