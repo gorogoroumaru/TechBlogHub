@@ -14,12 +14,7 @@
 <!-- TODO client sideで縮小処理するのもありか　-->
 <!-- TODO 記事を評価できるようにする　わかりやすさ　評価コメントも入力できるようにする-->
 <!-- TODO 手作業であらゆるタグを作成し、それぞれの依存関係も作成する　-->
-<!-- TODO タグごとに階層構造を作り、大きな枠のタグが設定されたらより詳細なタグを設定するようユーザーに促す-->
 <!-- TODO 公開設定の適切な処理　公開設定のものは評価できるようにする　-->
-<!-- TODO テスト実装　-->
-
-<!-- 以下の項目をリリース前に全て確認する　-->
-<!-- https://blog.flatt.tech/entry/firebase_vulns_10 -->
 
 <svelte:head>
 	<title>StudyFrontierのトップページ</title>
@@ -50,7 +45,7 @@
 				{/each}
 			</div>
 
-			<Pagination numberOfBlogs={data.count} />
+			<Pagination numberOfBlogs={Number(data.count)} />
 		</TabItem>
 	{/if}
 	{#if data?.resourceByTheUser}
@@ -64,7 +59,7 @@
 				{/each}
 			</div>
 
-			<Pagination numberOfBlogs={data.userResourceCount} />
+			<Pagination numberOfBlogs={Number(data.userResourceCount)} />
 		</TabItem>
 	{/if}
 	{#if data?.bookmarks}
@@ -78,7 +73,7 @@
 				{/each}
 			</div>
 
-			<Pagination numberOfBlogs={data.bookmarkCount} />
+			<Pagination numberOfBlogs={Number(data.bookmarkCount)} />
 		</TabItem>
 	{/if}
 </Tabs>
