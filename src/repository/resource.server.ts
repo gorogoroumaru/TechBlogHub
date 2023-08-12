@@ -47,7 +47,7 @@ export async function getResourceByUser(user_id: string, page: number) {
 
 export async function getUserBookmarks(user_id: string, page: number) {
 	const result = await conn.execute(
-		'select rs.id, title, description, url, image_url, rs.created_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where rs.user_id = ? group by rs.id limit 10 offset ?',
+		'select rs.id, title, description, url, image_url, rs.created_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where b.user_id = ? group by rs.id limit 10 offset ?',
 		[user_id, page * 10]
 	);
 	return result.rows;
@@ -70,15 +70,13 @@ export async function getNumberOfResourcesByUser(user_id: string) {
 
 export async function getNumberOfBookmarks(user_id: string) {
 	const result = await conn.execute(
-		'select count(rs.id) as count from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where rs.user_id = ?',
+		'select count(rs.id) as count from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id INNER JOIN Bookmarks as b ON rs.id = b.resource_id where b.user_id = ?',
 		[user_id]
 	);
 	const row = result?.rows?.[0] as { count: string };
 	return row?.count;
 }
 
-// TODO 関連サイトのリンクを設定できるようにする (optional)
-// vector searchで類似文書を引っ張ってくるのもありか
 export async function registerResource(resource: ResourceParams) {
 	try {
 		const image_url = await getOGPImage(resource.url);
