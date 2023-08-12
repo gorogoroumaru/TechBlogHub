@@ -3,19 +3,20 @@ import { checkIfUserHasBookmarked, registerBookmark } from '../../../repository/
 import { registerMemo, getMemo } from '../../../repository/memo.server';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import type { Memo } from '../../../types/memo';
 
 export const load = (async ({ params, locals: { getSession } }) => {
 	const resource_id = params.slug;
 	const resource = await getResourceById(resource_id);
 	let alreadyBookmarked = false;
+	let memos: Memo[] = [];
 
 	const session = await getSession();
 	const user_id = session?.user?.id as string;
 	if (user_id) {
 		alreadyBookmarked = await checkIfUserHasBookmarked(user_id, resource_id);
+		memos = await getMemo(user_id, resource_id);
 	}
-
-	const memos = await getMemo(user_id, resource_id);
 
 	const ret = await getResourceByTag(resource.tag_name, 0);
 	const relatedResources = ret.filter((resource) => resource.id != params.slug);

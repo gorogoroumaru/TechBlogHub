@@ -1,4 +1,5 @@
 import { conn } from './dbconnect.server';
+import type { Memo } from '../types/memo';
 
 export async function registerMemo(memo: string, user_id: string, resource_id: number) {
 	try {
@@ -20,7 +21,8 @@ export async function getMemo(user_id: string, resource_id: string) {
 			'select content, created_at from Memos where user_id = ? and resource_id = ?',
 			[user_id, resource_id]
 		);
-		return result.rows.map((row) => ({ content: row?.content, created_at: row?.created_at }));
+		const rows = result?.rows as Memo[];
+		return rows.map((row) => ({ content: row?.content, created_at: row?.created_at }));
 	} catch (e) {
 		return [];
 	}
