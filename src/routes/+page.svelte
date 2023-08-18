@@ -38,7 +38,7 @@
 			title="新規投稿"
 			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 		>
-			<div class="mb-4 flex flex-row flex-wrap">
+			<div class="flex flex-row flex-wrap">
 				{#each data?.resource as resource}
 					<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
 					<BlogCard {resource} />
@@ -53,7 +53,7 @@
 			title="自分の投稿"
 			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 		>
-			<div class="mb-4 flex flex-row flex-wrap">
+			<div class="flex flex-row flex-wrap">
 				{#each data?.resourceByTheUser as resource}
 					<BlogCard {resource} />
 				{/each}
@@ -67,7 +67,7 @@
 			title="ブックマークした投稿"
 			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 		>
-			<div class="mb-4 flex flex-row flex-wrap">
+			<div class="flex flex-row flex-wrap">
 				{#each data?.bookmarks as resource}
 					<BlogCard {resource} />
 				{/each}
