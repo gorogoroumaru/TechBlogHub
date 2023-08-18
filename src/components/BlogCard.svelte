@@ -17,7 +17,7 @@
 		alt="blog ogp"
 	/>
 	<div
-		class="border-r border-b border-l border-gray-100 lg:border-t bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+		class="w-full border-r border-b border-l border-gray-100 lg:border-t bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
 	>
 		<div class="mb-8">
 			<div class="text-gray-900 font-bold text-xl mb-2">
