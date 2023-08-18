@@ -17,13 +17,14 @@
 <!-- TODO 公開設定の適切な処理　公開設定のものは評価できるようにする　-->
 
 <svelte:head>
-	<title>StudyFrontierのトップページ</title>
+	<title>TechBlog Hubのトップページ</title>
 </svelte:head>
 {#if !user_id}
 	<div class="bg-sky-200 p-8">
 		<Heading tag="h2" class="mb-4">初めての方へ</Heading>
 		<P>
-			StudyFrontierは、プログラミング学習者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
+			TechBlog
+			Hubは、プログラミング学習者の方がネット上の優れた技術ブログを簡単に見つけて利用できるようにするサービスです。
 		</P>
 		<P>様々なジャンルに分類された良質な学習リソースを提供します。</P>
 		<P>
