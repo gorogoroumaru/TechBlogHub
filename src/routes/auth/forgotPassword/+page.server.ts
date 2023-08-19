@@ -10,7 +10,11 @@ export const actions = {
 		});
 
 		if (error) {
-			return fail(400);
+			if (error.message === 'Email rate limit exceeded') {
+				return fail(400, { message: 'サービスが混み合っています。数分後に再度お試しください' });
+			} else {
+				return fail(400, { message: 'サービスで問題が発生しました。もう一度やり直して下さい。' });
+			}
 		}
 
 		throw redirect(303, '/auth/emailSent');

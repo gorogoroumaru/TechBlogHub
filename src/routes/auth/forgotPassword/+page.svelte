@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { Label, Input, Button } from 'flowbite-svelte';
+	import { Label, Input, Button, Helper } from 'flowbite-svelte';
 	import { enhance, applyAction } from '$app/forms';
+
+	let errorMsg: string = '';
 </script>
 
 <div
@@ -22,7 +24,7 @@
 			method="POST"
 			use:enhance={() => {
 				return async ({ result }) => {
-					console.log(result);
+					errorMsg = result?.data?.message;
 					await applyAction(result);
 				};
 			}}
@@ -32,6 +34,9 @@
 					>メールアドレス</Label
 				>
 				<Input type="email" name="email" id="email" placeholder="name@company.com" required />
+				{#if errorMsg}<Helper class="mt-2" color="red"
+						><span class="font-medium">{errorMsg}</span></Helper
+					>{/if}
 			</div>
 			<Button type="submit" class="bg-sky-500 hover:bg-sky-700">パスワードをリセット</Button>
 		</form>
