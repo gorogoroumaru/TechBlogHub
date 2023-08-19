@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Button, Label, Input, Card } from 'flowbite-svelte';
+	import { Button, Label, Input, Card, Helper } from 'flowbite-svelte';
 	import type { PageData } from './$types';
+	import { AuthApiError } from '@supabase/supabase-js';
 
 	export let data: PageData;
 	let { supabase } = data;
@@ -9,15 +10,25 @@
 
 	let email: string;
 	let password: string;
+	let signUpError: string;
 
 	const handleSignIn = async () => {
-		const { error } = await supabase.auth.signInWithPassword({
-			email,
-			password
-		});
-		console.log(error);
-		if (!error) {
+		try {
+			const { error } = await supabase.auth.signInWithPassword({
+				email,
+				password
+			});
+			if (error) throw error;
 			goto('/');
+		} catch (error) {
+			if (error instanceof AuthApiError) {
+				if (error.message === 'Invalid login credentials') {
+					signUpError = 'メールアドレスまたはパスワードが間違っています';
+				} else {
+					signUpError = 'サーバーで問題が発生しました。もう一度やり直して下さい。';
+				}
+			}
+			return;
 		}
 	};
 </script>
@@ -40,6 +51,9 @@
 					<span>Your password</span>
 					<Input type="password" placeholder="•••••" required bind:value={password} />
 				</Label>
+				{#if signUpError}<Helper class="mt-2" color="red"
+						><span class="font-medium">{signUpError}</span></Helper
+					>{/if}
 				<div class="flex items-start">
 					<a
 						href="/auth/forgotPassword"
