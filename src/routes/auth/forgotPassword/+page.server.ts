@@ -6,7 +6,7 @@ export const actions = {
 		const email = formData.get('email');
 
 		const { error } = await supabase.auth.resetPasswordForEmail(email, {
-			redirectTo: 'https://studyfrontier.pages.dev/auth/updatePassword'
+			redirectTo: 'https://techbloghub.net/auth/updatePassword'
 		});
 
 		if (error) {

@@ -67,7 +67,7 @@
 <slot />
 
 <Footer>
-	<FooterCopyright href="/" by="StudyFrontier™" year={2023} />
+	<FooterCopyright href="/" by="TechBlog Hub" year={2023} />
 	<FooterLinkGroup
 		ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0"
 	>
