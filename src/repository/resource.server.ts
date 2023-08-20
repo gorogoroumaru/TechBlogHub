@@ -1,6 +1,5 @@
 import { conn } from './dbconnect.server';
 import type { ResourceParams, Resource } from '../types/resource';
-import { getOGPImage } from '../utils/getOGPImage';
 
 export async function getResources(page: number) {
 	const result = await conn.execute(
@@ -79,18 +78,9 @@ export async function getNumberOfBookmarks(user_id: string) {
 
 export async function registerResource(resource: ResourceParams) {
 	try {
-		const image_url = await getOGPImage(resource.url);
 		const result = await conn.execute(
-			'insert into Resources (title, description, url, image_url, user_id, user_name, can_publish) values (?, ?, ?, ?, ?, ?, ?)',
-			[
-				resource.title,
-				resource.description,
-				resource.url,
-				image_url,
-				resource.user_id,
-				resource.user_name,
-				0
-			]
+			'insert into Resources (title, description, url, user_id, user_name, can_publish) values (?, ?, ?, ?, ?, ?)',
+			[resource.title, resource.description, resource.url, resource.user_id, resource.user_name, 0]
 		);
 		return result.insertId;
 	} catch (e) {

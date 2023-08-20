@@ -2,7 +2,7 @@ import * as htmlparser2 from 'htmlparser2';
 
 export async function getOGPImage(url: string) {
 	try {
-		let image_url;
+		let imageUrl = '';
 		const response = await fetch(url);
 		const html = await response.text();
 
@@ -10,7 +10,7 @@ export async function getOGPImage(url: string) {
 			{
 				onopentag(name, attributes) {
 					if (name === 'meta' && attributes.property === 'og:image') {
-						image_url = attributes.content;
+						imageUrl = attributes.content;
 					}
 				}
 			},
@@ -20,7 +20,10 @@ export async function getOGPImage(url: string) {
 		parser.write(html);
 		parser.end();
 
-		return image_url;
+		const imageRes = await fetch(imageUrl);
+		const imageBlob = await imageRes.blob();
+
+		return imageBlob;
 	} catch (error) {
 		console.error('Error:', error);
 		return '';

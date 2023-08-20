@@ -3,6 +3,7 @@ import { registerTags } from '../../repository/tag.server';
 import { fail, error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
+import { getOGPImage } from '../../utils/getOGPImage';
 
 const schema = z.object({
 	title: z
@@ -49,7 +50,10 @@ export const actions = {
 
 		const result = await registerResource(resource);
 		const id = Number(result);
-		if (id === -1) return fail(400);
+		if (id === -1) return fail(400, { message: 'リソースの投稿に失敗しました' });
+
+		const imageBlob = await getOGPImage(url);
+		const { error } = await supabase.storage.from('ogps').upload(JSON.stringify(id), imageBlob);
 
 		const tags = { tags: tagList, resource_id: id };
 		await registerTags(tags);

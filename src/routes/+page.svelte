@@ -6,15 +6,21 @@
 
 	export let data: PageData;
 	$: user_id = data?.session?.user?.id;
+	$: supabase = data?.supabase;
+
+	function getImageUrl(id: string) {
+		const res = supabase.storage.from('ogps').getPublicUrl(id);
+		const image_url = res.data.publicUrl;
+		return image_url;
+	}
 </script>
 
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
 <!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
-<!-- TODO cloudflare queuesを使用して、非同期でsharpを使ってogpを縮小処理してcloudflare r2に格納する　-->
-<!-- TODO client sideで縮小処理するのもありか　-->
 <!-- TODO 記事を評価できるようにする　わかりやすさ　評価コメントも入力できるようにする-->
 <!-- TODO 手作業であらゆるタグを作成し、それぞれの依存関係も作成する　-->
 <!-- TODO 公開設定の適切な処理　公開設定のものは評価できるようにする　-->
+<!-- TODO プライバシーポリシー、利用規約をchatgptで生成　-->
 
 <svelte:head>
 	<title>TechBlog Hubのトップページ</title>
@@ -41,8 +47,9 @@
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.resource as resource}
+					{@const image_url = getImageUrl(resource?.id)}
 					<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
-					<BlogCard {resource} />
+					<BlogCard {resource} {image_url} />
 				{/each}
 			</div>
 
@@ -56,7 +63,8 @@
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.resourceByTheUser as resource}
-					<BlogCard {resource} />
+					{@const image_url = getImageUrl(resource?.id)}
+					<BlogCard {resource} {image_url} />
 				{/each}
 			</div>
 
@@ -70,7 +78,8 @@
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.bookmarks as resource}
-					<BlogCard {resource} />
+					{@const image_url = getImageUrl(resource?.id)}
+					<BlogCard {resource} {image_url} />
 				{/each}
 			</div>
 
