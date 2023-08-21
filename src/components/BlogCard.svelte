@@ -10,6 +10,7 @@
 	class="w-full lg:max-w-full flex mb-8 shadow-sm transition hover:shadow-lg"
 	href="/detail/{resource?.id}"
 >
+	<!-- svelte-ignore a11y-missing-attribute -->
 	<img
 		class="object-cover rounded-t-lg md:rounded-none md:rounded-l-lg"
 		src={image_url}
@@ -18,7 +19,6 @@
 		}}
 		height="100%"
 		width="30%"
-		alt="blog ogp"
 	/>
 	<div
 		class="w-full border-r border-b border-l border-gray-100 lg:border-t bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
