@@ -3,9 +3,11 @@
 	import BookmarkIcon from '../../../components/BookmarkIcon.svelte';
 	import BlogCard from '../../../components/BlogCard.svelte';
 	import type { PageData } from './$types';
+	import { getImageUrl } from '../../../utils/getImageUrl';
 
 	export let data: PageData;
 	const user_id = data.session?.user.id as string;
+	$: supabase = data?.supabase;
 </script>
 
 <div class="px-4 sm:px-6 md:px-8">
@@ -92,7 +94,8 @@
 			<h3 class="px-2 mt-16 mb-8 text-xl font-bold">関連投稿</h3>
 			<div class="mb-4 flex flex-row overflow-x-scroll">
 				{#each data.relatedResources as resource}
-					<BlogCard {resource} />
+					{@const image_url = getImageUrl(supabase, resource?.id)}
+					<BlogCard {resource} {image_url} />
 				{/each}
 			</div>
 		{/if}

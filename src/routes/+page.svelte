@@ -2,17 +2,12 @@
 	import { Tabs, TabItem, Heading, P } from 'flowbite-svelte';
 	import BlogCard from '../components/BlogCard.svelte';
 	import Pagination from '../components/Pagination.svelte';
+	import { getImageUrl } from '../utils/getImageUrl';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	$: user_id = data?.session?.user?.id;
 	$: supabase = data?.supabase;
-
-	function getImageUrl(id: string) {
-		const res = supabase.storage.from('ogps').getPublicUrl(id);
-		const image_url = res.data.publicUrl;
-		return image_url;
-	}
 </script>
 
 <!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
@@ -47,7 +42,7 @@
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.resource as resource}
-					{@const image_url = getImageUrl(resource?.id)}
+					{@const image_url = getImageUrl(supabase, resource?.id)}
 					<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
 					<BlogCard {resource} {image_url} />
 				{/each}
@@ -63,7 +58,7 @@
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.resourceByTheUser as resource}
-					{@const image_url = getImageUrl(resource?.id)}
+					{@const image_url = getImageUrl(supabase, resource?.id)}
 					<BlogCard {resource} {image_url} />
 				{/each}
 			</div>
@@ -78,7 +73,7 @@
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.bookmarks as resource}
-					{@const image_url = getImageUrl(resource?.id)}
+					{@const image_url = getImageUrl(supabase, resource?.id)}
 					<BlogCard {resource} {image_url} />
 				{/each}
 			</div>
