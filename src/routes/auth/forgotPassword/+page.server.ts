@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 export const actions = {
 	default: async ({ request, locals: { supabase } }) => {
 		const formData = await request.formData();
-		const email = formData.get('email');
+		const email = formData.get('email') as string;
 
 		const { error } = await supabase.auth.resetPasswordForEmail(email, {
 			redirectTo: 'https://techbloghub.net/auth/updatePassword'
