@@ -1,28 +1,39 @@
 <script lang="ts">
 	import { Pagination, ChevronLeft, ChevronRight } from 'flowbite-svelte';
+	import type { LinkType } from 'flowbite-svelte/dist/types';
 
 	export let numberOfBlogs: number;
 	let currentPage: number = 0;
 
 	function generatePages(len: number) {
-		let pages = [];
+		let pages: LinkType[] = [];
 		for (let i = 0; i < Math.ceil(len / 10); i++) {
 			if (i === currentPage) {
-				pages.push({ name: i + 1, href: `/?page=${i}`, active: true });
+				pages.push({ name: JSON.stringify(i + 1), href: `/?page=${i}` });
 			} else {
-				pages.push({ name: i + 1, href: `/?page=${i}`, active: false });
+				pages.push({ name: JSON.stringify(i + 1), href: `/?page=${i}` });
 			}
 		}
 		return pages;
 	}
 
+	$: pages = generatePages(numberOfBlogs);
+	$: numPages = pages.length;
+
 	function handleClick(event: any) {
 		currentPage = event.target.text - 1;
 	}
+
+	const previous = () => {
+		currentPage = (currentPage - 1) % numPages;
+	};
+	const next = () => {
+		currentPage = (currentPage + 1) % numPages;
+	};
 </script>
 
 {#if numberOfBlogs > 0}
-	<Pagination class="m-2" pages={generatePages(numberOfBlogs)} on:click={handleClick} icon>
+	<Pagination class="m-2" {pages} on:click={handleClick} on:next={next} on:previous={previous} icon>
 		<svelte:fragment slot="prev">
 			<span class="sr-only">前へ</span>
 			<ChevronLeft class="w-5 h-5" />
