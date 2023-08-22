@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Badge } from 'flowbite-svelte';
 	import type { Resource } from '../types/resource';
+	import placeholderImg from '../placeholder.png';
 	export let resource: Resource;
 	export let image_url: string;
 </script>
@@ -13,10 +14,10 @@
 	<img
 		class="object-cover rounded-t-lg md:rounded-none md:rounded-l-lg"
 		src={image_url}
-		on:error={(event) => {
-			event.target.src = '/src/placeholder.png';
+		on:error={(event) => (
+			event.target.src = placeholderImg
 			event.onerror = null;
-		}}
+			)}
 		height="100%"
 		width="30%"
 	/>
