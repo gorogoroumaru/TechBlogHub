@@ -10,12 +10,17 @@
 	$: supabase = data?.supabase;
 </script>
 
-<!-- TODO ユーザーが直接投稿できるようにするよりは掲載依頼という形で処理するのがいいかもしれない　-->
-<!-- TODO もしくは自身で投稿した記事は最初は自分だけが見られるようにして承認された記事は全ユーザーに見えるようにするのもあり　-->
 <!-- TODO 記事を評価できるようにする　わかりやすさ　評価コメントも入力できるようにする-->
 <!-- TODO 手作業であらゆるタグを作成し、それぞれの依存関係も作成する　-->
 <!-- TODO 公開設定の適切な処理　公開設定のものは評価できるようにする　-->
-<!-- TODO プライバシーポリシー、利用規約をchatgptで生成　-->
+<!-- TODO svelecteのタグをgroup化してより多くのタグを使えるようにする　もしくはdependent selectもあり　custom item renderingで多重nestさせるのもあり-->
+<!-- 大項目、小項目を一列に配置し、大項目の内容次第で小項目の選択肢を変更するのもあり-->
+<!-- TODO developer roadmapを参考にflowchart形式でない形で各分野を階層表示　-->
+<!-- TODO ユーザーごとに各分野を理解しているかチェックマークをつける機能、分野ごとの確認問題-->
+<!-- https://roadmap.sh/ を参考に　-->
+<!-- TODO プロフィール編集機能、閲覧機能　-->
+<!-- TODO googleでサインイン　-->
+<!-- TODO color paletteもdeveloper roadmapを参考にするのがいいかもしれない　-->
 
 <svelte:head>
 	<title>TechBlog Hubのトップページ</title>
@@ -38,7 +43,8 @@
 		<TabItem
 			open
 			title="新規投稿"
-			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+			defaultClass="text-xs sm:text-sm"
+			activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.resource as resource}
@@ -54,7 +60,8 @@
 	{#if data?.resourceByTheUser}
 		<TabItem
 			title="自分の投稿"
-			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+			defaultClass="text-xs sm:text-sm"
+			activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.resourceByTheUser as resource}
@@ -69,7 +76,8 @@
 	{#if data?.bookmarks}
 		<TabItem
 			title="ブックマークした投稿"
-			activeClasses="inline-block text-sm font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+			defaultClass="text-xs sm:text-sm"
+			activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
 		>
 			<div class="flex flex-row flex-wrap">
 				{#each data?.bookmarks as resource}
