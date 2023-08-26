@@ -4,6 +4,8 @@ import { fail, error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 import { getOGPImage } from '../../utils/getOGPImage';
+import { saveResourceToIndex } from '../../search/algoriaIndex';
+import type { Resource } from '../../types/resource';
 
 const schema = z.object({
 	title: z
@@ -25,15 +27,7 @@ export const actions = {
 		if (!session) {
 			throw error(401, { message: 'Unauthorized' });
 		}
-
-		const {
-			data: { user }
-		} = await supabase.auth.getUser();
-		if (!user) {
-			throw error(401, { message: 'Cannot get user info' });
-		}
-		const metadata = user.user_metadata;
-		const user_name = metadata.user_name;
+		const user_name = session?.user?.user_metadata?.user_name;
 
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
@@ -46,17 +40,20 @@ export const actions = {
 		const user_id = form.data.user_id as string;
 		const tagList = form.data.tags as string[];
 
-		const resource = { title, description, url, user_id, user_name };
+		try {
+			const resource = { title, description, url, user_id, user_name } as Resource;
+			const id = await registerResource(resource);
 
-		const result = await registerResource(resource);
-		const id = Number(result);
-		if (id === -1) return fail(400, { message: 'リソースの投稿に失敗しました' });
+			await saveResourceToIndex({ ...resource, id });
 
-		const imageBlob = await getOGPImage(url);
-		const { error } = await supabase.storage.from('ogps').upload(JSON.stringify(id), imageBlob);
+			const imageBlob = await getOGPImage(url);
+			await supabase.storage.from('ogps').upload(id, imageBlob);
 
-		const tags = { tags: tagList, resource_id: id };
-		await registerTags(tags);
+			const tags = { tags: tagList, resource_id: id };
+			await registerTags(tags);
+		} catch (err) {
+			return fail(400, { form, message: 'リソースの投稿に失敗しました' });
+		}
 
 		throw redirect(303, '/');
 	}

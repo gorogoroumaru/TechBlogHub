@@ -1,4 +1,5 @@
-import { getResourceByKeyword, getResourceByTag } from '../../repository/resource.server';
+import { getResourceByIds, getResourceByTag } from '../../repository/resource.server';
+import { searchIndex } from '../../search/algoriaIndex';
 
 export const actions = {
 	default: async ({ request }) => {
@@ -9,7 +10,9 @@ export const actions = {
 
 		let result;
 		if (keyword.length > 0) {
-			result = await getResourceByKeyword(keyword, page);
+			const tmp = await searchIndex(keyword);
+			const ids = tmp.hits.map((hit) => hit.objectID);
+			result = await getResourceByIds(ids);
 		} else if (tag.length > 0) {
 			result = await getResourceByTag(tag, page);
 		}

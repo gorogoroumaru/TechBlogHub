@@ -47,6 +47,7 @@
 		"@supabase/auth-helpers-sveltekit": "^0.10.1",
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/svelte": "^4.0.3",
+		"algoliasearch": "^4.19.1",
 		"check-password-strength": "^2.0.7",
 		"flowbite": "^1.7.0",
 		"flowbite-svelte": "^0.38.5",

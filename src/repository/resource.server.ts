@@ -1,5 +1,5 @@
 import { conn } from './dbconnect.server';
-import type { ResourceParams, Resource } from '../types/resource';
+import type { Resource } from '../types/resource';
 
 export async function getResources(page: number) {
 	const result = await conn.execute(
@@ -33,6 +33,20 @@ export async function getResourceById(id: string) {
 		[id]
 	);
 	const row = result?.rows?.[0] as Resource;
+	return row;
+}
+
+export async function getResourceByIds(ids: string[]) {
+	if (ids.length === 0) {
+		return [];
+	}
+	const placeholder = ids.map((_) => '?').join(',');
+	const result = await conn.execute(
+		`select rs.id, title, description, url, image_url, user_id, user_name, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id in (${placeholder}) group by rs.id`,
+		[...ids]
+	);
+	console.log(result);
+	const row = result?.rows as Resource[];
 	return row;
 }
 
@@ -76,14 +90,10 @@ export async function getNumberOfBookmarks(user_id: string) {
 	return row?.count;
 }
 
-export async function registerResource(resource: ResourceParams) {
-	try {
-		const result = await conn.execute(
-			'insert into Resources (title, description, url, user_id, user_name, can_publish) values (?, ?, ?, ?, ?, ?)',
-			[resource.title, resource.description, resource.url, resource.user_id, resource.user_name, 0]
-		);
-		return result.insertId;
-	} catch (e) {
-		return -1;
-	}
+export async function registerResource(resource: Resource) {
+	const result = await conn.execute(
+		'insert into Resources (title, description, url, user_id, user_name, can_publish) values (?, ?, ?, ?, ?, ?)',
+		[resource.title, resource.description, resource.url, resource.user_id, resource.user_name, 0]
+	);
+	return result.insertId;
 }
