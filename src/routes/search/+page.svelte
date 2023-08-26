@@ -14,8 +14,6 @@
 	let tagName = '';
 	let keyword = '';
 
-	console.log(resources);
-
 	let dropdownOpen = false;
 </script>
 

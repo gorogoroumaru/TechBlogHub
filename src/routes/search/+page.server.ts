@@ -13,6 +13,7 @@ export const actions = {
 			const tmp = await searchIndex(keyword);
 			const ids = tmp.hits.map((hit) => hit.objectID);
 			result = await getResourceByIds(ids);
+			console.log(result);
 		} else if (tag.length > 0) {
 			result = await getResourceByTag(tag, page);
 		}
