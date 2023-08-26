@@ -2,6 +2,11 @@
 	import { Input, ButtonGroup, Button, Chevron, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import { fields } from '../../data/fields';
 	import BlogCard from '../../components/BlogCard.svelte';
+	import { getImageUrl } from '../../utils/getImageUrl';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+	$: supabase = data?.supabase;
 
 	export let form;
 	$: resources = form?.resource || [];
@@ -55,7 +60,8 @@
 		</div>
 		<div class="mb-4 flex flex-row flex-wrap">
 			{#each resources as resource}
-				<BlogCard {resource} />
+				{@const image_url = getImageUrl(supabase, resource?.id)}
+				<BlogCard {resource} {image_url} />
 			{/each}
 		</div>
 	</form>
