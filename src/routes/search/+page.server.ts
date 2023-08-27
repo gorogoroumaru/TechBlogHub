@@ -1,5 +1,5 @@
 import { getResourceByIds, getResourceByTag } from '../../repository/resource.server';
-import { searchIndex } from '../../search/algoriaIndex';
+import { searchIndex } from '../../search/algoliaIndex';
 
 export const actions = {
 	default: async ({ request }) => {

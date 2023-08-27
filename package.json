@@ -42,6 +42,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@algolia/requester-fetch": "^4.19.1",
 		"@planetscale/database": "^1.7.0",
 		"@popperjs/core": "^2.11.8",
 		"@supabase/auth-helpers-sveltekit": "^0.10.1",

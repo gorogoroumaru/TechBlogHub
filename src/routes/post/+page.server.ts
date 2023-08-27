@@ -4,7 +4,7 @@ import { fail, error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 import { getOGPImage } from '../../utils/getOGPImage';
-import { saveResourceToIndex } from '../../search/algoriaIndex';
+import { saveResourceToIndex } from '../../search/algoliaIndex';
 import type { Resource } from '../../types/resource';
 
 const schema = z.object({

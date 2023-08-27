@@ -1,4 +1,4 @@
-import { client } from './algoriaConnect';
+import { client } from './algoliaConnect';
 import type { Resource } from '../types/resource';
 
 export async function saveResourceToIndex(resource: Resource) {
