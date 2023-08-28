@@ -7,27 +7,30 @@
 </script>
 
 <a
-	class="w-full lg:max-w-full md:flex mb-8 shadow-sm transition hover:shadow-lg"
+	class="w-full mb-8 flex shadow-sm transition hover:shadow-lg overflow-hidden"
 	href="/detail/{resource?.id}"
 >
 	<!-- svelte-ignore a11y-missing-attribute -->
-	<img
-		class="object-cover rounded-t-lg md:rounded-none md:rounded-l-lg md:w-1/3"
-		src={image_url}
-		on:error={(event) => {
-			event.target.src = placeholderImg;
-			event.onerror = null;
-		}}
-		height="100%"
-	/>
+	<div>
+		<img
+			class="h-full object-cover rounded-t-lg md:rounded-none md:rounded-l-lg"
+			src={image_url}
+			on:error={(event) => {
+				event.target.src = placeholderImg;
+				event.onerror = null;
+			}}
+			width="400"
+			height="200"
+		/>
+	</div>
 	<div
 		class="w-full border-r border-b border-l border-gray-100 lg:border-t bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
 	>
-		<div class="mb-8">
-			<div class="text-gray-900 font-bold text-xl mb-2">
+		<div class="mb-4">
+			<div class="text-gray-900 font-bold text-xl mb-2 overflow-hidden max-h-14">
 				{resource?.title}
 			</div>
-			<p class="text-gray-700 text-base">
+			<p class="text-gray-700 text-base overflow-hidden max-h-12">
 				{resource?.description}
 			</p>
 		</div>
@@ -35,9 +38,9 @@
 			<div class="text-sm">
 				<p class="text-gray-900 leading-none">{resource.user_name}</p>
 				<p class="text-gray-600">{resource.created_at}</p>
-				<div>
+				<div class="overflow-hidden">
 					{#each resource.tag_name.split(',') as tag}
-						<Badge class="mt-2 mb-4 mr-1">{tag}</Badge>
+						<Badge class="mt-2 mr-1">{tag}</Badge>
 					{/each}
 				</div>
 			</div>
