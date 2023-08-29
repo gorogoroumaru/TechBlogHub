@@ -3,7 +3,6 @@ import { registerTags } from '../../repository/tag.server';
 import { fail, error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
-import { getOGPImage } from '../../utils/getOGPImage';
 import { saveResourceToIndex } from '../../search/algoliaIndex';
 import type { Resource } from '../../types/resource';
 
@@ -18,7 +17,8 @@ const schema = z.object({
 		.min(1, { message: 'descriptionを入力して下さい' }),
 	url: z.string().url({ message: '正しい形式のURLを入力して下さい' }),
 	user_id: z.string().uuid(),
-	tags: z.array(z.string().max(100, { message: 'タグが長すぎます' }))
+	tags: z.array(z.string().max(100, { message: 'タグが長すぎます' })),
+	imageURL: z.string().url().optional()
 });
 
 export const actions = {
@@ -39,6 +39,7 @@ export const actions = {
 		const url = form.data.url as string;
 		const user_id = form.data.user_id as string;
 		const tagList = form.data.tags as string[];
+		const imageURL = form.data.imageURL as string;
 
 		try {
 			const resource = { title, description, url, user_id, user_name } as Resource;
@@ -46,8 +47,9 @@ export const actions = {
 
 			await saveResourceToIndex({ ...resource, id });
 
-			const imageBlob = await getOGPImage(url);
-			await supabase.storage.from('ogps').upload(id, imageBlob);
+			const image = await fetch(imageURL);
+			const blob = await image.blob();
+			await supabase.storage.from('ogps').upload(id, blob);
 
 			const tags = { tags: tagList, resource_id: id };
 			await registerTags(tags);
