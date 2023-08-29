@@ -4,7 +4,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import { fields } from '../../data/fields';
 	import Svelecte, { config } from 'svelecte';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	//import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	const maxTagSelect = 10;
 	config.i18n = {
@@ -35,7 +35,7 @@
 	}
 </script>
 
-<SuperDebug data={$form} />
+<!-- SuperDebug data={$form} / -->
 
 <div class="m-8">
 	<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">学習リソースを投稿する</h2>
