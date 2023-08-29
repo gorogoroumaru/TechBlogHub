@@ -8,6 +8,8 @@
 	export let data: PageData;
 	$: user_id = data?.session?.user?.id;
 	$: supabase = data?.supabase;
+
+	console.log('user:', data?.session?.user);
 </script>
 
 <!-- TODO 記事を評価できるようにする　わかりやすさ　評価コメントも入力できるようにする-->
@@ -19,8 +21,8 @@
 <!-- TODO ユーザーごとに各分野を理解しているかチェックマークをつける機能、分野ごとの確認問題-->
 <!-- https://roadmap.sh/ を参考に　-->
 <!-- TODO プロフィール編集機能、閲覧機能　-->
-<!-- TODO googleでサインイン　-->
 <!-- TODO color paletteもdeveloper roadmapを参考にするのがいいかもしれない　-->
+<!-- TODO techfinderを参考に設計、デザインを修正　-->
 
 <svelte:head>
 	<title>TechBlog Hubのトップページ</title>
