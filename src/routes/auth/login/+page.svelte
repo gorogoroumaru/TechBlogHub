@@ -3,6 +3,8 @@
 	import { Button, Label, Input, Card, Helper } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { AuthApiError } from '@supabase/supabase-js';
+	import { Auth } from '@supabase/auth-ui-svelte';
+	import { ThemeSupa } from '@supabase/auth-ui-shared';
 
 	export let data: PageData;
 	let { supabase } = data;
@@ -42,6 +44,12 @@
 		class="w-full bg-white rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
 	>
 		<Card class="min-w-full">
+			<Auth
+				supabaseClient={supabase}
+				appearance={{ theme: ThemeSupa }}
+				providers={['google']}
+				onlyThirdPartyProviders
+			/>
 			<form class="flex flex-col space-y-6" on:submit={handleSignIn}>
 				<Label class="space-y-2">
 					<span>Email</span>

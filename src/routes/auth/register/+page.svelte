@@ -4,6 +4,8 @@
 	import { passwordStrength } from 'check-password-strength';
 	import type { PageData } from './$types';
 	import { AuthApiError } from '@supabase/supabase-js';
+	import { Auth } from '@supabase/auth-ui-svelte';
+	import { ThemeSupa } from '@supabase/auth-ui-shared';
 
 	export let data: PageData;
 	let { supabase } = data;
@@ -63,6 +65,13 @@
 		class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
 	>
 		<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+			<Auth
+				supabaseClient={supabase}
+				appearance={{ theme: ThemeSupa }}
+				providers={['google']}
+				onlyThirdPartyProviders
+			/>
+
 			<form class="flex flex-col space-y-6" on:submit={handleSignUp}>
 				<Label class="space-y-2">
 					<span>ユーザー名</span>
@@ -83,13 +92,6 @@
 					<span>パスワード確認</span>
 					<Input type="password" placeholder="•••••" required bind:value={passwordConfirm} />
 				</Label>
-				<div class="flex items-start">
-					<Checkbox>
-						<a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="/">
-							利用規約</a
-						>に同意する</Checkbox
-					>
-				</div>
 				{#if signUpError}<Helper class="mt-2" color="red"
 						><span class="font-medium">{signUpError}</span></Helper
 					>{/if}
