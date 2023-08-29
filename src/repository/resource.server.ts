@@ -45,7 +45,6 @@ export async function getResourceByIds(ids: string[]) {
 		`select rs.id, title, description, url, image_url, user_id, user_name, created_at, updated_at, group_concat(t.tag_name) as tag_name from Resources as rs INNER JOIN Tags as t ON rs.id = t.resource_id where rs.id in (${placeholder}) group by rs.id`,
 		[...ids]
 	);
-	console.log(result);
 	const row = result?.rows as Resource[];
 	return row;
 }

@@ -4,7 +4,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import { fields } from '../../data/fields';
 	import Svelecte, { config } from 'svelecte';
-	//import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	const maxTagSelect = 10;
 	config.i18n = {
@@ -21,15 +21,46 @@
 	});
 	export const snapshot = { capture, restore };
 
-	// TODO 難易度のselectを表示　初心者向け、中級者向け、上級者向け　ー　定義も記載
+	async function autofill(url: string) {
+		const result = await fetch(`/post?url=${url}`);
+		const tmp = await result.text();
+		try {
+			const ogp = JSON.parse(tmp);
+			$form.title = ogp.title;
+			$form.description = ogp.description;
+			$form.imageURL = ogp.imageURL;
+		} catch (e) {
+			console.log('invalid json format');
+		}
+	}
 </script>
 
-<!-- SuperDebug data={$form} / -->
+<SuperDebug data={$form} />
 
 <div class="m-8">
 	<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">学習リソースを投稿する</h2>
 	<form method="POST" use:enhance>
 		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+			<div class="sm:col-span-2">
+				<Label for="brand" class="mb-2">URL</Label>
+				<Input
+					class="bg-white"
+					type="text"
+					id="url"
+					name="url"
+					placeholder="URLを入力して下さい"
+					color={$errors.url && 'red'}
+					required
+					on:change={(e) => {
+						autofill(e.target.value);
+					}}
+					bind:value={$form.url}
+					{...$constraints.url}
+				/>
+				{#if $errors.url}<Helper class="mt-2" color="red"
+						><span class="font-medium">{$errors.url}</span></Helper
+					>{/if}
+			</div>
 			<div class="sm:col-span-2">
 				<Label for="name" class="mb-2">タイトル</Label>
 				<Input
@@ -47,23 +78,7 @@
 						><span class="font-medium">{$errors.title}</span></Helper
 					>{/if}
 			</div>
-			<div class="sm:col-span-2">
-				<Label for="brand" class="mb-2">URL</Label>
-				<Input
-					class="bg-white"
-					type="text"
-					id="url"
-					name="url"
-					placeholder="URLを入力して下さい"
-					color={$errors.url && 'red'}
-					required
-					bind:value={$form.url}
-					{...$constraints.url}
-				/>
-				{#if $errors.url}<Helper class="mt-2" color="red"
-						><span class="font-medium">{$errors.url}</span></Helper
-					>{/if}
-			</div>
+
 			<div class="w-full z-10">
 				<Label for="weight" class="mb-2">タグ</Label>
 				<Svelecte
@@ -98,6 +113,7 @@
 			</div>
 			<div class="hidden">
 				<Input value={user_id} name="user_id" id="user_id" />
+				<Input value={$form.imageURL} name="imageURL" id="imageURL" />
 			</div>
 			<Button type="submit" class="w-20 bg-sky-500 hover:bg-sky-700">送信</Button>
 		</div>
