@@ -3,13 +3,8 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { fields } from '../../data/fields';
-	import Svelecte, { config } from 'svelecte';
+	import Svelecte from 'svelecte';
 	//import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-
-	const maxTagSelect = 10;
-	config.i18n = {
-		max: (num: number) => `タグは${num}個まで設定できます`
-	};
 
 	export let data: PageData;
 	const user_id = data.session?.user.id as string;
@@ -33,6 +28,9 @@
 			console.log('invalid json format');
 		}
 	}
+
+	$: secondTagURL = `/json/${$form.tag1}.tags.json`;
+	$: thidTagURL = `/json/${$form.tag2}.tags.json`;
 </script>
 
 <!-- SuperDebug data={$form} / -->
@@ -68,7 +66,7 @@
 					type="text"
 					id="title"
 					name="title"
-					placeholder="タイトルを入力して下さい"
+					placeholder="タイトルを入力して下さい (URLを入力すると自動で入力されます)"
 					color={$errors.title && 'red'}
 					required
 					bind:value={$form.title}
@@ -79,27 +77,48 @@
 					>{/if}
 			</div>
 
-			<div class="w-full z-10">
+			<div class="sm:col-span-2">
 				<Label for="weight" class="mb-2">タグ</Label>
+				<div class="mb-4">
+					<Svelecte
+						id="tag1"
+						name="tag1"
+						options={fields}
+						bind:value={$form.tag1}
+						required
+						placeholder="この記事のタグを選択して下さい"
+					/>
+				</div>
+				<div class="mb-4">
+					<Svelecte
+						id="tag2"
+						name="tag2"
+						parent="tag1"
+						placeholder="詳細なタグ(任意)"
+						disabled={!$form.tag1}
+						fetch={secondTagURL}
+						bind:value={$form.tag2}
+					/>
+				</div>
 				<Svelecte
-					id="tags"
-					name="tags"
-					options={fields}
-					bind:value={$form.tags}
-					multiple
-					max={maxTagSelect}
-					placeholder="この記事のタグを選択して下さい"
+					name="tag3"
+					parent="tag2"
+					placeholder="詳細なタグ２個目(任意)"
+					disabled={!$form.tag2}
+					fetch={thidTagURL}
 				/>
-				{#if $errors.tags}<Helper class="mt-2" color="red"
-						><span class="font-medium">{$errors.tags}</span></Helper
+
+				{#if $errors.tag1}<Helper class="mt-2" color="red"
+						><span class="font-medium">{$errors.tag1}</span></Helper
 					>{/if}
 			</div>
+
 			<div class="sm:col-span-2">
-				<Label for="description" class="mb-2">コメント</Label>
+				<Label for="description" class="mb-2">内容</Label>
 				<Textarea
 					class="bg-white"
 					id="description"
-					placeholder="このリソースに対するコメントを入力して下さい"
+					placeholder="このリソースの内容を入力して下さい（URLを入力すると自動で入力されます）"
 					rows="4"
 					name="description"
 					color={$errors.description && 'red'}

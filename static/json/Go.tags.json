@@ -1,0 +1,14 @@
+[
+	{ "value": "構文", "name": "構文", "category": "Go" },
+	{ "value": "データ型", "name": "データ型", "category": "Go" },
+	{ "value": "例外処理", "name": "例外処理", "category": "Go" },
+	{ "value": "標準ライブラリ", "name": "標準ライブラリ", "category": "Go" },
+	{ "value": "モジュール", "name": "モジュール", "category": "Go" },
+	{ "value": "コンパイラ", "name": "コンパイラ", "category": "Go" },
+	{ "value": "デバッガ", "name": "デバッガ", "category": "Go" },
+	{ "value": "ビルドツール", "name": "ビルドツール", "category": "Go" },
+	{ "value": "インターフェース", "name": "インターフェース", "category": "Go" },
+	{ "value": "Goroutine", "name": "Goroutine", "category": "Go" },
+	{ "value": "チャネル", "name": "チャネル", "category": "Go" },
+	{ "value": "その他", "name": "その他", "category": "Go" }
+]

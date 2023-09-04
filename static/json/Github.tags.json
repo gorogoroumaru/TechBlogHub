@@ -1,0 +1,13 @@
+[
+	{ "value": "リポジトリ", "name": "リポジトリ", "category": "GitHub" },
+	{ "value": "コミット", "name": "コミット", "category": "GitHub" },
+	{ "value": "プッシュ", "name": "プッシュ", "category": "GitHub" },
+	{ "value": "プルリクエスト", "name": "プルリクエスト", "category": "GitHub" },
+	{ "value": "マージ", "name": "マージ", "category": "GitHub" },
+	{ "value": "ブランチ", "name": "ブランチ", "category": "GitHub" },
+	{ "value": "issue", "name": "issue", "category": "GitHub" },
+	{ "value": "マークダウン", "name": "マークダウン", "category": "GitHub" },
+	{ "value": "Github Actions", "name": "Github Actions", "category": "GitHub" },
+	{ "value": "GitHub Pages", "name": "GitHub Pages", "category": "GitHub" },
+	{ "value": "その他", "name": "その他", "category": "Flutter" }
+]

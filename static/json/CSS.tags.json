@@ -1,0 +1,12 @@
+[
+	{ "value": "Responsive Design", "name": "Responsive Design", "category": "CSS" },
+	{ "value": "tailwind CSS", "name": "tailwind CSS", "category": "CSS" },
+	{ "value": "flexbox", "name": "flexbox", "category": "CSS" },
+	{ "value": "grid", "name": "grid", "category": "CSS" },
+	{ "value": "flexbox", "name": "flexbox", "category": "CSS" },
+	{ "value": "Box Model", "name": "Box Model", "category": "CSS" },
+	{ "value": "CSS設計", "name": "CSS設計", "category": "CSS" },
+	{ "value": "Sass", "name": "Sass", "category": "CSS" },
+	{ "value": "PostCSS", "name": "PostCSS", "category": "CSS" },
+	{ "value": "その他", "name": "その他", "category": "CSS" }
+]

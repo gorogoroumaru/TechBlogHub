@@ -1,0 +1,21 @@
+[
+	{ "value": "Browser", "name": "Browser", "category": "Frontend" },
+	{ "value": "HTML", "name": "HTML", "category": "Frontend" },
+	{ "value": "Accessibility", "name": "Accessibility", "category": "Frontend" },
+	{ "value": "SEO", "name": "SEO", "category": "Frontend" },
+	{ "value": "CSS", "name": "CSS", "category": "Frontend" },
+	{ "value": "Javascript", "name": "Javascript", "category": "Frontend" },
+	{ "value": "React", "name": "React", "category": "Frontend" },
+	{ "value": "Next.js", "name": "Next.js", "category": "Frontend" },
+	{ "value": "Vue.js", "name": "Vue.js", "category": "Frontend" },
+	{ "value": "Angular", "name": "Angular", "category": "Frontend" },
+	{ "value": "Solid.js", "name": "Solid.js", "category": "Frontend" },
+	{ "value": "vite", "name": "vite", "category": "Frontend" },
+	{ "value": "esbuild", "name": "esbuild", "category": "Frontend" },
+	{ "value": "vitest", "name": "vitest", "category": "Frontend" },
+	{ "value": "Jest", "name": "Jest", "category": "Frontend" },
+	{ "value": "Playwright", "name": "Playwright", "category": "Frontend" },
+	{ "value": "CORS", "name": "CORS", "category": "Frontend" },
+	{ "value": "CSP", "name": "CSP", "category": "Frontend" },
+	{ "value": "その他", "name": "その他", "category": "Frontend" }
+]

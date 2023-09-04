@@ -1,0 +1,12 @@
+[
+	{ "value": "イメージ", "name": "イメージ", "category": "Docker" },
+	{ "value": "コンテナ", "name": "コンテナ", "category": "Docker" },
+	{ "value": "Dockerfile", "name": "Dockerfile", "category": "Docker" },
+	{ "value": "Docker Hub", "name": "Docker Hub", "category": "Docker" },
+	{ "value": "ボリューム", "name": "ボリューム", "category": "Docker" },
+	{ "value": "Docker Compose", "name": "Docker Compose", "category": "Docker" },
+	{ "value": "Kubernetes", "name": "Kubernetes", "category": "Docker" },
+	{ "value": "レジストリ", "name": "レジストリ", "category": "Docker" },
+	{ "value": "Docker Swarm", "name": "Docker Swarm", "category": "Docker" },
+	{ "value": "その他", "name": "その他", "category": "Docker" }
+]

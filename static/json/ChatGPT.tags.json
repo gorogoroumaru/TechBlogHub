@@ -1,0 +1,6 @@
+[
+	{ "value": "LLM", "name": "LLM", "category": "ChatGPT" },
+	{ "value": "Prompy Engineering", "name": "Prompt Engineering", "category": "ChatGPT" },
+	{ "value": "Prompt Hacking", "name": "PromptHacking", "category": "ChatGPT" },
+	{ "value": "その他", "name": "その他", "category": "ChatGPT" }
+]

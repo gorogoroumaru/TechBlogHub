@@ -1,0 +1,7 @@
+[
+	{ "value": "kotlin", "name": "kotlin", "category": "Android" },
+	{ "value": "Java", "name": "Java", "category": "Android" },
+	{ "value": "Android Studio", "name": "Android Studio", "category": "Android" },
+	{ "value": "Gradle", "name": "Gradle", "category": "Android" },
+	{ "value": "その他", "name": "その他", "category": "Android" }
+]

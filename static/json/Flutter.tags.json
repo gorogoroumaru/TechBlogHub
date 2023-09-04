@@ -1,0 +1,16 @@
+[
+	{ "value": "Dart", "name": "Dart", "category": "Flutter" },
+	{ "value": "Widget", "name": "Widget", "category": "Flutter" },
+	{ "value": "Assets", "name": "Dart", "category": "Flutter" },
+	{ "value": "パッケージマネージャ", "name": "パッケージマネージャ", "category": "Flutter" },
+	{ "value": "SQLite", "name": "SQLite", "category": "Flutter" },
+	{ "value": "Shared Prefs", "name": "Shared Prefs", "category": "Flutter" },
+	{ "value": "Firebase", "name": "Firebase", "category": "Flutter" },
+	{ "value": "状態管理", "name": "状態管理", "category": "Flutter" },
+	{ "value": "アニメーション", "name": "アニメーション", "category": "Flutter" },
+	{ "value": "Test", "name": "Test", "category": "Flutter" },
+	{ "value": "開発ツール", "name": "開発ツール", "category": "Flutter" },
+	{ "value": "App Store", "name": "App Store", "category": "Flutter" },
+	{ "value": "Google Play", "name": "Google Play", "category": "Flutter" },
+	{ "value": "その他", "name": "その他", "category": "Flutter" }
+]

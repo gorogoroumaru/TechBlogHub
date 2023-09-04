@@ -1,4 +1,4 @@
 export interface Tags {
-	resource_id: number;
+	resource_id: string;
 	tags: any;
 }

@@ -1,0 +1,28 @@
+[
+	{ "value": "データ型", "name": "データ型", "category": "SQL" },
+	{ "value": "正規化", "name": "正規化", "category": "SQL" },
+	{ "value": "非正規化", "name": "非正規化", "category": "SQL" },
+	{ "value": "トリガー", "name": "トリガー", "category": "SQL" },
+	{ "value": "ストアドプロシージャ", "name": "ストアドプロシージャ", "category": "SQL" },
+	{ "value": "ビュー", "name": "ビュー", "category": "SQL" },
+	{ "value": "レプリケーション", "name": "レプリケーション", "category": "SQL" },
+	{ "value": "インデックス", "name": "インデックス", "category": "SQL" },
+	{ "value": "ユーザー管理", "name": "ユーザー管理", "category": "SQL" },
+	{ "value": "主キー", "name": "主キー", "category": "SQL" },
+	{ "value": "クエリ最適化", "name": "クエリ最適化", "category": "SQL" },
+	{ "value": "MySQL", "name": "MySQL", "category": "SQL" },
+	{ "value": "PostgreSQL", "name": "PostgreSQL", "category": "SQL" },
+	{
+		"value": "トランザクション分離レベル",
+		"name": "トランザクション分離レベル",
+		"category": "SQL"
+	},
+	{ "value": "外部結合", "name": "外部結合", "category": "SQL" },
+	{ "value": "ストレージエンジン", "name": "ストレージエンジン", "category": "SQL" },
+	{
+		"value": "リレーショナルデータベース",
+		"name": "リレーショナルデータベース",
+		"category": "SQL"
+	},
+	{ "value": "その他", "name": "その他", "category": "SQL" }
+]

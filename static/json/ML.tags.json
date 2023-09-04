@@ -1,0 +1,13 @@
+[
+	{ "value": "数学", "name": "数学", "category": "ML" },
+	{ "value": "統計学", "name": "統計学", "category": "ML" },
+	{ "value": "EDA", "name": "EDA", "category": "ML" },
+	{ "value": "古典的機械学習", "name": "古典的機械学習", "category": "Go" },
+	{ "value": "deep learning", "name": "deep learning", "category": "ML" },
+	{ "value": "mlops", "name": "mlops", "category": "ML" },
+	{ "value": "SQL", "name": "SQL", "category": "ML" },
+	{ "value": "Python", "name": "Python", "category": "ML" },
+	{ "value": "pandas", "name": "pandas", "category": "ML" },
+	{ "value": "kaggle", "name": "kaggle", "category": "ML" },
+	{ "value": "その他", "name": "その他", "category": "ML" }
+]

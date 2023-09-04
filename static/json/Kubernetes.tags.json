@@ -1,0 +1,53 @@
+[
+	{
+		"value": "コンテナオーケストレーション",
+		"name": "コンテナオーケストレーション",
+		"category": "Kubernetes"
+	},
+	{ "value": "ポッド", "name": "ポッド", "category": "Kubernetes" },
+	{ "value": "ノード", "name": "ノード", "category": "Kubernetes" },
+	{ "value": "マスターノード", "name": "マスターノード", "category": "Kubernetes" },
+	{ "value": "ワーカーノード", "name": "ワーカーノード", "category": "Kubernetes" },
+	{ "value": "デプロイメント", "name": "デプロイメント", "category": "Kubernetes" },
+	{ "value": "サービス", "name": "サービス", "category": "Kubernetes" },
+	{ "value": "レプリカセット", "name": "レプリカセット", "category": "Kubernetes" },
+	{ "value": "ネームスペース", "name": "ネームスペース", "category": "Kubernetes" },
+	{ "value": "コンテナ", "name": "コンテナ", "category": "Kubernetes" },
+	{ "value": "イメージ", "name": "イメージ", "category": "Kubernetes" },
+	{ "value": "コンテナレジストリ", "name": "コンテナレジストリ", "category": "Kubernetes" },
+	{ "value": "Helm", "name": "Helm", "category": "Kubernetes" },
+	{ "value": "Kubectl", "name": "Kubectl", "category": "Kubernetes" },
+	{ "value": "コンフィグマップ", "name": "コンフィグマップ", "category": "Kubernetes" },
+	{ "value": "シークレット", "name": "シークレット", "category": "Kubernetes" },
+	{ "value": "ポートフォワード", "name": "ポートフォワード", "category": "Kubernetes" },
+	{ "value": "Ingress", "name": "Ingress", "category": "Kubernetes" },
+	{ "value": "オートスケーリング", "name": "オートスケーリング", "category": "Kubernetes" },
+	{
+		"value": "セキュリティコンテキスト",
+		"name": "セキュリティコンテキスト",
+		"category": "Kubernetes"
+	},
+	{ "value": "ネットワークポリシー", "name": "ネットワークポリシー", "category": "Kubernetes" },
+	{ "value": "ストレージクラス", "name": "ストレージクラス", "category": "Kubernetes" },
+	{ "value": "永続ボリューム", "name": "永続ボリューム", "category": "Kubernetes" },
+	{
+		"value": "コンフィギュレーションマネジメント",
+		"name": "コンフィギュレーションマネジメント",
+		"category": "Kubernetes"
+	},
+	{ "value": "マイクロサービス", "name": "マイクロサービス", "category": "Kubernetes" },
+	{ "value": "CI/CD", "name": "CI/CD", "category": "Kubernetes" },
+	{ "value": "クラスタ", "name": "クラスタ", "category": "Kubernetes" },
+	{ "value": "コンテナ化", "name": "コンテナ化", "category": "Kubernetes" },
+	{ "value": "クラウドネイティブ", "name": "クラウドネイティブ", "category": "Kubernetes" },
+	{ "value": "Kubelet", "name": "Kubelet", "category": "Kubernetes" },
+	{ "value": "エラーハンドリング", "name": "エラーハンドリング", "category": "Kubernetes" },
+	{ "value": "Kubeadm", "name": "Kubeadm", "category": "Kubernetes" },
+	{
+		"value": "コンテナオーケストレータ",
+		"name": "コンテナオーケストレータ",
+		"category": "Kubernetes"
+	},
+	{ "value": "Kubeconfig", "name": "Kubeconfig", "category": "Kubernetes" },
+	{ "value": "マルチテナンシー", "name": "マルチテナンシー", "category": "Kubernetes" }
+]

@@ -1,0 +1,14 @@
+[
+	{ "value": "構文", "name": "構文", "category": "C++" },
+	{ "value": "スマートポインタ", "name": "スマートポインタ", "category": "C++" },
+	{ "value": "ポインタ", "name": "ポインタ", "category": "C++" },
+	{ "value": "データ型", "name": "データ型", "category": "C++" },
+	{ "value": "例外処理", "name": "例外処理", "category": "C++" },
+	{ "value": "標準ライブラリ", "name": "標準ライブラリ", "category": "C++" },
+	{ "value": "テンプレート", "name": "テンプレート", "category": "C++" },
+	{ "value": "コンパイラ", "name": "コンパイラ", "category": "C++" },
+	{ "value": "デバッガ", "name": "デバッガ", "category": "C++" },
+	{ "value": "Makefile", "name": "Makefile", "category": "C++" },
+	{ "value": "CMake", "name": "CMake", "category": "C++" },
+	{ "value": "その他", "name": "その他", "category": "C++" }
+]

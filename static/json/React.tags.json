@@ -1,0 +1,50 @@
+[
+	{ "value": "コンポーネントベース", "name": "コンポーネントベース", "category": "React" },
+	{ "value": "仮想DOM", "name": "仮想DOM", "category": "React" },
+	{ "value": "JSX", "name": "JSX", "category": "React" },
+	{
+		"value": "コンポーネントライフサイクル",
+		"name": "コンポーネントライフサイクル",
+		"category": "React"
+	},
+	{ "value": "state", "name": "state", "category": "React" },
+	{ "value": "props", "name": "props", "category": "React" },
+	{ "value": "イベントハンドリング", "name": "イベントハンドリング", "category": "React" },
+	{
+		"value": "コンディショナルレンダリング",
+		"name": "コンディショナルレンダリング",
+		"category": "React"
+	},
+	{ "value": "リストとキー", "name": "リストとキー", "category": "React" },
+	{ "value": "スタイリング", "name": "スタイリング", "category": "React" },
+	{ "value": "CSSモジュール", "name": "CSSモジュール", "category": "React" },
+	{ "value": "React Router", "name": "React Router", "category": "React" },
+	{ "value": "状態管理", "name": "状態管理", "category": "React" },
+	{ "value": "Redux", "name": "Redux", "category": "React" },
+	{ "value": "Context API", "name": "Context API", "category": "React" },
+	{ "value": "Hooks", "name": "Hooks", "category": "React" },
+	{ "value": "useState", "name": "useState", "category": "React" },
+	{ "value": "useEffect", "name": "useEffect", "category": "React" },
+	{ "value": "useContext", "name": "useContext", "category": "React" },
+	{ "value": "useReducer", "name": "useReducer", "category": "React" },
+	{ "value": "useMemo", "name": "useMemo", "category": "React" },
+	{ "value": "useCallback", "name": "useCallback", "category": "React" },
+	{ "value": "Custom Hooks", "name": "Custom Hooks", "category": "React" },
+	{ "value": "Fragment", "name": "Fragment", "category": "React" },
+	{ "value": "高階コンポーネント", "name": "高階コンポーネント", "category": "React" },
+	{ "value": "コンテキスト", "name": "コンテキスト", "category": "React" },
+	{ "value": "テスト", "name": "テスト", "category": "React" },
+	{ "value": "Jest", "name": "Jest", "category": "React" },
+	{ "value": "Enzyme", "name": "Enzyme", "category": "React" },
+	{ "value": "デバッグ", "name": "デバッグ", "category": "React" },
+	{ "value": "パフォーマンス最適化", "name": "パフォーマンス最適化", "category": "React" },
+	{ "value": "コードスプリット", "name": "コードスプリット", "category": "React" },
+	{
+		"value": "SSR",
+		"name": "SSR",
+		"category": "React"
+	},
+	{ "value": "SSG", "name": "SSG", "category": "React" },
+	{ "value": "Next.js", "name": "Next.js", "category": "React" },
+	{ "value": "Gatsby", "name": "Gatsby", "category": "React" }
+]

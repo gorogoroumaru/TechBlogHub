@@ -17,7 +17,9 @@ const schema = z.object({
 		.min(1, { message: 'descriptionを入力して下さい' }),
 	url: z.string().url({ message: '正しい形式のURLを入力して下さい' }),
 	user_id: z.string().uuid(),
-	tags: z.array(z.string().max(100, { message: 'タグが長すぎます' })),
+	tag1: z.string().max(30, { message: 'タグが長すぎます' }),
+	tag2: z.string().max(30, { message: 'タグが長すぎます' }).optional(),
+	tag3: z.string().max(30, { message: 'タグが長すぎます' }).optional(),
 	imageURL: z.string().url().optional()
 });
 
@@ -27,7 +29,8 @@ export const actions = {
 		if (!session) {
 			throw error(401, { message: 'Unauthorized' });
 		}
-		const user_name = session?.user?.user_metadata?.user_name;
+		const metadata = session?.user?.user_metadata;
+		const user_name = metadata?.user_name || metadata?.name;
 
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
@@ -38,8 +41,14 @@ export const actions = {
 		const description = form.data.description as string;
 		const url = form.data.url as string;
 		const user_id = form.data.user_id as string;
-		const tagList = form.data.tags as string[];
+		const tag1 = form.data.tag1 as string;
+		const tag2 = form.data.tag2 as string;
+		const tag3 = form.data.tag3 as string;
 		const imageURL = form.data.imageURL as string;
+
+		const tags: string[] = [tag1];
+		if (tag2) tags.push(tag2);
+		if (tag3) tags.push(tag3);
 
 		try {
 			const resource = { title, description, url, user_id, user_name } as Resource;
@@ -51,8 +60,8 @@ export const actions = {
 			const blob = await image.blob();
 			await supabase.storage.from('ogps').upload(id, blob);
 
-			const tags = { tags: tagList, resource_id: id };
-			await registerTags(tags);
+			const tag = { tags, resource_id: id };
+			await registerTags(tag);
 		} catch (err) {
 			return fail(400, { form, message: 'リソースの投稿に失敗しました' });
 		}

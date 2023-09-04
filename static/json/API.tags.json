@@ -1,0 +1,10 @@
+[
+	{ "value": "WebSocket", "name": "WebSocket", "category": "API" },
+	{ "value": "REST API", "name": "REST API", "category": "API" },
+	{ "value": "GraphQL", "name": "GraphQL", "category": "API" },
+	{ "value": "JSON", "name": "JSON", "category": "API" },
+	{ "value": "Rate Limit", "name": "Rate Limit", "category": "API" },
+	{ "value": "Versioning", "name": "Versioning", "category": "API" },
+	{ "value": "gRPC", "name": "gRPC", "category": "API" },
+	{ "value": "その他", "name": "その他", "category": "API" }
+]
