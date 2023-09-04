@@ -33,7 +33,14 @@
 				<Label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 					>メールアドレス</Label
 				>
-				<Input type="email" name="email" id="email" placeholder="name@company.com" required />
+				<Input
+					type="email"
+					autocomplete="email"
+					name="email"
+					id="email"
+					placeholder="name@company.com"
+					required
+				/>
 				{#if errorMsg}<Helper class="mt-2" color="red"
 						><span class="font-medium">{errorMsg}</span></Helper
 					>{/if}

@@ -53,11 +53,23 @@
 			<form class="flex flex-col space-y-6" on:submit={handleSignIn}>
 				<Label class="space-y-2">
 					<span>Email</span>
-					<Input type="email" placeholder="name@company.com" required bind:value={email} />
+					<Input
+						type="email"
+						autocomplete="email"
+						placeholder="name@company.com"
+						required
+						bind:value={email}
+					/>
 				</Label>
 				<Label class="space-y-2">
 					<span>Your password</span>
-					<Input type="password" placeholder="•••••" required bind:value={password} />
+					<Input
+						type="password"
+						autocomplete="current-password"
+						placeholder="•••••"
+						required
+						bind:value={password}
+					/>
 				</Label>
 				{#if signUpError}<Helper class="mt-2" color="red"
 						><span class="font-medium">{signUpError}</span></Helper

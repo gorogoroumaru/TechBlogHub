@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Button, Checkbox, Label, Input, Helper } from 'flowbite-svelte';
+	import { Button, Label, Input, Helper } from 'flowbite-svelte';
+	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
 	import { passwordStrength } from 'check-password-strength';
 	import type { PageData } from './$types';
 	import { AuthApiError } from '@supabase/supabase-js';
@@ -14,16 +15,13 @@
 	let user_name: string;
 	let email: string;
 	let password: string;
-	let passwordConfirm: string;
 	let signUpError: string;
+	let show = false;
 
 	let message: string;
 
+	// TODO check-password-strengthからzxcvbnに変更する
 	const handleSignUp = async () => {
-		if (password !== passwordConfirm) {
-			message = 'パスワードが一致しませんでした';
-			return;
-		}
 		const strength = passwordStrength(password);
 		if (strength.value == 'Too weak' || strength.value == 'Weak') {
 			message =
@@ -79,18 +77,34 @@
 				</Label>
 				<Label class="space-y-2">
 					<span>メールアドレス</span>
-					<Input type="email" placeholder="name@company.com" required bind:value={email} />
+					<Input
+						type="email"
+						autocomplete="email"
+						placeholder="name@company.com"
+						required
+						bind:value={email}
+					/>
 				</Label>
 				<Label class="space-y-2">
 					<span>パスワード</span>
-					<Input type="password" placeholder="•••••" required bind:value={password} />
+					<Input
+						type={show ? 'text' : 'password'}
+						autocomplete="new-password"
+						placeholder="•••••"
+						required
+						bind:value={password}
+					>
+						<button slot="right" on:click={() => (show = !show)} class="pointer-events-auto">
+							{#if show}
+								<EyeOutline name="eye-outline" class="w-6 h-6" />
+							{:else}
+								<EyeSlashOutline name="eye-slash-outline" class="w-6 h-6" />
+							{/if}
+						</button></Input
+					>
 					{#if message}<Helper class="mt-2" color="red"
 							><span class="font-medium">{message}</span></Helper
 						>{/if}
-				</Label>
-				<Label class="space-y-2">
-					<span>パスワード確認</span>
-					<Input type="password" placeholder="•••••" required bind:value={passwordConfirm} />
 				</Label>
 				{#if signUpError}<Helper class="mt-2" color="red"
 						><span class="font-medium">{signUpError}</span></Helper

@@ -41,7 +41,13 @@
 			<form class="flex flex-col space-y-6" on:submit={handlePasswordChange}>
 				<Label class="space-y-2">
 					<span>パスワード</span>
-					<Input type="password" placeholder="•••••" required bind:value={password} />
+					<Input
+						type="password"
+						autocomplete="new-password"
+						placeholder="•••••"
+						required
+						bind:value={password}
+					/>
 				</Label>
 				<Label class="space-y-2">
 					<span>パスワード確認</span>
