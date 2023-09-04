@@ -6,7 +6,7 @@ import type { PageServerLoad } from './$types';
 import type { Memo } from '../../../types/memo';
 
 export const load = (async ({ params, locals: { getSession } }) => {
-	const resource_id = params.slug;
+	const resource_id = params.id;
 	const resource = await getResourceById(resource_id);
 	let alreadyBookmarked = false;
 	let memos: Memo[] = [];

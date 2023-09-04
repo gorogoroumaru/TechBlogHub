@@ -92,7 +92,7 @@
 
 		{#if data.relatedResources.length > 0}
 			<h3 class="px-2 mt-16 mb-8 text-xl font-bold">関連投稿</h3>
-			<div class="mb-4 flex flex-row overflow-x-scroll">
+			<div class="mb-4">
 				{#each data.relatedResources as resource}
 					{@const image_url = getImageUrl(supabase, resource?.id)}
 					<BlogCard {resource} {image_url} />
