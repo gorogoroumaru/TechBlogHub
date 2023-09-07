@@ -27,6 +27,7 @@
 			temp += field + '/';
 			pathMap[field] = temp;
 		});
+		console.log('path', path, 'fields', fields, 'pathMap', pathMap);
 	}
 </script>
 
@@ -44,7 +45,7 @@
 				<SidebarWrapper>
 					<SidebarGroup>
 						{#each data.tags as tag}
-							<SidebarItem label={tag.name} href="{path}/{tag.name}" />
+							<SidebarItem label={tag.name} href="/fields/{path}/{tag.name}" />
 						{/each}
 					</SidebarGroup>
 				</SidebarWrapper>
