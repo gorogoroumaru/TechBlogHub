@@ -19,7 +19,7 @@ export const load = (async ({ params, locals: { getSession } }) => {
 	}
 
 	const ret = await getResourceByTag(resource.tag_name, 0);
-	const relatedResources = ret.filter((resource) => resource.id != params.slug);
+	const relatedResources = ret.filter((resource) => resource.id != params.id);
 
 	return {
 		...resource,

@@ -1,23 +1,19 @@
 <script lang="ts">
 	import { Tabs, TabItem, Heading, P } from 'flowbite-svelte';
 	import BlogCard from '../components/BlogCard.svelte';
+	import FieldList from '../components/FieldList.svelte';
 	import Pagination from '../components/Pagination.svelte';
 	import { getImageUrl } from '../utils/getImageUrl';
 	import type { PageData } from './$types';
+	import { fields } from '../data/fields';
 
 	export let data: PageData;
 	$: user_id = data?.session?.user?.id;
 	$: supabase = data?.supabase;
-
-	console.log('user:', data?.session?.user);
 </script>
 
 <!-- TODO 記事を評価できるようにする　わかりやすさ　評価コメントも入力できるようにする-->
-<!-- TODO 手作業であらゆるタグを作成し、それぞれの依存関係も作成する　-->
 <!-- TODO 公開設定の適切な処理　公開設定のものは評価できるようにする　-->
-<!-- TODO svelecteのタグをgroup化してより多くのタグを使えるようにする　もしくはdependent selectもあり　custom item renderingで多重nestさせるのもあり-->
-<!-- 大項目、小項目を一列に配置し、大項目の内容次第で小項目の選択肢を変更するのもあり-->
-<!-- TODO developer roadmapを参考にflowchart形式でない形で各分野を階層表示　-->
 <!-- TODO ユーザーごとに各分野を理解しているかチェックマークをつける機能、分野ごとの確認問題-->
 <!-- https://roadmap.sh/ を参考に　-->
 <!-- TODO プロフィール編集機能、閲覧機能　-->
@@ -40,10 +36,20 @@
 		</P>
 	</div>
 {/if}
+
 <Tabs class="mt-2 mx-2">
+	<TabItem
+		open
+		title="ジャンル一覧"
+		defaultClass="text-xs sm:text-sm"
+		activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
+	>
+		<div class="grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-3">
+			<FieldList {fields} />
+		</div>
+	</TabItem>
 	{#if data?.resource}
 		<TabItem
-			open
 			title="新規投稿"
 			defaultClass="text-xs sm:text-sm"
 			activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
@@ -51,7 +57,6 @@
 			<div class="flex flex-row flex-wrap">
 				{#each data?.resource as resource}
 					{@const image_url = getImageUrl(supabase, resource?.id)}
-					<!-- TODO @tailwindcss/line-crampのプラグインをinstallし、複数行でtruncateできるようにする-->
 					<BlogCard {resource} {image_url} />
 				{/each}
 			</div>
@@ -59,22 +64,7 @@
 			<Pagination numberOfBlogs={Number(data.count)} />
 		</TabItem>
 	{/if}
-	{#if data?.resourceByTheUser}
-		<TabItem
-			title="自分の投稿"
-			defaultClass="text-xs sm:text-sm"
-			activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
-		>
-			<div class="flex flex-row flex-wrap">
-				{#each data?.resourceByTheUser as resource}
-					{@const image_url = getImageUrl(supabase, resource?.id)}
-					<BlogCard {resource} {image_url} />
-				{/each}
-			</div>
 
-			<Pagination numberOfBlogs={Number(data.userResourceCount)} />
-		</TabItem>
-	{/if}
 	{#if data?.bookmarks}
 		<TabItem
 			title="ブックマークした投稿"
