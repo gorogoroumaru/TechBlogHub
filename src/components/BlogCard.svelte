@@ -7,13 +7,13 @@
 </script>
 
 <a
-	class="w-full mb-8 flex shadow-sm transition hover:shadow-lg overflow-hidden"
+	class="md:flex mb-4 w-full border border-gray-200 bg-white hover:border-gray-400"
 	href="/detail/{resource?.id}"
 >
 	<!-- svelte-ignore a11y-missing-attribute -->
 	<div>
 		<img
-			class="h-full object-cover rounded-t-lg md:rounded-none md:rounded-l-lg"
+			class="md:h-full object-cover"
 			src={image_url}
 			on:error={(event) => {
 				event.target.src = placeholderImg;
