@@ -7,22 +7,22 @@
 </script>
 
 <a
-	class="md:flex mb-4 w-full border border-gray-200 bg-white hover:border-gray-400"
+	class="md:flex mb-4 md:w-full md:border border-gray-200 bg-white hover:drop-shadow"
 	href="/detail/{resource?.id}"
 >
 	<!-- svelte-ignore a11y-missing-attribute -->
-	<div>
-		<img
-			class="md:h-full object-cover"
-			src={image_url}
-			on:error={(event) => {
-				event.target.src = placeholderImg;
-				event.onerror = null;
-			}}
-			width="400"
-			height="200"
-		/>
-	</div>
+
+	<img
+		class="md:h-full object-cover"
+		src={image_url}
+		on:error={(event) => {
+			event.target.src = placeholderImg;
+			event.onerror = null;
+		}}
+		width="400"
+		height="200"
+	/>
+
 	<div
 		class="w-full border-r border-b border-l border-gray-100 lg:border-t bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
 	>
