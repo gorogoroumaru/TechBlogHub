@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { Button, Label, Input, Helper } from 'flowbite-svelte';
 	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
-	import { passwordStrength } from 'check-password-strength';
+	import zxcvbn from 'zxcvbn';
 	import type { PageData } from './$types';
 	import { AuthApiError } from '@supabase/supabase-js';
 	import { Auth } from '@supabase/auth-ui-svelte';
@@ -20,12 +20,10 @@
 
 	let message: string;
 
-	// TODO check-password-strengthからzxcvbnに変更する
 	const handleSignUp = async () => {
-		const strength = passwordStrength(password);
-		if (strength.value == 'Too weak' || strength.value == 'Weak') {
-			message =
-				'パスワードをもっと複雑にして下さい (大文字、小文字、数字、記号を組み合わせて８文字以上)';
+		const strength = zxcvbn(password);
+		if (strength.score < 3) {
+			message = 'パスワードをもっと複雑にして下さい';
 			return;
 		}
 

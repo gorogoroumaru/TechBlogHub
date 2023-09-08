@@ -51,7 +51,6 @@
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/svelte": "^4.0.3",
 		"algoliasearch": "^4.19.1",
-		"check-password-strength": "^2.0.7",
 		"flowbite": "^1.7.0",
 		"flowbite-svelte": "^0.38.5",
 		"flowbite-svelte-icons": "^0.4.2",
@@ -61,6 +60,7 @@
 		"tailwind-merge": "^1.13.2",
 		"ulid": "^2.3.0",
 		"uuid": "^9.0.0",
-		"zod": "^3.21.4"
+		"zod": "^3.21.4",
+		"zxcvbn": "^4.4.2"
 	}
 }
