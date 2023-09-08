@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Button, Label, Input, Card, Helper } from 'flowbite-svelte';
+	import { EyeOutline, EyeSlashOutline } from 'flowbite-svelte-icons';
 	import type { PageData } from './$types';
 	import { AuthApiError } from '@supabase/supabase-js';
 	import { Auth } from '@supabase/auth-ui-svelte';
@@ -13,6 +14,7 @@
 	let email: string;
 	let password: string;
 	let signUpError: string;
+	let show = false;
 
 	const handleSignIn = async () => {
 		try {
@@ -64,12 +66,27 @@
 				<Label class="space-y-2">
 					<span>Your password</span>
 					<Input
-						type="password"
+						type={show ? 'text' : 'password'}
 						autocomplete="current-password"
 						placeholder="•••••"
 						required
 						bind:value={password}
-					/>
+					>
+						<button
+							slot="right"
+							on:click={(e) => {
+								e.preventDefault();
+								show = !show;
+							}}
+							class="pointer-events-auto"
+						>
+							{#if show}
+								<EyeOutline name="eye-outline" class="w-6 h-6" />
+							{:else}
+								<EyeSlashOutline name="eye-slash-outline" class="w-6 h-6" />
+							{/if}
+						</button></Input
+					>
 				</Label>
 				{#if signUpError}<Helper class="mt-2" color="red"
 						><span class="font-medium">{signUpError}</span></Helper

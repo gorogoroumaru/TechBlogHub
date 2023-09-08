@@ -92,7 +92,14 @@
 						required
 						bind:value={password}
 					>
-						<button slot="right" on:click={() => (show = !show)} class="pointer-events-auto">
+						<button
+							slot="right"
+							on:click={(e) => {
+								e.preventDefault();
+								show = !show;
+							}}
+							class="pointer-events-auto"
+						>
 							{#if show}
 								<EyeOutline name="eye-outline" class="w-6 h-6" />
 							{:else}
