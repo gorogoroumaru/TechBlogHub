@@ -4,15 +4,14 @@
 	import BlogCard from '../../../components/BlogCard.svelte';
 	import { getImageUrl } from '../../../utils/getImageUrl';
 	import {
+		Button,
 		Breadcrumb,
 		BreadcrumbItem,
-		Sidebar,
-		SidebarGroup,
-		SidebarItem,
-		SidebarWrapper
+		Dropdown,
+		DropdownItem,
+		Heading
 	} from 'flowbite-svelte';
-
-	// TODO 画面サイズが小さければsidebarではなく、Breadcrumbからのdropdownにするのもあり
+	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 
 	export let data: PageData;
 	$: supabase = data?.supabase;
@@ -27,34 +26,36 @@
 			temp += field + '/';
 			pathMap[field] = temp;
 		});
-		console.log('path', path, 'fields', fields, 'pathMap', pathMap);
 	}
 </script>
 
 <Breadcrumb aria-label="path to the current tag" class="mx-4 mb-4">
 	<BreadcrumbItem href="/" home>Home</BreadcrumbItem>
-	{#each fields as field, i}
-		<BreadcrumbItem href="/fields/{pathMap[field]}">{field}</BreadcrumbItem>
+	{#each fields.slice(0, -1) as field}
+		<BreadcrumbItem href="/fields/{pathMap[field]}"
+			><Button color="light" outline class="border-0 text-black">{field}</Button></BreadcrumbItem
+		>
 	{/each}
+	{#if data.tags.length > 0}
+		<BreadcrumbItem>
+			<Button color="light" outline class="border-0 text-black"
+				>{fields.slice(-1)[0]}<ChevronDownOutline size="sm" class="ml-2" /></Button
+			>
+			<Dropdown>
+				{#each data.tags as tag}
+					<DropdownItem href="/fields/{path}/{tag.name}">{tag.name}</DropdownItem>
+				{/each}
+			</Dropdown>
+		</BreadcrumbItem>
+	{:else}
+		<BreadcrumbItem>{fields.slice(-1)[0]}</BreadcrumbItem>
+	{/if}
 </Breadcrumb>
 
-<div class="flex flex-row mb-4">
-	<div class="w-64 bg-gray-50">
-		{#if data.tags.length > 0}
-			<Sidebar class="h-full">
-				<SidebarWrapper>
-					<SidebarGroup>
-						{#each data.tags as tag}
-							<SidebarItem label={tag.name} href="/fields/{path}/{tag.name}" />
-						{/each}
-					</SidebarGroup>
-				</SidebarWrapper>
-			</Sidebar>
-		{:else}
-			<div class="w-64" />
-		{/if}
-	</div>
+<!-- TODO zenn風に各トピックのタイトルを表示-->
+<!-- https://zenn.dev/topics/python -->
 
+<div class="flex flex-row mb-4">
 	{#if data?.resource?.length > 0}
 		<div class="mx-4">
 			{#each data?.resource as resource}
@@ -63,6 +64,6 @@
 			{/each}
 		</div>
 	{:else}
-		<div class="mx-4"><p>このタグに該当する技術ブログはありません。</p></div>
+		<div class="mx-4"><Heading tag="h4">このタグに該当する技術ブログはありません。</Heading></div>
 	{/if}
 </div>
