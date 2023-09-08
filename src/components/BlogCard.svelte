@@ -13,18 +13,16 @@
 	<!-- svelte-ignore a11y-missing-attribute -->
 
 	<img
-		class="md:h-full object-cover"
+		class="md:h-full md:w-1/3 object-cover aspect-video"
 		src={image_url}
 		on:error={(event) => {
 			event.target.src = placeholderImg;
 			event.onerror = null;
 		}}
-		width="400"
-		height="200"
 	/>
 
 	<div
-		class="w-full border-r border-b border-l border-gray-100 lg:border-t bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+		class="border-b border-l border-gray-100 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
 	>
 		<div class="mb-4">
 			<div class="text-gray-900 font-bold text-xl mb-2 overflow-hidden max-h-14">
