@@ -1,15 +1,11 @@
 <script lang="ts">
-	import { Tabs, TabItem, Heading, P } from 'flowbite-svelte';
-	import BlogCard from '../components/BlogCard.svelte';
+	import { Heading, P } from 'flowbite-svelte';
 	import FieldList from '../components/FieldList.svelte';
-	import Pagination from '../components/Pagination.svelte';
-	import { getImageUrl } from '../utils/getImageUrl';
 	import type { PageData } from './$types';
 	import { fields } from '../data/fields';
 
 	export let data: PageData;
 	$: user_id = data?.session?.user?.id;
-	$: supabase = data?.supabase;
 </script>
 
 <!-- TODO 記事を評価できるようにする　わかりやすさ　評価コメントも入力できるようにする-->
@@ -37,48 +33,6 @@
 	</div>
 {/if}
 
-<Tabs class="mt-2 mx-2">
-	<TabItem
-		open
-		title="ジャンル一覧"
-		defaultClass="text-xs sm:text-sm"
-		activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
-	>
-		<div class="grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-3">
-			<FieldList {fields} />
-		</div>
-	</TabItem>
-	{#if data?.resource}
-		<TabItem
-			title="新規投稿"
-			defaultClass="text-xs sm:text-sm"
-			activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
-		>
-			<div class="flex flex-row flex-wrap">
-				{#each data?.resource as resource}
-					{@const image_url = getImageUrl(supabase, resource?.id)}
-					<BlogCard {resource} {image_url} />
-				{/each}
-			</div>
-
-			<Pagination numberOfBlogs={Number(data.count)} />
-		</TabItem>
-	{/if}
-
-	{#if data?.bookmarks}
-		<TabItem
-			title="ブックマークした投稿"
-			defaultClass="text-xs sm:text-sm"
-			activeClasses="inline-block font-medium text-center disabled:cursor-not-allowed p-4 text-sky-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500 active"
-		>
-			<div class="flex flex-row flex-wrap">
-				{#each data?.bookmarks as resource}
-					{@const image_url = getImageUrl(supabase, resource?.id)}
-					<BlogCard {resource} {image_url} />
-				{/each}
-			</div>
-
-			<Pagination numberOfBlogs={Number(data.bookmarkCount)} />
-		</TabItem>
-	{/if}
-</Tabs>
+<div class="grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-3">
+	<FieldList {fields} />
+</div>

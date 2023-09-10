@@ -1,11 +1,6 @@
-import {
-	getResources,
-	getNumberOfResources,
-	getUserBookmarks,
-	getNumberOfBookmarks
-} from '../repository/resource.server';
+import { getUserBookmarks, getNumberOfBookmarks } from '../../repository/resource.server';
 import type { PageServerLoad } from './$types';
-import type { Resource } from '../types/resource';
+import type { Resource } from '../../types/resource';
 
 export const load = (async ({ url, locals: { getSession } }) => {
 	const session = await getSession();
@@ -19,15 +14,10 @@ export const load = (async ({ url, locals: { getSession } }) => {
 		bookmarks = (await getUserBookmarks(user_id, page)) as Resource[];
 	}
 
-	const resource = (await getResources(page)) as Resource[];
-
-	const count = await getNumberOfResources();
 	const bookmarkCount = await getNumberOfBookmarks(user_id);
 
 	return {
-		resource,
 		bookmarks,
-		count,
 		bookmarkCount
 	};
 }) satisfies PageServerLoad;

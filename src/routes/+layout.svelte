@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, Button } from 'flowbite-svelte';
+	import { A, Footer, FooterCopyright, FooterLinkGroup, FooterLink, Button } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -27,7 +27,7 @@
 	});
 </script>
 
-<div class="flex justify-between p-4 md:p-8">
+<div class="flex justify-between p-4 md:px-8 md:pt-8">
 	<a class="flex items-center" href="/">
 		<svg viewBox="0 0 27 27" height="23" width="23">
 			<path
@@ -63,6 +63,30 @@
 		</Button>
 	</div>
 </div>
+<div class="flex flex-row mx-4">
+	<A
+		href="/"
+		color="text-black"
+		aClass="rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100"
+		>ホーム</A
+	>
+	<A
+		href="/newPost"
+		color="text-black"
+		aClass="rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100"
+		>新規投稿</A
+	>
+	{#if user_id}
+		<A
+			href="/bookmark"
+			color="text-black"
+			aClass="rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100"
+		>
+			ブックマーク一覧
+		</A>
+	{/if}
+</div>
+<hr class="mb-4 mt-2" />
 
 <slot />
 

@@ -3,15 +3,16 @@
 	import type { LinkType } from 'flowbite-svelte/dist/types';
 
 	export let numberOfBlogs: number;
+	export let urlPrefix: string;
 	let currentPage: number = 0;
 
 	function generatePages(len: number) {
 		let pages: LinkType[] = [];
 		for (let i = 0; i < Math.ceil(len / 10); i++) {
 			if (i === currentPage) {
-				pages.push({ name: JSON.stringify(i + 1), href: `/?page=${i}` });
+				pages.push({ name: JSON.stringify(i + 1), href: `${urlPrefix}/?page=${i}` });
 			} else {
-				pages.push({ name: JSON.stringify(i + 1), href: `/?page=${i}` });
+				pages.push({ name: JSON.stringify(i + 1), href: `${urlPrefix}/?page=${i}` });
 			}
 		}
 		return pages;
