@@ -18,6 +18,7 @@
 
 	$: path = $page.params.name;
 	$: fields = path.split('/').filter((field) => field != '');
+	$: currentField = fields.slice(-1)[0];
 
 	$: pathMap = {};
 	$: {
@@ -39,7 +40,7 @@
 	{#if data.tags.length > 0}
 		<BreadcrumbItem>
 			<Button color="light" outline class="border-0 text-black"
-				>{fields.slice(-1)[0]}<ChevronDownOutline size="sm" class="ml-2" /></Button
+				>{currentField}<ChevronDownOutline size="sm" class="ml-2" /></Button
 			>
 			<Dropdown>
 				{#each data.tags as tag}
@@ -55,15 +56,18 @@
 <!-- TODO zenn風に各トピックのタイトルを表示-->
 <!-- https://zenn.dev/topics/python -->
 
-<div class="flex flex-row mb-4">
+<div class="m-4">
+	<Heading tag="h3">{currentField}</Heading>
+</div>
+<div class="flex flex-row pb-4 bg-gray-50">
 	{#if data?.resource?.length > 0}
-		<div class="mx-4">
+		<div class="p-4">
 			{#each data?.resource as resource}
 				{@const image_url = getImageUrl(supabase, resource?.id)}
 				<BlogCard {resource} {image_url} />
 			{/each}
 		</div>
 	{:else}
-		<div class="mx-4"><Heading tag="h4">このタグに該当する技術ブログはありません。</Heading></div>
+		<div class="p-4"><Heading tag="h4">このタグに該当する技術ブログはありません。</Heading></div>
 	{/if}
 </div>

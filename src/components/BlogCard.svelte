@@ -6,42 +6,40 @@
 	export let image_url: string;
 </script>
 
-<a
-	class="md:flex mb-4 md:w-full md:border border-gray-200 bg-white hover:drop-shadow"
-	href="/detail/{resource?.id}"
->
-	<!-- svelte-ignore a11y-missing-attribute -->
-
-	<img
-		class="md:h-full md:w-1/3 object-cover aspect-video"
-		src={image_url}
-		on:error={(event) => {
-			event.target.src = placeholderImg;
-			event.onerror = null;
-		}}
-	/>
-
+<a class="flex flex-col justify-center m-4 bg-white" href="/detail/{resource?.id}">
 	<div
-		class="border-b border-l border-gray-100 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+		class="flex h-full md:w-full flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 border mx-auto border-white"
 	>
-		<div class="mb-4">
-			<div class="text-gray-900 font-bold text-xl mb-2 overflow-hidden max-h-14">
-				{resource?.title}
-			</div>
-			<p class="text-gray-700 text-base overflow-hidden max-h-12">
-				{resource?.description}
-			</p>
+		<div class="w-full md:w-1/3 bg-white grid place-items-center">
+			<!-- svelte-ignore a11y-missing-attribute -->
+			<img
+				class="rounded-xl aspect-video"
+				src={image_url}
+				on:error={(event) => {
+					event.target.src = placeholderImg;
+					event.onerror = null;
+				}}
+			/>
 		</div>
-		<div class="flex items-center">
-			<div class="text-sm">
-				<p class="text-gray-900 leading-none">{resource.user_name}</p>
-				<p class="text-gray-600">{resource.created_at}</p>
-				<div class="overflow-hidden">
+		<div class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
+			<div class="flex justify-between item-center">
+				<p class="text-gray-500 font-medium hidden md:block">
 					{#each resource.tag_name.split(',') as tag}
-						<Badge class="mt-2 mr-1">{tag}</Badge>
+						<Badge class="mr-1">{tag}</Badge>
 					{/each}
+				</p>
+				<div
+					class="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block"
+				>
+					{resource.user_name}
 				</div>
 			</div>
+			<h3 class="font-black text-gray-800 md:text-3xl text-xl">
+				{resource?.title}
+			</h3>
+			<p class="md:text-lg text-gray-500 text-base">
+				{resource?.description}
+			</p>
 		</div>
 	</div>
 </a>
