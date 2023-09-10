@@ -4,8 +4,9 @@
 	import { goto } from '$app/navigation';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { A, Footer, FooterCopyright, FooterLinkGroup, FooterLink, Button } from 'flowbite-svelte';
+	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink, Button } from 'flowbite-svelte';
 	import type { PageData } from './$types';
+	import { page } from '$app/stores';
 
 	export let data: PageData;
 
@@ -50,7 +51,7 @@
 			></a
 		>
 		<Button
-			class="mx-2 md:mx-4 bg-sky-500 hover:bg-sky-700 font-bold"
+			class="mx-2 md:mx-4 bg-blue-500 hover:bg-blue-700 font-bold"
 			on:click={() => {
 				if (!user_id) {
 					goto('/auth/login');
@@ -63,27 +64,30 @@
 		</Button>
 	</div>
 </div>
-<div class="flex flex-row mx-4">
-	<A
+<div class="flex flex-row mx-4 justify-center">
+	<a
 		href="/"
-		color="text-black"
-		aClass="rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100"
-		>ホーム</A
+		class={$page.url.pathname === '/'
+			? 'text-sm text-white bg-blue-500 rounded-md align-center flex font-semibold justify-center px-4 py-2'
+			: 'text-sm text-black rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100'}
+		>ホーム</a
 	>
-	<A
+	<a
 		href="/newPost"
-		color="text-black"
-		aClass="rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100"
-		>新規投稿</A
+		class={$page.url.pathname === '/newPost'
+			? 'text-sm text-white bg-blue-500 rounded-md align-center flex font-semibold justify-center px-4 py-2'
+			: 'text-sm text-black rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100'}
+		>新規投稿</a
 	>
 	{#if user_id}
-		<A
+		<a
 			href="/bookmark"
-			color="text-black"
-			aClass="rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100"
+			class={$page.url.pathname === '/bookmark'
+				? 'text-sm text-white bg-blue-500 rounded-md align-center flex font-semibold justify-center px-4 py-2'
+				: 'text-sm text-black rounded-md align-center flex font-semibold justify-center px-4 py-2 hover:bg-gray-100'}
 		>
 			ブックマーク一覧
-		</A>
+		</a>
 	{/if}
 </div>
 <hr class="mb-4 mt-2" />
