@@ -78,7 +78,7 @@
 				<form method="POST" action="?/submitMemo">
 					<Textarea class="mb-4" placeholder="メモを入力" name="memo" id="memo">
 						<div slot="footer" class="flex items-center justify-between">
-							<Button type="submit" class="bg-sky-500 hover:bg-sky-700" on:click|once
+							<Button type="submit" class="bg-blue-500 hover:bg-blue-700" on:click|once
 								>メモを送信</Button
 							>
 						</div>

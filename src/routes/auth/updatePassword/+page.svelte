@@ -56,7 +56,7 @@
 							><span class="font-medium">{message}</span></Helper
 						>{/if}
 				</Label>
-				<Button type="submit" class="w-full1 bg-sky-500 hover:bg-sky-700" on:click|once
+				<Button type="submit" class="w-full1 bg-blue-500 hover:bg-blue-700" on:click|once
 					>パスワードを変更する</Button
 				>
 			</form>

@@ -45,7 +45,7 @@
 						><span class="font-medium">{errorMsg}</span></Helper
 					>{/if}
 			</div>
-			<Button type="submit" class="bg-sky-500 hover:bg-sky-700">パスワードをリセット</Button>
+			<Button type="submit" class="bg-blue-500 hover:bg-blue-700">パスワードをリセット</Button>
 		</form>
 	</div>
 </div>

@@ -114,7 +114,7 @@
 				{#if signUpError}<Helper class="mt-2" color="red"
 						><span class="font-medium">{signUpError}</span></Helper
 					>{/if}
-				<Button type="submit" class="w-full1 bg-sky-500 hover:bg-sky-700" on:click|once
+				<Button type="submit" class="w-full1 bg-blue-500 hover:bg-blue-700" on:click|once
 					>アカウントを作成する</Button
 				>
 				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">

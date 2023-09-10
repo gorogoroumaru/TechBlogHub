@@ -39,7 +39,7 @@
 				{/each}
 			</Dropdown>
 			<Input placeholder="Search" bind:value={keyword} name="keyword" id="keyword" />
-			<Button color="primary" class="!p-2.5 bg-sky-500 hover:bg-sky-700" type="submit">
+			<Button color="primary" class="!p-2.5 bg-blue-500 hover:bg-blue-700" type="submit">
 				<svg
 					class="w-5 h-5"
 					fill="none"

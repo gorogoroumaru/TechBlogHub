@@ -20,7 +20,7 @@
 	<title>TechBlog Hubのトップページ</title>
 </svelte:head>
 {#if !user_id}
-	<div class="bg-sky-200 p-8">
+	<div class="bg-blue-200 p-8">
 		<Heading tag="h2" class="mb-4">初めての方へ</Heading>
 		<P>
 			TechBlog
