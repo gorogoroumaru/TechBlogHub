@@ -59,15 +59,15 @@
 <div class="m-4">
 	<Heading tag="h3">{currentField}</Heading>
 </div>
-<div class="flex flex-row pb-4 bg-gray-50">
-	{#if data?.resource?.length > 0}
+{#if data?.resource?.length > 0}
+	<div class="flex flex-row pb-4">
 		<div class="p-4">
 			{#each data?.resource as resource}
 				{@const image_url = getImageUrl(supabase, resource?.id)}
 				<BlogCard {resource} {image_url} />
 			{/each}
 		</div>
-	{:else}
-		<div class="p-4"><Heading tag="h4">このタグに該当する技術ブログはありません。</Heading></div>
-	{/if}
-</div>
+	</div>
+{:else}
+	<div class="p-4"><Heading tag="h4">このタグに該当する技術ブログはありません。</Heading></div>
+{/if}
