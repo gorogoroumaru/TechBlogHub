@@ -15,6 +15,7 @@
 			<BlogCard {resource} {image_url} />
 		{/each}
 	</div>
-
-	<Pagination numberOfBlogs={Number(data.count)} urlPrefix="/newPost" />
+	<div class="flex justify-center">
+		<Pagination numberOfBlogs={Number(data.count)} urlPrefix="/newPost" />
+	</div>
 {/if}
