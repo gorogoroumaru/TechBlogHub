@@ -13,7 +13,7 @@
 		<div class="w-full md:w-1/3 bg-white grid place-items-center">
 			<!-- svelte-ignore a11y-missing-attribute -->
 			<img
-				class="rounded-xl aspect-video"
+				class="rounded-xl aspect-[9/5] sm:w-full"
 				src={image_url}
 				on:error={(event) => {
 					event.target.src = placeholderImg;
