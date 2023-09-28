@@ -1,5 +1,9 @@
 サイトURL：　https://techbloghub.net/
 
+テストアカウント：
+メールアドレス techbloghubtest@gmail.com
+パスワード test
+
 # 制作概要
 制作時期：2023年6月~ （開発途中）
 
